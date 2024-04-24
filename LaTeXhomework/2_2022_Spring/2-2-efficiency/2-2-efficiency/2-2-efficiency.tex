@@ -1,0 +1,259 @@
+% 2-2-efficiency.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第2讲: 算法的效率}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \mfigcap{width = 0.85\textwidth}{figs/George-Boole}{George Boole}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem 6.18: $\log_{m} n$]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \caption{$\log_{m} n$}
+    \label{alg:sum}
+    \begin{algorithmic}[1]
+      \Function{LG1}{m, n}
+      \State $k = 0$
+      \State $res = 1$
+      \While{$res * m <= n$}
+      \State $res = res * m$
+      \State $k = k + 1$
+      \EndWhile
+      \State return $res$
+      \EndFunction
+    \end{algorithmic}
+  \end{algorithm}
+
+  Time complexity: $O (\log_m n)$\\
+  Space complexity: $O(1)$\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem 6.19: $\log_{m} n$]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \caption{$\log_{m} n$}
+    \label{alg:sum}
+    \begin{algorithmic}[1]
+      \Function{LG2}{m, n}
+      \State $k = 0$
+      \State $a = 1$
+      \While{$m * a <= n$}
+      \State $k_1 = 1 $
+      \State $b = m * m$
+      \State $c = m * a$
+      \While{$a * b <= n$}
+      \State $c = a$
+      \State $a = b * c$
+      \State $k_1 = 2k_1$
+      \State $b = b * b$
+      \EndWhile
+      \State a = c
+      \State $k = k + k_1$
+      \EndWhile
+      \State return $k$
+      \EndFunction
+    \end{algorithmic}
+  \end{algorithm}
+  Time complexity:$O ((\log \log n)^2)$\\
+  Space complexity: $O(1)$
+\end{solution}
+
+
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem 6.20 (a): $\log_{m} n$]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \caption{LG2}
+    \label{alg:sum}
+    \begin{algorithmic}[1]
+      \Procedure{LG2}{m,n}
+      \State $res[0] = m$
+      \State $count = 0$
+      \While{$res[count] * res[count] <= n$}
+      \State $res[count + 1] = res[count] * res[count]$
+      \State $count = count + 1$
+      \EndWhile
+      \State $sum = res[count]$
+      \State $ans = pow(2, count)$
+      \While{$count >= 1$}
+      \If {$sum * res[count - 1] <= n$ AND $sum * res[count - 1] * m * m > n$}
+      \State $ans = ans + pow(2, count - 1)$
+      \State $sum = sum * res[count - 1]$
+      \EndIf
+      \State $count = count - 1$
+      \EndWhile
+      \State return ans
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+  Time complexity:$O (\log \log n)$\\
+  Space complexity: $O(\log n)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Exercise 3.1-6]
+\end{problem}
+
+\begin{solution}
+  充分性：\\
+  设该算法的运行时间为$T(n) = \Theta(n) \rightarrow \exists c_1, c_2, n_0, \forall n > n_0, c_1 n <= T(n) <= c_2 n$ \\
+  所以$\exists c_1, n_0, \forall n > n_0, c_1 n <= T(n) \rightarrow T(n) = \Omega (n)$即最好情况运行时间是$\Omega (n)$\\
+  同样，$\exists c_2, n_0, \forall n > n_0,T(n) <= c_2 n，\rightarrow T(n) = O(n)$即最坏情况运行时间为$O(n)$\\
+  必要性：\\
+  设该算法运行时间为$T(n) \in O(n)$并且$T(n) \in \Omega(n)$\\
+  即$\exists c_1, n_0, \forall n > n_0, c_1 n <= T(n) \rightarrow T(n) = \Omega (n)$且$\exists c_2, n_0, \forall n > n_0,T(n) <= c_2 n，\rightarrow T(n) = O(n)$.\\
+  综合两点可得$T(n) = \Theta(n) \rightarrow \exists c_1, c_2, n_0, \forall n > n_0, c_1 n <= T(n) <= c_2 n$\\
+  综上,证毕.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Exercise 3.1-7]
+\end{problem}
+
+\begin{solution}
+  $o(g(n)) = \{f(n)|\lim_{n \to \infty} \frac{f(n)}{g(n)} = 0\}$\\
+  $\omega (g(n)) = \{f(n) | \lim_{n \to \infty} \frac{f(n)}{g(n)} \rightarrow \infty\}$\\
+  $\Rightarrow o(g(n)) \cap \omega (g(n)) = \{f(n) | \lim_{n \to \infty} \frac{f(n)}{g(n)} \rightarrow \infty, \lim_{n \to \infty} \frac{f(n)}{g(n)} = 0\}$\\
+  显然,$0 \neq \infty$.所以一定不存在符合条件的f(n),所以$o(g(n)) \cap \omega (g(n))$为空集
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 3-3 (a)]
+\end{problem}
+
+\begin{solution}
+
+  答案被移到下面去了...
+  \begin{table}[]
+    \begin{tabular}{|l|l|}
+      \hline
+      等价类序号 & 函数                                          \\ \hline
+      1          & $g_1 = 2^{2^{n + 1}}$                         \\ \hline
+      2          & $g_2 = 2^{2^{n}}$                             \\ \hline
+      3          & $g_3 = (n + 1)!$                              \\ \hline
+      4          & $g_4 = n!$                                    \\ \hline
+      5          & $g_5 = e^n$                                   \\ \hline
+      6          & $g_6 = n2^n$                                  \\ \hline
+      7          & $g_7 = 2 ^n$                                  \\ \hline
+      8          & $g_8 = (\frac{3}{2})^n$                       \\ \hline
+      9          & $g_9 = n^{\lg \lg n},g_10 = (\lg n) ^{\lg n}$ \\ \hline
+      10         & $g_{11} = (\lg n)!$                           \\ \hline
+      11         & $g_{12} = n^3$                                \\ \hline
+      12         & $g_{13} = n^2,g_{14} = 4^{\lg n}$             \\ \hline
+      13         & $g_15 = n\lg n, g_{16} = lg(n!)$              \\ \hline
+      14         & $g_{17} = n,g_{18} = 2^{\lg n}$               \\ \hline
+      15         & $g_{19} = (\sqrt{2})^{\lg n}$                 \\ \hline
+      16         & $g_{20} = 2^{\sqrt{2 \lg n}}$                 \\ \hline
+      17         & $g_{21} = \lg^2n$                             \\ \hline
+      18         & $g_{22} = \ln n$                              \\ \hline
+      19         & $g_{23} = \sqrt{\lg n}$                       \\ \hline
+      20         & $g_{24} = \ln \ln n$                          \\ \hline
+      21         & $g_{25} = 2^{\lg^*n}$                         \\ \hline
+      22         & $g_{26} = \lg^*(\lg n), g_{27} = \lg^*n$      \\ \hline
+      23         & $g_{28} = \lg(\lg^*n)$                        \\ \hline
+      24         & $g_{29} = n^{1/\lg n}$                        \\ \hline
+    \end{tabular}
+  \end{table}
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem 6.13]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+本次 OT 介绍两种证明问题下界的常用技术。
+
+\begin{ot}[Decision Trees]
+  介绍 Decison Trees (决策树) 的概念以及在证明问题下界时的应用
+  (包括但不限于本次选做题 DH 6.13)。
+
+  参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Decision\_tree\_model}{Decision tree model @ wiki}
+    \item \href{http://jeffe.cs.illinois.edu/teaching/algorithms/notes/12-lowerbounds.pdf}{lecture-note by jeffe}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Adversary Argument]
+  介绍 Adversary Argument (对手论证) 的概念
+  以及在证明问题下界时的应用。
+
+  \begin{itemize}
+    \item \href{http://jeffe.cs.illinois.edu/teaching/algorithms/notes/13-adversary.pdf}{lecture-note by jeffe}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,37 @@
+\documentclass{article}
+
+\title{A Title}
+\author{ Jason\thanks{E-mail:1154570575@qq.com}
+  \and Zhong\thanks{Corresponding author}
+  \and Wenxuan\thanks{handsome}}
+\date{\today}
+
+\begin{document}
+\maketitle
+This is my first article.\\
+Happy \TeX ing!
+\marginpar{\footnotesize ouch!}
+\begin{enumerate}
+  \item An item.
+        \begin{enumerate}
+          \item A nested item.\label{itref}
+          \item[*] A starred item.
+          \item A item. (pay attention to (b))
+        \end{enumerate}
+  \item Reference (\ref{itref}).
+
+\end{enumerate}
+\begin{itemize}
+  \item An item.
+        \begin{itemize}
+          \item A nested item.
+          \item[+] A `plus' item.
+          \item Another item.
+        \end{itemize}
+  \item Go back to upper level.
+\end{itemize}
+\begin{description}
+  \item[Enumerate] Numbered list.
+  \item[Itemize] Non-numbered list.
+\end{description}
+\end{document}

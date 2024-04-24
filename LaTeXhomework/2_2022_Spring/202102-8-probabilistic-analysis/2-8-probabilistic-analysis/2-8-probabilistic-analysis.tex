@@ -1,0 +1,225 @@
+% 2-8-probabilistic-analysis.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第8讲: 概率分析与随机算法}
+\me{林凡琪 }{211240042 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 5.6-4]
+In a card game, you remove the jacks, queens, kings, and aces from an ordinary deck of cards and shuffle them. You draw a card. If it is an ace, you are paid \$ 1.00, and the game is repeated. If it is a jack, you are paid \$2.00, and the game ends. If it is a queen, you are paid \$3.00, and the game ends. If it is a king, you are paid \$4.00, and the game ends. What is the maximum amount of money a rational person would pay to play this game?
+\end{problem}
+
+\begin{solution}
+  设 X 为游戏收益\\
+  $E(X) = \frac{1}{4} (1 + E(X)) + \frac{1}{4}2+\frac{1}{4}3+\frac{1}{4}4$\\
+  $E(X) = \frac{10}{3}$
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 5.6-8]
+\end{problem}
+
+\begin{solution}
+  $$
+    \begin{aligned}
+      E(X) & =\sum_{s: s \in S} P(s) X(s)                                                                    \\
+           & =\sum_{i=1}^{n} \sum_{s: s \in F_{i}} X(S) P(s)                                                 \\
+           & =\sum_{i=1}^{n} \sum_{s: s \in F_{i}} X(S) \frac{P(s)}{P\left(F_{i}\right)} P\left(F_{i}\right) \\
+           & =\sum_{i=1}^{n} E\left(X \mid F_{i}\right) P\left(F_{i}\right)
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 5.7-2]
+\end{problem}
+
+\begin{solution}
+  $$
+    \begin{aligned}
+       & E\left(X_{i}\right)=0.6 * 1+0.4 * 0=0.6                                                                                                     \\
+       & V\left(X_{i}\right)=0.6 *(1-0.6)=0.24                                                                                                       \\
+       & V\left(X_{1}\right)+V\left(X_{2}\right)+V\left(X_{3}\right)+V\left(x_{4}\right)+V\left(x_{5}\right)=V\left(\sum_{i=1}^{5} X_{i}\right)=V(X)
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 5.7-12]
+\end{problem}
+
+\begin{solution}
+  对于 1 个问题，其方差为 0.16.
+  则对于 n 个问题，其期望为 0.8n，方差为 0.16n，标准差为 $0.4\sqrt{n}$.\\
+  95\%近似对应两个标准差\\
+  $2 \times 0.4\sqrt{n}= 0.05n$\\
+  解得 n = 256
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 5.2-4]
+利用指示器变量来解如下的帽子核对（hat-heck problem）问题：n位顾客，他们每个人给餐厅核对帽子的服务生一顶帽子。服务生以随机的顺序将帽子归还给顾客。请问拿到自己帽子的客户的期望数是多少？
+\end{problem}
+
+\begin{solution}
+  记随机变量X为拿到自己帽子的客户的期望数，记$A_i$为事件“第i个顾客拿到了自己的帽子”，$X_i = \{A_i\}$为$A_i$的指示器随机变量。由于帽子的顺序随机，每个顾客拿到自己的帽子的概率是$\frac{1}{n}$.所以$E(X) = E(\sum^n_{i=1}X_i) = \sum^n_{i=1}E(X_i) = \sum^n_{i=1}\frac{1}{n} = 1$\\
+  %当n取不同值时$A_i$不一定相互独立%
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 5.2-5]
+设A[1...n]是n个不同数构成的数列，如果i<j且A[i]>A[j]，则称（i，j）对为A的一个逆序对（inversion），假设A中的元素构成<1,2,3....n>上的一个均匀随机排列。请用指示器随机变量来计算其中逆序对的数目的期望。
+\end{problem}
+
+\begin{solution}
+  记随机变量X为A中逆序对的对数
+  事件$A_{ij}$为$(i,j)$是A的一个逆序对，指示器随机变量$X_{ij} = I\{A_{ij}\}$，那么$P(X_{ij} = 1) = \frac{1}{2}$\\
+  所以$E(X) = E(\sum^{n-1}_{i=1}\sum^n_{j = i + 1}X_{ij}) = \sum^{n-1}_{i=1}\sum^n_{j = i + 1}(E(X_ij)) = \sum^{n-1}_{i=1}\sum^n_{j = i + 1}\frac{1}{2} = \frac{n(n-1)}{4}$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 5.3-3]
+假设我们不是将元素A[ i ]与子数组A [ i ... n ]中的一个随机元素交换，而是将它与数组任何位置上的随机元素交换：
+
+PERMUTE-WITH-ALL(A)
+
+1        n = A.length
+
+2        for i = 1 to n
+
+3                swap A[ i ] with A[ RANDOM(1, n)]
+
+这段代码会产生一个均匀随机排列吗？为什么会或为什么不会？
+\end{problem}
+
+\begin{solution}
+  对某些特定的n,该法有可能产生均匀随机排列,如1, 2.\\
+  但考虑一般情况,在执行伪代码2、3行后,将产生 $n^n$ 种结果，但排列有 $n!$种\\
+  因此需要 $(n - 1)!$整除 $n^(n - 1)$
+
+  但$n^{n-1} = [(n-1)+1]^{n-1}=1+\sum^{n-2}_{i=0}C(n-1, i)(n-1)^{n-1-i}$\\
+  所以$n-1$不能整除$n^{n-1}$
+  所以当n=1或n=2时会产生均匀随机排列，其他情况不会。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 5.3-4]
+\end{problem}
+
+\begin{solution}
+  A[i]出现在B中的位置是由offset决定的，offset取值范围{1,2,...,n},每个取值的概率都是1/n, 所以A[i]能出现在B中任何特定位置,并且出现在任何位置的概率是1/n。
+  按照Armstrong教授的算法，可能的排列结果数量为n. 对于一个n个元素的数组，均匀随机排列的结果应该有n!个
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 5-2 ($e, f, g$)]
+\end{problem}
+
+\begin{solution}
+  (e)设X是一个随机变量，其值等于直到找到A[i]=x挑选A下标的数目。特别地，假设$X_{i}$对应于下标i被挑选该事件的指示器随机变量。\\
+  当$A[i]\neq x$时，$P(X_i) = \frac{1}{2}$;\\
+  当$A[i] = x$时，$P(X_i) = 1$\\
+  所以$E(X) = E[\sum^n_{i=1}X_i]=\sum^n_{i=1}X_iE[X_i]=1+(n-1)\cdot \frac{1}{2} = \frac{n+1}{2}$所以所以DETERMINISTIC-SEARCH平均情形的运行时间是$\frac{n+1}{2}$，最坏情形的运行时间是n。\\
+  (f)假设有$k\geqslant 1$个下标i使得$A[i]=x$。设X是一个随机变量，其值等于直到找到$A[i]=x$挑选A下标的数目。特别地，假设$X_{i}$对应于下标i被挑选该事件的指示器随机变量。当$A[i]≠x$时，$P[X_{i}]=\frac{1}{k+1}$；当$A[i]=x$时，$P[X_{i}]=\frac{1}{k}$。所以$E[X]=E[\sum _{i=1}^{n}{X_{i}}]=\sum _{i=1}^{n}{E[X_{i}]}=k\cdot \frac{1}{k}+(n-k)\cdot \frac{1}{k+1}=\frac{n+1}{k+1}$，所以DETERMINISTIC-SEARCH平均情形的运行时间是$\frac{n+1}{k+1}$，最坏情形的运行时间是$n-k+1$。\\
+  (g)DETERMINISTIC-SEARCH平均情形的运行时间是n，最坏情形的运行时间是n。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[The Coin Problem (Provided by Pei)]
+Suppose you have a fair coin.
+What is the expected number of tosses to get 3 Heads in a row (连续三次正面朝上)?
+What about $n$ Heads in a row?
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Average-case Analysis of \textsl{FindMax}]
+  学习如下讲座视频, 讲解其中的算法分析过程。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://box.nju.edu.cn/f/7fda9901c7784314b3a6/}{The Analysis of Algorithms.mp4 by Donald Knuth @ Stanford Lecture}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Average-case Analysis of Binary Search]
+  分析 Binary Search 的平均情况时间复杂度。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item Section 6.2.1 of ``The Art of Computer Programming (Vol 3; 2nd Edition)'' by Donald Knuth.
+          (``Fibonaccian search'' 部分可选)
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

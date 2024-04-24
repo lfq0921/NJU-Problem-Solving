@@ -1,0 +1,312 @@
+
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-4讲: 数论初步}
+\me{林凡琪 }{211240042 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 2-15(b,f)]
+\end{problem}
+
+\begin{solution}
+  (b) 234 and 165
+
+  $$gcd(234,165)=3$$
+
+  $$r=12,s=-17$$
+
+  (f)-4357 and 3754
+
+  $$gcd(-4357,3754) = 1$$
+
+  $$r=1463,s=1698$$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 2-16]
+\end{problem}
+
+\begin{proof}
+  令$gcd(a,b)=t$,那么$a=k_1t,b=k_2t,k_1,k_2 \neq 0$,可知
+
+  $$ar+bs=t(k_1r+k_2s)=1$$
+
+  因为$k_1r+k_2s \neq 0$, 所以$t|1$
+
+  可知$t=1$
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 2-19]
+\end{problem}
+
+\begin{proof}
+  令
+  $$xy=p_1^{2k_1}p_2^{2k_2}...p_t^{2k_t},k_i \geq 0$$
+
+  $$x=p_1^{a_1}p_2^{a_2}...p_t^{a_t},a_i \geq 0$$
+
+  $$y=p_1^{b_1}p_2^{b_2}...p_t^{b_t},b_i \geq 0$$
+
+  所以
+  $$gcd(x,y)=p_1^{min(a_1,b_1)}p_2^{min(a_2,b_2)}...p_t^{min(a_t,b_t)}=1$$
+
+  所以
+  $$min(a_i,b_i)=0 \Rightarrow a_i=0,b_i=2k_i \text{ or } a_i =2k_i
+    ,b_i =0$$
+
+  所以x,y都是perfect squares.
+
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 2-29]
+\end{problem}
+
+\begin{proof}
+  反证法：
+
+  假设有有限的质数 $p_0=5,p_1,p_2,...,p_k$可以用$6n+5$的形式表示.
+
+  令$S=\{p_1,p_2,...,p_k\}$.
+
+  令$P=6p_1p_2...p_k+5$
+
+  当$P$是质数, 与假设矛盾.
+
+  当$P=q_1q_2...q_s$(其中$q_i$是质数)，显然$q_i \neq 0,2,3,4(\mod 6)$
+
+  如果$\forall q_i,q_i=1(\mod 6).$那么，$P=q_1q_2...q_s=1(\mod 6)$，这和$P=5(\mod 6)$矛盾
+
+  如果$\exists q_i=p_t=5(\mod 6) \in S$，那么$q_i|P\Rightarrow p_t|P \Rightarrow p_t|6p_1p_2...p_k+5 \Rightarrow p_t|5$.但是与$\forall p_t \in S, p_t >5$矛盾
+
+  如果$\exists q_i=5.$那么$q_i|P\Rightarrow 5|6p_1p_2...p_k+5 \Rightarrow 5|6p_1p_2...p_k \Rightarrow \exists p_t \in S,5|p_t$
+
+  但这和$p_t$是质数矛盾。
+
+  综上得证。
+
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 2-30]
+\end{problem}
+
+\begin{proof}
+  反证法：
+
+  假设有有限的质数$p_0=3,p_1,p_2,...,p_k$可以用$4n-1$的形式表示.
+
+  令$S=\{p_1,p_2,...,p_k\}$.
+
+  令$P=4p_1p_2...p_k+3$
+
+  当$P$是质数, 与假设矛盾.
+
+  当$P=q_1q_2...q_s$(其中$q_i$是质数)，显然$q_i \neq 0,2(\mod 4)$
+
+  如果$\forall q_i,q_i=1(\mod 4).$那么，$P=q_1q_2...q_s=1(\mod 4)$，这和$P=3(\mod 4)$矛盾
+
+  如果$\exists q_i=p_t\in S$，那么$q_i|P\Rightarrow p_t|P \Rightarrow p_t|4p_1p_2...p_k-1 \Rightarrow p_t|3$.但是与$\forall p_t \in S, p_t >3$矛盾
+
+  如果$\exists q_i=3.$那么$q_i|P\Rightarrow 3|4p_1p_2...p_k+3 \Rightarrow 3|4p_1p_2...p_k \Rightarrow \exists p_t \in S,3|p_t$
+
+  但这和$p_t$是质数矛盾。
+
+  综上得证。
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 2.2-2]
+\end{problem}
+
+\begin{solution}
+  能保证$a$有模$m$的逆
+  %No, it does not guarantee that $a$ has an inverse mod $m$.
+
+  根据Lemma 2.8，$a$有模$m$的逆的充要条件是$a$和$m$互质。
+
+  而在题目中$a · 133 − 2m · 277 = 1$.
+
+  前提条件有$n\ geq 2$
+
+  可知$$n=m \geq2,y=-544,a^{-1}=133$$
+
+  说明 $gcd(a,m) = 1$，所以$a$有模$m$的逆。
+
+  %A necessary and sufficient condition for $a$ to have an inverse mod $m$ is that $a$ and $m$ are coprime, i.e., their greatest common divisor is 1. In this case, $a · 133 − 2m · 277 = 1$ implies that gcd(a,m) = 1, so a has an inverse mod m. However, if we change the equation to $a · 133 − 2m · 276 = 1$, then $gcd(a,m) = 2$ and a does not have an inverse mod m.
+
+  %If $a$ has an inverse mod $m$, it can be found using the extended Euclidean algorithm, which gives $x$ and $y$ such that $ax + my = gcd(a,m)$. Then $x$ is the inverse of $a \mod m$. For example, if $a = 7$ and $m = 26$, then using the extended Euclidean algorithm we get $x = -11$ and $y = -3$ such that $7x + 26y = -77 + -78 = -1$. Then -11 is the inverse of $7 \mod 26$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 2.2-4]
+\end{problem}
+
+\begin{solution}
+  根据Corallary 2.16可知，
+
+  $gcd(31,32)=1,22$ 在$Z_{31}$里有一个逆
+
+  $gcd(10,2)=2,2$在$Z_{10}$里没有逆
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 2.2-6]
+\end{problem}
+
+\begin{solution}
+  根据TH 2.15可知，two positive integers $j$ and $k$ have greatest common divisor 1 (and thus are relatively prime) if and only if there are integers $x$ and $y$ such that $jx+ky=1$
+
+  所以$$gcd(a,m)=1$$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 2.2-8]
+\end{problem}
+
+\begin{solution}
+  According to TH 2.1, which is exactly Euclid's Division Theorem. Let $j$ be a positive integer. Then for every integer $k$, there exists unique integers $q$ and $r$ and $0\leq r < n$
+
+  According to Lemma 2.13, if $j,k,q$ and $r$ are positive integers such that $k=jq+r$, then $$gcd(j,k)=gcd(r,j)$$
+
+  This means that the greatest common divisor of $q$ and $k$ is equal to the greatest common divisor of $r$ and $q$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 2.2-16]
+\end{problem}
+
+\begin{solution}
+  如果 $m<0,-m=q n+r, r=0$, 那么
+  $$
+    m=-q n
+  $$
+  令 $q^{\prime}=-q, r^{\prime}=0$.
+  如果 $m<0,-m=q n+r, r>0$, 那么
+  $$
+    m=-q n-r=-(q+1) n+(n-r)
+  $$
+  令 $q^{\prime}=-(q+1), r^{\prime}=n-r$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 2.2-19]
+\end{problem}
+
+\begin{solution}
+  $$xy=gcd(x,y)\cdot lcm(x,y)$$
+
+  令$$x=p_1^{a_1}p_2^{a_2}...p_t^{a_t},a_i \geq 0$$
+
+  $$y=p_1^{b_1}p_2^{b_2}...p_t^{b_t},b_i \geq 0$$
+
+  然后
+  $$gcd(x,y)=p_1^{min(a_1,b_1)}p_2^{min(a_2,b_2)}...p_t^{min(a_t,b_t)}$$
+  $$lcm(x,y)=p_1^{max(a_1,b_1)}p_2^{max(a_2,b_2)}...p_t^{max(a_t,b_t)}$$
+
+  所以
+  $$
+    \begin{aligned}
+      x y & =p_1^{a_1+b_1} p_2^{a_2+b_2} \cdots p_t^{a_t+b_t}                                                                                                                                           \\
+          & =p_1^{\min \left(a_1, b_1\right)+\max \left(a_1, b_1\right)} p_2^{\min \left(a_2, b_2\right)+\max \left(a_2, b_2\right)} \cdots p_t^{\min \left(a_t, b_t\right)+\max \left(a_t, b_t\right)} \\
+          & =\operatorname{gcd}(x, y) \cdot \operatorname{lcm}(x, y)
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[Lucas定理]
+  \begin{itemize}
+    \item 参考资料：\href{https://brilliant.org/wiki/lucas-theorem/}{https://brilliant.org/wiki/lucas-theorem/}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Miller-Rabin Algorithm]
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

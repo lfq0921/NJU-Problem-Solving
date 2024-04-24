@@ -1,0 +1,236 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第3-10讲: 图的连通性}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 5.4]
+证明：若v是图G的割点，则$v$一定不是$G^-$的各点
+\end{problem}
+
+\begin{solution}
+  For the node $u$ that is different from $v$, $w$\\
+  If there are different connected branches of $G-v$, it means that the $(u,w)$ edge does not exist in $G$, so there is the $(u,v)$ edge in $\overline{G}$. So in $\overline{G}$, there is a pathway between $u$ and $w$ that does not go through $v$. \\
+  If in the same connected branch of $G-v$, for a point $p$ of another connected branch, there are no two edges in $G$ $(u,p)$ and $(w,p)$, so there are two edges in $\overline{G}$. So in $\overline{G}$, there is a pathway between $u$ and $w$ that does not go through $v$. \\
+  In summary, there is a path between any two points $u$ and $w$ in $\overline{G}$ that are different from $v$. Therefore, $v$ is not a cut point.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 5.8]
+(a)设G是非平凡的连通图.证明:若v是G的生成树的一个端点，则v不是G的
+割点.\\
+(b)利用(a)的结论给出下面事实的另一种证明:任意一个非平凡的连通图至少包含
+两个不是割点的顶点.\\
+(c) 设v是非平凡连通图G的一个顶点证明:存在G的一个生成树,它包含G中
+所有与v相关联的边.\\
+(d)证明:若连通图G恰有两个非割点的顶点，则G是一条路.[提示:若树T包含
+一个度大于2的顶点,则T包含两个以上的端点]
+
+\end{problem}
+
+\begin{solution}
+  (a)
+  In the spanning tree $T$ of $G$ , the theorem shows that its endpoint has a degree of 1 , not a cut point.\\
+  In the process of reducing from $T$ to $G$, it is a process of continuous edges, and the connectivity of the graph is enhanced. If a point is not a cut point in $T$, it must not be a cut point in $G$. \\
+  (b)
+  The spanning tree of any nontrivial graph contains at least two endpoints , and it can be seen from $( a) $ that these two endpoints must not be cut points in the original nontrivial graph , so the number of cut points is at least 2. \\
+  (c)
+  For any spanning tree $T$ of $G$, if there is an edge associated with $v$ in $G$ that is not in $T$, add $T$ to that edge, and delete an edge in the resulting ring where neither endpoint is $v$. \\
+  After this operation, the built graph is still a spanning tree of $G$. \\Therefore, by continuously constructing through this operation, a tree can be formed that meets the above conditions. \\
+  (d)
+  From (c) it can be seen that at any point $v$, there is a spanning tree $T$ of $G$, containing all the edges associated with $v$ in $G$.\\
+  As can be seen from the hint, none of the vertices in $T$ has a degree of more than 2. \\
+  Therefore, all vertices in the figure $G$ do not exceed 2. \\
+  Combined with $G$ connectivity and exactly two non-cut endpoints, it is concluded that $G$ is a path.
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 5.10]
+\end{problem}
+
+\begin{solution}
+  Assuming that $(u,v)(x,y)$ is not contiguous, then $4$ points are different. Because $G$ is indivisible, any two points are on a ring in the diagram. \\
+  If there is a pathway between $u$ and $x$ that does not go through $v$ and $y$, then there must be a pathway between $v$ and $y$ that does not go through $u$ and $x$. At this time, these two pathways and the ring formed by these two edges meet the requirements of the topic. \\
+  Otherwise, if there is a path between $u$ and $y$ that does not go through $x$ and $v$, then there must be a path between $x$ and $v$ that does not go through $u$ and $y$. At this time, these two pathways and the ring formed by these two edges meet the requirements of the topic. \\
+  Thus there exists a ring satisfying that all four vertices are on that ring.\\
+  In summary, these two sides are on a circle.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 5.12]
+\end{problem}
+
+\begin{solution}
+  $1$，$2$\\
+  \noindent when k = 1:\\
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.30\linewidth]{figs/b.jpg}
+  \end{figure}
+  When k = 2:
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.30\linewidth]{figs/c.png}
+  \end{figure}
+
+  if$k$>$2$,the number of parts is at least 4. So this assumption is clearly not valid\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 5.18]
+\end{problem}
+
+\begin{solution}
+  (a)\\
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.75\linewidth]{figs/d.jpg}
+  \end{figure}
+
+  \noindent(b)\\
+  \newpage
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.75\linewidth]{figs/e.jpg}
+  \end{figure}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 5.22]
+\end{problem}
+
+\begin{solution}
+  (a)
+  Proof by contradiction.\\
+  Suppose the point connectivity of $G-e$ is p$(p<k-1)$. The connectivity of points with $G$ in the title is at least $k$. \\
+  Let $H$ be the plot obtained by removing the smallest set of cut points of graph $G-e$ in $G$. Then in $H$, the edge $e$ is the cut edge. (After removing the side $e$, the figure is not connected). \\
+  Then in $H$, you only need to remove one of the two points connected by $e$ to make $H$ unconnected. Therefore, it can be inferred that the connectivity of $G$ is at most $p+1$. \\
+  $p+1<k$ from $p<k-1$ is obtained, which contradicts the point connectivity of $G$ at least $k$. Therefore, it is not true.\\
+  Therefore, if $G$ is $k$ connected, then $G-e$ is $k-1$ connected\\
+  (b)
+  Proof by contradiction. \\
+  Suppose the edge connectivity of $G-e$ is p$(p<k-1)$. The connectivity of edges with $G$ in the title is at least $k$. \\
+  Let the edge cut set of size $p$ in $G-e$ be $S$, then $S+e$ must be a side cut set of $G$. \\
+  Therefore, the edge connectivity of $G$ is at most $p+1$\\
+  $p+1<k$ from $p<k-1$ is obtained, which contradicts the edge connectivity of $G$ being at least $k$. Therefore, it is not true. \\
+  Therefore, if $G$ is $k$ edge-connected, then $G-e$ is $k-1$ edge-connected
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 5.26]
+\end{problem}
+
+\begin{solution}
+  Let $S$ be the edge cut set of $G$. Then $G-S$ is divided into $G1, G2$ two maximal connected subgraphs. Assume $|V(G_1)|<|V(G_2)|$, then there is $|V(G_1)|=k<n/2$\\
+  Then there are sides from $G_1$ to $G_2$ greater than or equal to $k(\delta(G)-(k-1))$, that is, $\lambda(G) \geq k(\delta(G)-(k-1))$. \\
+  From the nature of the quadratic function, the left equation is the smallest when $k=1$, so there is $\lambda(G) \geq \delta(G)$\\
+  From the textbook nature $\lambda(G) \leq \delta(G)$, so $\lambda(G) = \delta(G)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 5.34]
+\end{problem}
+
+\begin{solution}
+  In figure $H$, for any point $u$, $v$ that differs from $w$, there are at least $k$ disjoint $u-v$ paths in figure $G$. Obviously, in the increase point and edge $H$ chart, at least $k$ bars do not intersect $u-v$ paths. \\
+  If one of the points is $w$, it is not generally assumed that $u$ is $w$, and it is now necessary to prove that there are $k$ disjoint $u-v$ paths from $v$ to $u$. \\
+  Suppose $k$ points in $S$ are $n_1, n_2,...,n_k$. \\
+  From $v$ to $n_1$ there are $k$ roads that do not intersect with each other. \\
+  Suppose one of them passes $n_i(ineq 1)$, then its and $k-1$ must not pass $n_i$. In summary, there are at least $1$ roads in it, and the point in the $S$ passed through is only $n_1$. \\
+  Similarly, for any point $n_i$ in $S$, there is at least one path such that from $v$ to $n_i$ does not pass through the total other points of $S$.
+  The path from $v$ to $n_i$, plus the side of $(n_i,w)$, forms the $k$ disjoint $u-v$ path from $v$ to $u$. \\
+  In summary, Figure $H$ is $k$ connected.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+\begin{ot}[Tarjan's Algorithm]
+  [参考资料：\href{https://ieeexplore.ieee.org/document/4569669}{R. Tarjan, "Depth-first search and linear graph algorithms," 12th Annual Symposium on Switching and Automata Theory (swat 1971), East Lansing, MI, USA, 1971, pp. 114-121, doi: 10.1109/SWAT.1971.10.}]
+
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+\begin{ot}[证明 Harary 图是r-连通的]
+
+
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

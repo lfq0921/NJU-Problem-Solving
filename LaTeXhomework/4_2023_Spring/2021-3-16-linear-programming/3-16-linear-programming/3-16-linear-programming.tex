@@ -1,0 +1,314 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第3-16讲: 线性规划}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.1-4]
+\end{problem}
+
+\begin{solution}
+  最大化$$
+    \begin{array}{rcrrrrrrr}
+      -2 x_1 & - & 2 x_2 & - & 7 x_3 & + & x_4 &  & \\
+             &   &       &   &       &   &     &  & \\\end{array}$$\\
+  满足约束$$
+    \begin{array}{rcrrrrrrr}
+      -x_1   & +                  & x_2   &   &     & - & x_4 & \leq & -7  \\
+      x_1    & -                  & x_2   &   &     & + & x_4 & \leq & 7   \\
+      -3 x_1 & +                  & 3 x_2 & - & x_3 &   &     & \leq & -24 \\
+             & x_1, x_2, x_3, x_4 &       &   &     &   &     & \leq & 0
+    \end{array} .
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.1-5]
+\end{problem}
+
+\begin{solution}
+  首先，我们将第二个和第三个不等式乘以负一，使它们都是$\leq$不等式。\\
+  引进三个新变量$x_4、x_5、x_6$
+  $$
+    \begin{aligned}
+       & x_4=7-x_1-x_2+x_3                   \\
+       & x_5=-8+3 x_1-x_2                    \\
+       & x_6=-x_1+2 x_2+2 x_3                \\
+       & x_1, x_2, x_3, x_4, x_5, x_6 \geq 0 \\
+       &
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.2-2]
+\end{problem}
+
+\begin{solution}
+  最小化 $$d_y$$\\
+  满足约束\\
+  $$
+    \begin{aligned}
+       & d_t \leq d_s+3 \\
+       & d_x \leq d_t+6 \\
+       & d_y \leq d_s+5 \\
+       & d_y \leq d_t+2 \\
+       & d_z \leq d_x+2 \\
+       & d_t \leq d_y+1 \\
+       & d_x \leq d_y+4 \\
+       & d_z \leq d_y+1 \\
+       & d_s \leq d_z+1 \\
+       & d_x \leq d_z+7 \\
+       & d_2=0 .
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.2-4]
+\end{problem}
+
+\begin{solution}
+  最大化$$f_{sv1}+f_{sv2}$$\\
+  满足约束\\
+  $$
+    \begin{array}{ll}
+      f_{s v_1}               & \leq 16                                                                \\
+      f_{s v 2}               & \leq 14                                                                \\
+      f_{v 1 v 3}             & \leq 12                                                                \\
+      f_{v_2 v_1}             & \leq 4                                                                 \\
+      f_{v_2 v_4}             & \leq 14                                                                \\
+      f_{v 3 v 2}             & \leq 9                                                                 \\
+      f_{v 3 t}               & \leq 20                                                                \\
+      f_{v 4 v 3}             & \leq 7                                                                 \\
+      f_{v_4 t}               & \leq 4                                                                 \\
+      f_{s v_1}+f_{v 2 v_1}   & =f_{v 1 v_3}                                                           \\
+      f_{s v_2}+f_{v 3 v_2}   & =f_{v_2 v 1}+f_{v 2 v 4}                                               \\
+      f_{v 1 v 3}+f_{v 4 v_3} & =f_{v 3 v 2}+f_{v 3 t}                                                 \\
+      f_{v 2 v 4}             & =f_{v 4 v 3}+f_{v 4 t}                                                 \\
+      f_{u v}                 & \geq 0 \text { for } u, v \in\left\{s, v_1, v_2, v_3, v_4, t\right\} .
+    \end{array}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.2-6]
+\end{problem}
+
+\begin{solution}
+  把最大二分匹配问题看作网络流问题,我们添加连个点s和t,分别连接到每个L和R的顶点,边的容量为1.\\
+  积分最大流量与最大二分匹配对应.\\
+  要解决的线性规划问题如下:\\
+  最大化$$\sum_{v\in L}f_{sv}$$\\
+  满足约束
+  $$
+    \begin{aligned}
+       & f_{(u, v)} \leq 1 \text { for each } u, v \in\{s\} \cup L \cup R \cup\{t\}=V    \\
+       & \sum_{v \in V} f_{v u}=\sum_{v \in V} f_{u v} \text { for each } u \in L \cup R \\
+       & f_{u v} \geq 0 \text { for each } u, v \in V
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.3-5]
+\end{problem}
+
+\begin{solution}
+  首先改写为松弛形式\\
+  最大化 $$18x_1+12.5x_2$$\\
+  满足约束
+  $$\begin{aligned}
+       & x_3 = 20-x_1-x_2           \\
+       & x_4=12-x_1                 \\
+       & x_5=16-x_2                 \\
+       & x_1,x_2,x_3,x_4,x_5 \geq 0
+    \end{aligned}
+  $$
+  此时不再出现具有正系数的非基本变量.我们的解决方案是$ (12, 8, 0, 0, 8)$,值为316.\\
+  回到标准型,我们只是忽略$x_3$和$x_5$的值,并得到$x_1 = 12$ 和 $x_2 = 8$的结局方案.我们可以检查这个是否可行.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.4-2]
+\end{problem}
+
+\begin{solution}
+  给定一个标准形式的原始线性规划，如 （29.16）-（29.18），我们将对偶线性规划定义为
+  给定一个标准形式的原始线性规划，如 （29.16）-（29.18），我们将对偶线性规划定义为
+  $$
+    \begin{aligned}
+       & \operatorname{minimize} \sum_{i=1}^m b_i y_i                                         \\
+       & \text { subject to }                                                                 \\
+       & \qquad \begin{aligned}
+                  \sum_{i=1}^m a_{i j} y_i & \geq c_j \quad \text { for } j=1,2, \ldots, n, (*) \\
+                  y_i                      & \geq 0 \quad \text { for } i=1,2, \ldots, m .
+                \end{aligned}
+    \end{aligned}
+  $$
+  如果这个问题是最小化而不是最大化,  用 $-c_j$替换$c_j$  in $(*)$\\
+  If there is a lack of nonnegativity constraint on $x_j$, duplicate and negate the $j$-th column of $A$, which corresponds to duplicating the $j$ th row of $A^T$ duplicate and negate $c_j$\\
+  If there is an equality constraint for $b_i$, convert it to two inequalities by duplicate then negate the $i$ th column of $A^T$
+  duplicate then negate the $i$ th entry of $b$, and add an extra $y_i$ variable.
+  We handle the greater-than-or-equal-to sign $\sum_{i=1}^n a_{i j} x_j \geq b_i$ by negating $i$ th column of $A^{\mathrm{T}}$ and negating $b_i$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.2-3]
+\end{problem}
+
+\begin{solution}
+  $$
+    \begin{aligned}
+       & \operatorname{maximize} \quad \sum_{v \in V} d_v   \\
+       & \text { subject to }                               \\
+       & d_v \leq d_u+w(u, v) \text { for each edge }(u, v) \\
+       & d_s=0 \text {. }                                   \\
+       &
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 29.4-3]
+\end{problem}
+
+\begin{solution}
+  1.convert =
+  $$
+    \begin{aligned}
+       & \operatorname{maximize} \quad \sum_{v \in V} f_{sv} - \sum_{v \in V} f_{vs}          \\
+       & \text { subject to }                                                                 \\
+       & f_{uv} \leq c(u,v) \text { for each  }u, v\in V                                      \\
+       & \sum_{v \in V} f_{vu} \leq \sum_{v \in V} f_{uv}   \text {for each  }u\in V-\{s,t\}, \\
+       & \sum_{v \in V} f_{vu} \geq \sum_{v \in V} f_{uv}   \text {for each  }u\in V-\{s,t\}, \\
+       & f_{uv} \geq 0   \text { for each  }u, v\in V                                         \\
+    \end{aligned}
+  $$\\
+  2.handle $\geq$\\
+  $$
+    \begin{aligned}
+       & \operatorname{maximize} \quad \sum_{v \in V} f_{sv} - \sum_{v \in V} f_{vs}            \\
+       & \text { subject to }                                                                   \\
+       & f_{uv} \leq c(u,v) \text { for each  }u, v\in V                                        \\
+       & \sum_{v \in V} f_{vu} \leq \sum_{v \in V} f_{uv}   \text {for each  }u\in V-\{s,t\},   \\
+       & \sum_{v \in V} -f_{vu} \leq \sum_{v \in V} -f_{uv}   \text {for each  }u\in V-\{s,t\}, \\
+       & f_{uv} \geq 0   \text { for each  }u, v\in V                                           \\
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 29-1]
+\end{problem}
+
+\begin{solution}
+  (a)\\
+  让我们需要满足的线性不等式成为我们线性规划中的约束.\\
+  让我们的最大化的函数做个常量\\
+  如果线性约束不可行，线性规划的求解器将无法检测到任何可行的解\\
+  如果线性规划求解器返回任何解，我们知道线性约束是可行的。\\
+  (b)\\
+  假设我们正在解决一个线性规划问题\\
+  最大化$\sum_{j=1}^{n}c_jx_j$\\
+  满足约束$Ax \leq b$\\
+  X 向量的所有entri都是非负数\\
+  考虑dual program\\
+  最小化$\sum_{i=1}^{m}b_iy_i$\\
+  满足约束$A^T\geq c$\\
+  Y向量的所有entries都是非负数\\
+  两个问题的最优解应该是相等的\\
+  把两个问题合并成一个问题\\
+  $$
+    \begin{aligned}
+      A x                                          & \leq b                                                                   \\
+      A^{\mathrm{T}} y                             & \geq c                                                                   \\
+      x_k                                          & \leq \frac{1}{c_k}\left(\sum_{i=1}^m b_i y_i-\sum_{j=1}^n c_j x_j\right) \\
+      x_k                                          & \geq \frac{1}{c_k}\left(\sum_{i=1}^m b_i y_i-\sum_{j=1}^n c_j x_j\right) \\
+      x_1, x_2, \ldots, x_n, y_1, y_2, \ldots, y_m & \geq 0
+    \end{aligned}
+  $$
+  $c_k$ is some nonzero entry in the $c$ vector.\\
+  变量数:n+m\\
+  约束数:2+2n+2m
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 29-2]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%
+\begin{ot}[TC Problem 29-4]
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

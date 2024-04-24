@@ -1,0 +1,288 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+\usepackage{listings}
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-6讲: 加密算法}
+\me{林凡琪 }{211240042 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 7-7(a,b)]
+\end{problem}
+
+\begin{solution}
+  (a)$n=3551,E=629,x=31$
+
+  $x^E \mod n=31^{629}\mod 3551 =2791$
+
+  (b)$n=2257, E=46,x=23$
+
+  $x^E \mod n=23^{47}\mod 2257 =769$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 7-9(b)]
+\end{problem}
+
+\begin{solution}
+  $$y^D \mod n =34^{81} \mod 5893=2014$$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 7-12]
+\end{problem}
+
+\begin{solution}
+  极端情况举例：
+  $$
+    \begin{aligned}
+       & n=5 \times 11=55 \\
+       & m=4 \times 10=40 \\
+       & E=21             \\
+       & D=21
+    \end{aligned}
+  $$
+  所以,
+  $$
+    \forall X, X^E \equiv X \quad \bmod n
+  $$
+
+  $$
+    X^E \equiv X \quad \bmod n \Rightarrow X\left(X^{E-1}-1\right)=0 \quad \bmod n
+  $$
+  因为$\operatorname{gcd}(X, n)$ and $\operatorname{gcd}\left(X^{E-1}-1, n\right)$可能有任意一个不是1.
+  计算$\operatorname{gcd}(X, n)$ and $\operatorname{gcd}\left(X^{E-1}-1, n\right)$, 我们能得到$n$的因子.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.7-1]
+\end{problem}
+
+\begin{solution}
+  $\phi(n) = (p - 1) \cdot (q - 1) = 280$.
+
+  $d = e^{-1} \mod \phi(n) = 187$.
+
+  $P(M) = M^e \mod n = 254$.
+
+  $S(C) = C^d \mod n = 254^{187} \mod n = 100$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.7-2]
+\end{problem}
+
+\begin{solution}
+  $$ed \equiv 1 \mod \phi(n)$$
+
+  $$ed - 1 = 3d - 1 = k \phi(n)$$
+
+  如果 $p, q < n / 4$, 那么
+
+  $$\phi(n) = n - (p + q) + 1 > n - n / 2 + 1 = n / 2 + 1 > n / 2.$$
+
+  $kn / 2 < 3d - 1 < 3d < 3n$, then $k < 6$, then we can solve $3d - 1 = n - p - n / p + 1$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 31-3]
+\end{problem}
+
+\begin{solution}
+  a. 为了解决 $\text{FIB}(n)$，我们需要计算 $\text{FIB}(n - 1)$ 和 $\text{FIB}(n - 2)$。因此，我们有递归式
+
+  $$T(n) = T(n - 1) + T(n - 2) + \Theta(1).$$
+
+  我们可以得到斐波那契数列的上界为 $O(2^n)$，但这不是紧密的上界。
+
+  斐波那契递推式定义为
+
+  $$F(n) = F(n - 1) + F(n - 2).$$
+
+  这个函数的特征方程将是
+
+  $$ \begin{aligned} x^2 & = x + 1 \ x^2 - x - 1 & = 0. \end{aligned} $$
+
+  我们可以通过二次公式得到根：$x = \frac{1 \pm \sqrt 5}{2}$。
+
+  我们知道线性递归函数的解为
+
+  $$ \begin{aligned} F(n) & = \alpha_1^n + \alpha_2^n \ & = \bigg(\frac{1 + \sqrt 5}{2}\bigg)^n + \bigg(\frac{1 - \sqrt 5}{2}\bigg)^n, \end{aligned} $$
+
+  其中 $\alpha_1$ 和 $\alpha_2$ 是特征方程的根。
+
+  由于 $T(n)$ 和 $F(n)$ 都表示同一件事情，它们在渐近意义下是相同的。
+
+  因此，
+
+  $$ \begin{aligned} T(n) & = \bigg(\frac{1 + \sqrt 5}{2}\bigg)^n + \bigg(\frac{1 - \sqrt 5}{2}\bigg)^n \ & = \bigg(\frac{1 + \sqrt 5}{2}\bigg)^n \ & \approx O(1.618)^n. \end{aligned} $$
+
+  \lstdefinestyle{style1}{
+    basicstyle=\ttfamily,
+    breaklines=true,
+    numbers=left,
+    keywordstyle=\color{purple}\bfseries,
+    identifierstyle=\color{brown!80!black},
+    commentstyle=\color{gray},
+    showstringspaces=false,
+    frame=trBL,
+    frameround=fftt,
+    backgroundcolor=\color[RGB]{245,245,244},
+  }
+
+  b.
+  \begin{lstlisting}[language=C++,style=style1]
+    FIBONACCI(n)
+    let fib[0..n] be a new array
+    fib[0] = 1
+    fib[1] = 1
+    for i = 2 to n
+        fib[i] = fib[i - 1] + fib[i - 2]
+    return fib[n]
+  \end{lstlisting}
+
+  c. 假设所有整数乘法和加法都可以在 $O(1)$ 的时间内完成。首先，我们要证明
+
+  $$ \begin{pmatrix} 0 & 1 \ 1 & 1 \end{pmatrix}^k = \begin{pmatrix} F_{k - 1} & F_k \ F_k & F_{k + 1} \end{pmatrix} . $$
+
+  通过归纳，
+
+  $$ \begin{aligned} \begin{pmatrix} 0 & 1 \ 1 & 1 \end{pmatrix}^{k + 1} & = \begin{pmatrix} 0 & 1 \ 1 & 1 \end{pmatrix} \begin{pmatrix} 0 & 1 \ 1 & 1 \end{pmatrix}^k \ & = \begin{pmatrix} 0 & 1 \ 1 & 1 \end{pmatrix} \begin{pmatrix} F_{k - 1} & F_k \ F_k & F_{k + 1} \end{pmatrix}^k \ & = \begin{pmatrix} F_k & F_{k + 1} \ F_{k - 1} + F_k & F_k + F_{k + 1} \end{pmatrix} \ & = \begin{pmatrix} F_k & F_{k + 1} \ F_{k + 1} & F_{k + 2} \end{pmatrix}. \end{aligned} $$
+
+  我们证明我们可以在$O(\lg n)$时间内计算给定矩阵的$n-1$次幂，右下角的元素是$F_n$。
+
+  我们应该注意，通过8次乘法和4次加法，我们可以将任何两个$2\times2$矩阵相乘，这意味着矩阵乘法可以在常数时间内完成。因此，我们只需要限制算法中这些操作的数量。
+
+  运行算法$\text{MATRIX-POW}(A,n-1)$需要$O(\lg n)$时间，因为我们在每个步骤中将$n$的值减半，并且在每个步骤中，我们执行恒定数量的计算。
+
+  递归式为
+
+  $$T(n) = T(n / 2) + \Theta(1).$$
+
+  \begin{lstlisting}[language=C++,style=style1]
+    MATRIX-POW(A, n)
+    if n % 2 == 1
+        return A * MATRIX-POW(A^2, (n - 1) / 2)
+    return MATRIX-POW(A^2, n / 2)
+
+\end{lstlisting}
+
+  d. 首先，我们应该注意到 $\beta = O(\log n)$。对于第(a)部分，我们朴素地添加一个每次都在指数级增长的 $\beta$ 位数，因此递归变为
+
+  $$ \begin{aligned} T(n) & = T(n - 1) + T(n - 2) + \Theta(\beta) \\ & = T(n - 1) + T(n - 2) + \Theta(\log n), \end{aligned} $$
+
+  因为 $\Theta(\log n)$ 可以被指数时间吸收，所以它的解与 $T(n) = O\Big(\frac{1 + \sqrt 5}{2}\Big)^n$相同，。
+
+  对于第(b)部分，记忆化版本的递归变为
+
+  $$M(n) = M(n - 1) + \Theta(\beta).$$
+
+  这有一个解 $\sum_{i = 2}^n \beta = \Theta(n\beta) = \Theta(2^\beta \cdot \beta)$ or $\Theta(n \log n)$.
+
+  对于第（c）部分，我们执行恒定数量的加法和乘法。递归变为
+
+  $$P(n) = P(n / 2) + \Theta(\beta^2),$$
+
+  它的解为 $\Theta(\log n \cdot \beta^2) = \Theta(\beta^3)$ or $\Theta(\log^3 n)$。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 31-4]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[中国剩余定理]
+  向同学介绍中国剩余定理及其应用。
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[椭圆曲线加密(Elliptic Curve Cryptography, ECC)]
+  椭圆曲线加密是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全。
+
+  (参考资料-1：\href{https://medium.com/dev-genius/introduction-to-elliptic-curve-cryptography-567e47b0e49e}{https://medium.com/dev-genius/introduction-to-elliptic-curve-cryptography-567e47b0e49e})
+  (参考资料-2：\href{https://en.wikipedia.org/wiki/Elliptic-curve_cryptography}{https://en.wikipedia.org/wiki/Elliptic-curve\_cryptography})
+  (参考资料-3：\href{https://www.jianshu.com/p/e41bc1eb1d81}{https://www.jianshu.com/p/e41bc1eb1d81})
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,211 @@
+% 1-12-partial-lattice.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第12讲: 偏序关系与格}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \mfig{width = 1.00\textwidth}{figs/creativity-angles}
+  \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large
+          \begin{itemize}
+            \item Lattice theory draws on both order theory and universal algebra.
+          \end{itemize}}}}
+  \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[SM Problem 14.44]
+\end{problem}
+
+\begin{solution}
+  见附图。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[SM Problem 14.58]
+\end{problem}
+
+\begin{proof}
+  (a) Define a one-to -one function $f:A \rightarrow A$, by $f(x) = x$.
+  ($a$ and $a ^{'}$ are a pair)\\
+  (1) If $a\precsim a ^{'}$ then $f(a) = a \precsim f(a^{'}) = a^{'}$.\\
+  (2)If $a || a^{'}$, then  $f(a) = a || f(a^{'}) = a^{'}$.\\
+  \\
+  (b)If $A \precsim B$ then there exists at least a function $f:A \rightarrow B$, $a$ and $a^{'}$ in X, $f(a)$ and $f(a^{'})$ in Y.\\
+  We can get that:\\
+  If $a\precsim a ^{'}$ then $f(a) \precsim f(a^{'})$.\\
+  If $a || a^{'}$, then  $f(a) || f(a^{'})$.\\
+  So for the function $f^{-1}:B \rightarrow A$\\
+  If $f(a) \precsim f(a^{'})$, then $f^{-1}(f(a)) = a \precsim f^{-1}(f(a^{'})) = a^{'}$.\\
+  \\
+  (c)If for function $f:A \rightarrow B$,$g:B\rightarrow C$, $h = g\circ f$.\\
+  We can know that:\\
+  (condition 1)If $a\precsim a ^{'}$, then $f(a) \precsim f(a^{'})$, then $g(f(a)) \precsim g(f(a^{'}))$\\
+  That is, if $a\precsim a ^{'}$, then $g(f(a)) \precsim g(f(a^{'}))$\\
+  (condition 2)If $a || a^{'}$, then  $f(a) || f(a^{'})$, then $g(f(a)) || g(f(a^{'}))$.\\
+  That is, if  $a || a^{'}$, then $g(f(a)) || g(f(a^{'}))$.\\
+
+
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[SM Problem 14.62]
+Suppose $A$ and $B$ are well-ordered isomorphic sets.
+Show that there is only one {\it isomorphic} mapping
+$f: A \to B$
+\end{problem}
+
+\begin{solution}
+  Let $a$ be the first element of $A$, and $b$ be the first element of $B$.\\
+  By the definition, $a$ is the only element satisfied $\forall x, (x\in A\to a\precsim x).$\\
+  By the definition, $b$ is the only element satisfied $\forall x, (x\in B \to b\precsim x).$\\
+  $\forall x,(x\in A \to a\precsim x)\to \exists y_1, (y_1 = f(a) \land \forall y,(y\in B\to y_1\precsim y))$\\
+  We can conclude $f(a) = b$.\\
+  Let $A$ be $A \backslash a, B$ be $B \backslash b$, repeat the step above, until $A = B = \emptyset$\\
+  We can see that each element in $A$ can only be mapped into a certain element in $B$.\\
+  So there is only one insomorphic mapping $f:A\to B$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[SM Problem 14.71]
+\end{problem}
+
+\begin{solution}
+  (a)1 or $p^k$, $p$ is prime and $k \in \mathbb{N}^+$.\\
+  (b)All prime numbers.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[SM Problem 14.72]
+\end{problem}
+
+\begin{solution}
+  (a)\\
+  Since $b \land c <= b$ and $b <= a\lor b$, we can conclude that $b \land c <= a \lor b$.\\
+  Since $b\land c <= c$ and $c <= a \lor c$, we can conclude that $b \land c <= a \lor c$.\\
+  So we can conclude $b\land c$ is a lower bound of \{$(a \lor b), (a \lor c)\}$, and $b \land c <= (a \lor b), \land (a \lor c)$.\\
+  Since $a <= a \lor b$ and $a <=
+  $a is a low bound of \{$(a \lor b),\land (a \lor c)\}$,\\
+  so $a <= (a \lor b) \land (a \lor c)$.\\
+  Since $b \land c <= (a \lor b) \land (a \lor c)$ and $a <= (a \lor b) \land (a \lor c)$, we can conclude $(a \lor b) \land (a \lor c)$ is an upper bouond of $\{a, (b \land c)\}$, so $a \lor (b \land c) <= (a \lor b) \land (a \lor c)$.\\
+  (b)\\
+  Since $a \land b <= b$ and $ b <= b \lor c$, we can conclude $a \land b <= b \lor c$.\\
+  Since $a \land c <= c$ and $c <= b \lor c$, we can conclude $a \land c <= b \lor c$.\\
+  So we can conclude $b \lor c >= (a \land b) \lor (a \land c)$.\\
+  Since $b \land c >= (a \land b)\lor (a\land c)$ and $a >= (a\land b)\lor (a\land c)$, we can conclude $(a\land b)\lor (a\land c)$ is a lower bound of $\{a, (b \lor c)\},$ so $a \land (b \lor c) >= (a\land b)\lor (a\lor c)$\\
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[SM Problem 14.75]
+\end{problem}
+
+\begin{solution}
+  (a)Since $a <= c$, $a \lor c = c$.\\
+  $a \lor (b\land c)\\
+    =(a \lor b)\land (a\lor c)\\
+    =(a\lor b)\land c$\\
+  (b)Let $f(x, y, z) = x\ lor (y \land z),g(x, y, z) = (x\lor y) \land z$.\\
+  $\forall y,z \in(b),f(0,y,z) = y \land z = g(0,y,z).\\
+    \forall x, y\in (b), f(x,y,1) = x\land y= g(x,y,1).$\\
+  Consider other cases, we have that:\\
+  $f(a,0,a) = a = g(a,0,a),f(a,a,a) = a = g(a,a,a), f(a,1,a) = a = g(a,1,a), f(a,b,a) = a = g(a,b,a),f(a,c,a) = a =g(a,c,a)\\
+    f(b,0,b) = b = g(b,0,b),f(b,b,b) = b = g(b,b,b), f(b,1,b) = b = g(b,1,b), f(b,a,b) = b = g(b,a,b),f(b,c,b) = b =g(b,c,b)\\
+    f(c,0,c) = c = g(c,0,c),f(c,c,c) = c = g(c,c,c), f(c,1,c) = c = g(c,1,c), f(c,b,c) = c = g(c,b,c),f(c,a,c) = c =g(c,a,c)$\\
+  Since $\forall x, y,z \in (b)$, x <= z $\to$ $x \lor (y\land z) = (x \lor y) \land z$, the lattice is modelar.\\
+  (c)\\
+  $a <= c$ in Fig.(a).\\
+  $a \lor (b\land c) = a$ but $(a \lor b) \land c = c$.\\
+  So $a\lor (b\land c) \neq (a\lor b) \land c$.\\
+  It is non-modular.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Dilworth's Theorem]
+  介绍 Dilworth's theorem，如 (不限于):
+  \begin{itemize}
+    \item 定理
+    \item 证明
+    \item 应用
+  \end{itemize}
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Dilworth\%27s\_theorem}{Dilworth's theorem @ wiki}
+    \item Chapter 6 of Book ``A Course in Combinatorics'' (2nd Edition) by J.H. van Lint and R.M. Wilson
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Lattice of Stable Matchings]
+  请从 Distributive Lattice 的角度介绍 Stable Matching 问题, 如 (不限于):
+  \begin{itemize}
+    \item Stable Matching 问题
+    \item Stable Matching 算法
+    \item 与 Distributive Lattice 的关系
+  \end{itemize}
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Lattice\_of\_stable\_matchings}{Lattice of stable matchings @ wiki}
+    \item \href{https://www.youtube.com/watch?v=Qcv1IqHWAzg}{Stable Marriage Problem @ Numberphile}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+\begincorrection
+
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

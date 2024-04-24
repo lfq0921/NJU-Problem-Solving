@@ -1,0 +1,268 @@
+% 2-1-correctness.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第1讲: 算法的正确性}
+\me{ 林凡琪}{211240042 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \mfigcap{width = 0.85\textwidth}{figs/George-Boole}{George Boole}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem $5.8$: $\textsl{rev}(X)$]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \caption{reverse}
+    \label{alg:sum}
+    \begin{algorithmic}[1]
+      \Procedure{Rev}{S}
+      \State $X \gets S$
+      \State $Y \gets \emptyset$
+      \While {$X \neq \emptyset$}
+      \State $Y \gets last(X) . Y$
+      \State $X \gets all but last(X)$
+      \EndWhile
+      \State return $Y$
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+proof:\\
+1.\\
+We can know that, if and only if (2)$\rightarrow$(2)is not an infinete loop, then the algorithm can stop properly.\\
+The convergent that works in our case is simply the length of the string X. Each time the loop is traversed, X is made shorter by precisely one symbol, since it becomes the all-but-last of its previous value. However, its length cannot be less than 0 because when X is of length 0 (that is, it becomes the empty string) the loop is not traversed further and the algorithm terminates.\\
+2.\\
+assertion (1): S is a string.\\
+assertion (2): S = X . rev(Y)\\
+assertion (3): S = rev(Y)\\
+\\
+3 hops:(1)$\rightarrow$(2),(2)$\rightarrow$(2),(2)$\rightarrow$(3)\\
+For (1)$\rightarrow$(2):\\
+Since $X \gets S$ and $Y \gets \emptyset$, so X . rev(Y) = S . $ \emptyset$ = S.\\
+For (2)$\rightarrow$(2):\\
+Define Z($S = X.Z$),if $|Z| = 0$, we can know that $Y = rev(Z)$\\
+Assume that when $|Z| = n$, $Y = rev(Z)$ is true.\\
+Then after that $Y = last(X).rev(Z)$, $Z = Z.last(X)$
+so it remains that $Y = rev(Z)$.\\
+For (2)$\rightarrow$(3)\\
+Untill $X = \emptyset$, which means $Z=S$
+For that $Y = rev(Z)$, so $Y = rev (S)$, it also means $S = rev(Y)$\\
+So  the algorithm is partially correct.\\
+\\
+This concludes the proof that the reverse algorithm is totally correct.
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem $5.9$: $\textsl{equal}(X, Y)$]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \caption{equal}
+    \label{alg:sum}
+    \begin{algorithmic}[2]
+      \Procedure{equal}{X, Y}
+      \State $Xori = X$
+      \State $Yori = Y$
+      \State $S \gets \emptyset$
+      \State $T \gets \emptyset$
+      \While{$X \neq \emptyset$ and $Y \neq \emptyset$ and eq($last(X),last(Y)$)}
+      \State $S = last(X).S $
+      \State $T = last(Y). T$
+      \State X = $all-but-last(X)$
+      \State $Y = all-but last(Y)$
+      \EndWhile
+      \If{$X = \emptyset$ and $Y = \emptyset$}
+      \State return true
+      \Else \State return false
+      \EndIf
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+  proof:\\
+  1.\\
+  We can know that, if and only if (2)$\rightarrow$(2)is not an infinete loop, then the algorithm can stop properly.\\
+  The convergent that works in our case is simply the length of the string X and Y. Each time the loop is traversed, X and Y are made shorter by precisely one symbol, since thet become the all-but-last of their previous value. However, their length cannot be less than 0 because when X or Y is of length 0 (that is, thet become the empty strings) the loop is not traversed further and the algorithm terminates.\\
+  2.\\
+  assertion(1):X and Y are strings.\\
+  assertion(2):X. S = Xori and Y. T= Yori and S = T\\
+  assertion(3):If and only if $X = \emptyset$ and $Y = \emptyset$, eq(X, Y) = true.\\
+  3 hops:(1)$\rightarrow$(2),(2)$\rightarrow$(2),(2)$\rightarrow$(3)\\
+  For (1)$\rightarrow$(2):Since that $X = Xori$, $Y = Yori$,$S \gets \emptyset$ and $T \gets \emptyset$, so $X. S = Xori . \emptyset = Xori$ and $Y. T = Yori . \emptyset = Yori$ and $S = T =\emptyset$\\
+  For (2)$\rightarrow$(2):We assumpt that before a traversation, $X.S = Xori$ and $Y.T = Yori$ hold. Then in the new traversation, (we can note the X, Y before the traversation as $X0$ and $Y0$， $S = last(X0).S$,$X = all-but-last(X0)$, so $X . S$ = $all-but-last(X0) . last(X0) . S = X0 . S =Xori$.The same, we can get that $Y = Yori$.\\
+  For that $S = last(X0).S$, $T = last(Y0).T$ and $eq(last(X0, Y0))$, we can know that $S = T$\\
+  So after the loop, (2) still holds.\\
+  For (2)$\rightarrow$(3) If $X = \emptyset$ and $Y = \emptyset$, then $S = Xori$ and $T = Yori$.Since in (2) $S = T$, So $Xori = Yori$, then should return true.\\
+  So the algorithm is totally correct.
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem $5.10$: $\textsl{Pal1}(S)$]
+\end{problem}
+
+\begin{solution}
+  (a)\\
+  proof:\\
+  1.\\
+  There are 2 steps in the algorithm. Both of them have been prooved that they can stop properly, and there are no loop in the algorithm, so we can know the algorithm can stop properly.\\
+  2.\\
+  assertion(1):S is a string.\\
+  assertion(2):Y is reversed S.\\
+  assertion(3):If S = Y, S is palindrome.\\
+  2 hogs:(1) to (2) and (2) to (3).\\
+  For(1) to (2): Since S is a string, this satisfy the reqiure of $rev(S)$, which has been prooved to be totally correct, so Y is reversed S.\\
+  For(2) to (3): According the definition of palindrome (a string that is the same when read forwards and backwards), if Y = S, then S meets the standard of palindrome, so S is palindrome.\\
+  (b)“大型的新型软件，不再是一行行之星基本运算的代码构成，往往是过程调用的组合。这样的算法（代码）的终止性取决于各个被调用的过程的终止性。而传统代码的计算终止性，取决于算法中循环的终止性，传统代码的终止性模型缺省认为任意一行代码都是单位时间内任意一行代码都是单位时间内一定完成并给出正确结果的。”————张三
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem $5.12$: $\textsl{Pal2}(S)$]
+\end{problem}
+
+\begin{solution}
+  (a)Proof:\\
+  Before state assertions, we do some definitions. Set 2 string Y and Z, $Y = Z = \emptyset$ in the beginning, and insert 2 sentences before line 4: $Y = head(X); Z = last(X)$
+  assertion(1):S is a string, E is true.\\
+  assertion(2):if E is true, then note the previous X as X1, X1 = Y.X.Z\\
+  assertion(3):if S is a palindrome, pal2(S) is true.\\
+  3 hops:(1)$\rightarrow$(2),(2)$\rightarrow$(2) and (2)$\rightarrow$(3)\\
+  For (1) to (2): since X = S and E = true, then $Y.X.Z = \emptyset . X. \emptyset = X1$, then (2) holds.\\
+  For (2) to (2): we have X1 = Y·X·Z, then after the constructions we have that X1 = head(X1)·head(X)·X2·last(X)·last(X1) = head(X1)·X·last(X1), so (2)→(2) holds.\\
+  For (2) to (3): if S is a palindrome, Y·X·Z, X = $\emptyset$, then pal2(S) = true.\\
+  (b)\\
+  Disproof:\\
+  if S isn’t palindrome, then E = false, but the loop cannot end because the length cannot decrease and X cannot be equal to $\emptyset$.
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH Problem $5.14\; (a, b)$: $\textsl{Pal4}(S)$]
+Note: You don't have to consider $\textsl{Pal3}$ in Problem $5.13$.
+\end{problem}
+
+\begin{solution}
+  (a)\\
+  \begin{algorithm}
+    \caption{equal}
+    \label{alg:sum}
+    \begin{algorithmic}[2]
+      \Procedure{pal4}{S}
+      \State $X \gets S$
+      \If{$head(X) = last(X)$}
+      \State $E \gets true$
+      \Else $E \gets false$
+      \EndIf
+      \While{$X \neq \emptyset$ and $E = true$}
+      \State $Y \gets tail(X)$
+      \If{eq(head(X), last(Y))}
+      \State $ X \gets all-but-last(Y)$
+      \Else $E \gets false$\\
+      \EndIf
+      \EndWhile
+      \State \Return $E$
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+  (b)\\
+  Proof:\\
+  1.The algorithm in Q4 can not stop properly, as it doesn't consider well enough the beginning set of $E$. So in Pal4, I add a judging sentence so that solve the termination problem of the algorithm in Q4. So Pal4 can stop properly.\\
+  2.assertion(1): Pal3 is partially correct.\\
+  assertion(2): If $head(X) \neq last(X)$, then S is not a palindrome.\\
+  assertion(1) has been prooved in Q4.\\
+  assertion(2): According to the definition of palindrome. If S is a palindrome, then $head(X) = last(X)$, so If $head(X) \neq last(X)$, then S is not a palindrome.\\
+  All in all, pal4 is totally correct.
+  (c)\\
+  Because when we use pal1 to judge whether S is a palindrome, we need to go over the whole string for 2 times, which means we need to traverse for 2n times, but by pal4, we only need to go over one string, so we can save much time.
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Euclid's GCD Algorithm]
+请证明 Euclid 算法 (迭代或递归版本) 的完全正确性。
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Insertion Sort and Dafny]
+  请证明 Insertion Sort 的正确性。
+  要求证明严谨，推荐在 Dafny 中实现并验证 Insertion Sort 的正确性。
+
+  参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Insertion\_sort}{Insertion sort @ wiki}
+    \item \href{https://www.microsoft.com/en-us/research/project/dafny-a-language-and-program-verifier-for-functional-correctness/}{Dafny}
+    \item \href{https://rise4fun.com/Dafny}{Play with Dafny@rise4fun}(最近该网站在维护，不可达，可以尝试直接在VS Code安装Dafny)
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Cyclic Hanoi Problem]
+  介绍 Cyclic Hanoi 问题与算法，并证明算法的正确性。
+
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Tower\_of\_Hanoi}{Tower of Hanoi @ wiki}
+    \item Chapter 5 of DH
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

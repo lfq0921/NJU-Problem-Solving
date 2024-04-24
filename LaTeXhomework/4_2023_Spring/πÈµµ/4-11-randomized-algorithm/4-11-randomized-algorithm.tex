@@ -1,0 +1,134 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-11讲: 随机算法}
+\me{朱宇博}{191220186}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[JH 5.2.2.7]
+\end{problem}
+
+\begin{solution}
+(i)\\
+$[2,n^c]$中质数近似有$\frac{n^c}{\ln n^c}$个，因此$c\log_2{n}$个bit足够去实现该随机选择。\\
+因为$s\leq p\leq n^c$，故$|s|\leq c\log_2{n}$\\
+综上，the communication complexity of this protocol is $2c\log_2{n}$\\
+(ii)\\
+在$x\leq y$时，被判定为相等的概率
+\[
+\frac{n-1}{n^c/\ln n^c}\leq  \frac{ln n^c}{n^{c-1}}
+\]
+故Prob ((Rr, Rn) accepts (x, y)) $\geq 1 -\frac{ln n^c}{n^{c-1}} $
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[JH 5.2.2.8]
+\end{problem}
+
+\begin{solution}
+(i)\\
+反证法。假设存在一种确定性算法，使得the communication complexity小于$n$。\\
+由假设可推得，必然存在$u,v\in\{0,1\}^{n}$，$u\not\equiv v$，使得$\overline(C_1(u))=\overline(C_1(v))$。\\
+所以$\overline(C_2(\overline(C_1(u)),u))=\overline(C_2(\overline(C_1(v)),u))$。\\
+显然$u\equiv u$，可得$u \equiv v$，这与假设矛盾。\\
+故for every $n\in \mathbb{N}^{+}$, that every deterministic one-way protocol computing $Equality_n$ has a communication complexity of at least n.\\
+\newpage
+(ii)\\
+ \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.90\linewidth]{figs/a}
+  \end{figure}
+  
+  
+采用该算法即可。根据书中的证明，可得:\\
+(1)在$x\equiv y$时，$Prob((R_I,R_n) accepted (x,y)) = 1$.\\
+(2)在$x\not\equiv y$时, $Prob((R_I,R_n) accepts (x,y))\leq \frac{\ln n^2}{n}$\\
+故$Prob(A(x)=F(x)) \geq 1-\frac{\ln n^2}{n}\geq \frac{1}{2}+\epsilon$，满足题目要求。\\
+(iii)\\ 
+反证法。假设存在一种one-sided-error，使得the communication complexity小于$n$。\\
+由假设可推得，必然存在$u,v\in\{0,1\}^{n}$，$u\not\equiv v$，使得$\overline(C_1(u))=\overline(C_1(v))$。\\
+所以$\overline(C_2(\overline(C_1(u)),u))=\overline(C_2(\overline(C_1(v)),u))$。\\
+显然$u\equiv u$，可得$u \equiv v$，这与假设中的one-sided-error矛盾。\\
+故one-sided-error的 communication complexity至少为$n$.\\
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[例题5.2.2.5]	
+	请讲解例题5.2.2.5，并说明，为什么这个随机算法代价好于“任何”确定性算法。	
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

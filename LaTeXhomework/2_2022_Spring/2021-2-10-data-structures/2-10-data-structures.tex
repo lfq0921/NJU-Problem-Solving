@@ -1,0 +1,344 @@
+% 2-10-data-structures.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第10讲: 基础数据结构}
+\me{郭佳茵}{211240038}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[MA 2.6]
+(只要求考察 Push 操作)
+\end{problem}
+
+\begin{solution}
+  before:
+
+  invariance 1:if there are two elems that (a. t) $\in$elems and (b, t)$\in$elems
+
+  $\because$t is the same, so we can conclude that a = b
+
+  $\therefore$a$\ne$b are false
+
+  invariance 2: before the operation, we know that c is the current time-point, so it is greater than any other time-point in the stack
+
+  invariance 3:we know that max is the maximum of allowable size, so any elem in the stack, |elem|$\le$max
+
+  after:
+
+  invariance 1:after the operation, the time-point of the new elem that we  pushed in is different than the former elems in the stack, so we cannot find that (a, t)$\in$elems, (b, t)$\in$elems, that a = b, invariance 1 holds
+
+  invariance 2:c' stands for the current time-point, which is the time-point of the elem that we pushed in.Also, it is greater than the former c, and the former c is greater than other time-point in the stack, so invariance 2 holds
+
+  incariance 3: because the elem that we can push in is smaller than max, and any other elem in the stack is smaller than max, so |elems|$\le$max, so invariance 3 holds
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 10.1-4]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \begin{algorithmic}[1]
+      \Procedure{quene-empty}{Q}
+      \If{Q.head = Q.tail}
+      \Return true
+      \Else
+      \Return false
+      \EndIf
+      \EndProcedure
+      \Procedure{quene-full}{Q}
+      \If{Q.head == Q.tail + 1 or (Q.head == 1 and Q.tail == Q.length)}
+      \Return true
+      \Else
+      \Return false
+      \EndIf
+      \EndProcedure
+      \Procedure{enquene}{Q, x}
+      \If{QUENE-FULL(Q)}
+      \Return "overflow"
+      \Else
+      \State Q[Q.tail]$\gets$x
+      \If{Q.tail = Q.length}
+      \State Q.tail$\gets$1
+      \Else
+      Q.tail$\gets$Q.tail + 1
+      \EndIf
+      \EndIf
+      \EndProcedure
+      \Procedure{dequene}{Q, x}
+      \If{QUENE-EMPTY(Q)}
+      \Return "underflow"
+      \Else
+      \State Q[Q.head]$\gets$x
+      \If{Q.head = Q.length}
+      \State Q.head$\gets$1
+      \Else
+      Q.head$\gets$Q.head + 1
+      \EndIf
+      \EndIf
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 10.1-6]
+\end{problem}
+
+\begin{solution}
+  ENQUENE:$\Theta$(1)
+
+  DEQUENE:worst O(n), amortized$\Theta$(1)
+
+  Suppose there are two stack A and B
+
+  We push elements on B using ENQUENE,and pop elements from A using DEQUENE, If A is empty, the contents of BB are transfered to A by popping them out of B and pushing them to A, $\therefore$ they appear in reverse order
+
+  DEQUENE can perform in $\Theta$(n), but it appears only if A is empty, if many NQUEUEs and DEQUEUEs are performed, the total time will be linear to the number of elements, not to the largest length of the queue.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 10.2-6]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \begin{algorithmic}[2]
+      \Procedure{list-union}{L[1], L[2]}
+      \State L[2].nil.next.prev$\gets$L[1].nil.prev
+      \State L[1].nil.prev.next$\gets$L[2].nil.next
+      \State L[2].nil.prev.next$\gets$L[1].nil
+      \State L[1].nil.prev$\gets$L[2].nil.prev
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 10.3-4]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \begin{algorithmic}[3]
+      \Procedure{allocate-object}{}
+      \If STACK-EMPTY(F)
+      \Return "out of space"
+      \Else
+      \State x$\gets$POP(F)
+      \Return x
+      \EndIf
+      \EndProcedure
+      \Procedure{free-object}{x}
+      \State p$\gets$F.top - 1
+      \State p.prev.next$\gets$x
+      \State x.key$\gets$p.key
+      \State x.prev$\gets$p.prev
+      \State x.next$\gets$p.next
+      \State PUSH(F, p)
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 10.3-5]
+\end{problem}
+
+\begin{solution}
+  We represent the combination of arrays keykey, prevprev, and nextnext by multible-array A. Each object of A's is either in list LL or in the free list F, but not in both. The procedure COMPACTIFY-LIST transposes the first object in L with the first object in A, the second objects until the list LL is exhausted.
+  \begin{algorithm}
+    \begin{algorithmic}[4]
+      \Procedure{compacity-list}{L, F}
+      \State TRANSPOSE(A[L.head], A[1])
+      \If{F.head = 1}
+      \State F.head$\gets$L.head
+      \EndIf
+      \State L.head$\gets$1
+      \State l$\gets$A[L.head].next
+      \State i$\gets$2
+      \While{l $\ne$NIL}
+      \State TRANSPOSE(A[l], A[i])
+      \If{F = i}
+      \State F$\gets$l
+      \EndIf
+      \State l$\gets$A[l].next
+      \State i$\gets$i + 1
+      \EndWhile
+      \EndProcedure
+      \Procedure{transpose}{a, b}
+      \State swap(a.prev.next, b.prev.next)
+      \State swap(a.prev, b.prev)
+      \State swap(a.next.prev, b.next.prev)
+      \State swap(a.next, b.next)
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 10.4-2]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \begin{algorithmic}[5]
+      \Procedure{print-binary-tree}{T}
+      \State x$\gets$T.root
+      \If{x$\ne$NIL}
+      \State PRINT-BINARY-TREE(x.left)
+      \State print x.key
+      \State PRINT-BINARY-TREE(x.right)
+      \EndIf
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 10.4-3]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \begin{algorithmic}[6]
+      \Procedure{print-binary-tree}{T, S}
+      \State PUSH(S, T.root)
+      \While{!STACK-EMPTY}
+      \State x$\gets$S[S.top]
+      \While{x$\ne$NIL}
+      \State PUSH(S, x.left)
+      \State x$\gets$S[S.top]
+      \EndWhile
+      \State POP(S)
+      \If{!STACK-EMPTY(S)}
+      \State x$\gets$POP(S)
+      \State print x.key
+      \State PUSH(S, x.right)
+      \EndIf
+      \EndWhile
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 10-3]
+\end{problem}
+
+\begin{solution}
+  a. If the original version of the algorithm takes only t iterations, then, we have that it was only at most t random skips though the list to get to the desired value, since each iteration of the original while loop is a possible random jump followed by a normal step through the linked list.
+
+  b. The for loop on lines 2–7 will get run exactly tt times, each of which is constant runtime. After that, the while loop on lines 8–9 will be run exactly $X_t$ times. So, the total runtime is O(t + E[$X_t$])
+
+  c.Using equation C.25, we have that E[$X_t$] = $\sum$Pr$\{$$X_t$$\ge$i$\}$.So we need to show that Pr$\{$$X_t$$\ge$i$\}$$\le$$(1 - \frac{i}{n})^t$.This can be seen because having $X_t$ being greater than i means that each random choice will result in an element that is either at least i steps before the desired element, or is after the desired element.There are n - i such elements, out of the total n elements that we were pricking from.So, for a single one of the choices to be from such a range, we have a probability of $\frac{n - i}{n}$ = 1 - $\frac{i}{n}$.Since each of the selections was independent, the total probability that all of them were is $(1 - \frac{i}{n})^t$, as desired.Lastly, we can note that since the linked list has length n, the probability that $X_t$ is greater than n is equal to zero
+
+  d.we have that t > 0, and f(x) = $x^t$ is increasing, so
+
+  $\sum$$r^t$ = $\int_0^n$$[r]^t$dr$\le$$\int_0^n$f(r)dr = $\frac{n^t + 1}{t + 1}$
+
+        e.E[$X_t$]$\le$$\sum$$(1 - r/n)^t$ = $\sum$$\frac{(n - r)^t}{n^t}$ = $\frac{1}{n^t}$$\sum$$(n - r)^t$
+
+      and $\sum$$(n - r)^t$ = $(n - 2)^t$ + $(n - 2)^t$ + … + $1^t$ + $0^t$ = $\sum$$r^t$
+
+      so E[$X_t$] = $\sum$$r^t$
+
+        f.O($\frac{t + n}{t + 1}$) = O($\frac{t + n}{t}$)
+
+        g.Since we have that for any number of iterations tt that the first algorithm takes to find its answer, the second algorithm will return it in time O($\frac{t + n}{t}$).In particular, if we just have that t = $\sqrt{n}$.The second algorithm takes time only O($\sqrt{n}$).This means that tihe first list search algorithm is
+        O($\sqrt{n}$) as well.
+
+        h.If we don't have distinct key values, then, we may randomly select an element that is further along than we had been before, but not jump to it because it has the same key as what we were currently at. The analysis will break when we try to bound the probability that$X_t$$\ge$i
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 10.1-7]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Stack \& Queue]
+
+  Stack 与 Queue 之间的互模拟。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item TC 10.1-6, TC 10.1-7
+    \item \href{https://cstheory.stackexchange.com/questions/2562/one-stack-two-queues}{One Stack, Two Queues @ cstheory}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Searching a sorted compact list]
+  讲解 TC Problem 10-3.
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

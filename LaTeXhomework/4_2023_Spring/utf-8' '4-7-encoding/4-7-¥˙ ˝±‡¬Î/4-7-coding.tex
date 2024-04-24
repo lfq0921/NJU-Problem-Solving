@@ -1,0 +1,355 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-7讲: 代数编码}
+\me{211240042 }{林凡琪 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-6(b,d)]
+\end{problem}
+
+\begin{solution}
+  (b)
+  $$
+    \begin{array}{|c|c|c|c|c|c|c|c|c|}
+      \hline         & (011100) & (011011) & (111011) & (100011) & (000000) & (010101) & (110100) & (110011) \\
+      \hline(011100) & 0        & 3        & 4        & 6        & 3        & 2        & 2        & 5        \\
+      \hline(011011) & 3        & 0        & 1        & 3        & 4        & 3        & 5        & 2        \\
+      \hline(111011) & 4        & 1        & 0        & 2        & 5        & 4        & 4        & 1        \\
+      \hline(100011) & 6        & 3        & 2        & 0        & 3        & 4        & 4        & 1        \\
+      \hline(000000) & 3        & 4        & 5        & 3        & 0        & 3        & 3        & 4        \\
+      \hline(010101) & 2        & 3        & 4        & 4        & 3        & 0        & 2        & 3        \\
+      \hline(110100) & 2        & 5        & 4        & 4        & 3        & 2        & 0        & 3        \\
+      \hline(110011) & 5        & 2        & 1        & 1        & 4        & 3        & 3        & 0        \\
+      \hline
+    \end{array}
+  $$\\
+  $d_{min}=1$\\
+  (d)
+  $$
+    \begin{array}{|c|c|c|c|c|c|c|c|c|}
+      \hline         & (011100) & (011011) & (111011) & (100011) & (000000) & (010101) & (110100) & (110011) \\
+      \hline(011100) & 0        & 3        & 4        & 6        & 3        & 2        & 2        & 5        \\
+      \hline(011011) & 3        & 0        & 1        & 3        & 4        & 3        & 5        & 2        \\
+      \hline(111011) & 4        & 1        & 0        & 2        & 5        & 4        & 4        & 1        \\
+      \hline(100011) & 6        & 3        & 2        & 0        & 3        & 4        & 4        & 1        \\
+      \hline(000000) & 3        & 4        & 5        & 3        & 0        & 3        & 3        & 4        \\
+      \hline(010101) & 2        & 3        & 4        & 4        & 3        & 0        & 2        & 3        \\
+      \hline(110100) & 2        & 5        & 4        & 4        & 3        & 2        & 0        & 3        \\
+      \hline(110011) & 5        & 2        & 1        & 1        & 4        & 3        & 3        & 0        \\
+      \hline
+    \end{array}
+  $$\\
+  $d_{min}=2$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-7(c,d)]
+\end{problem}
+
+\begin{solution}
+  (c)\\
+  Null(H):
+  (00000)(00100)(11010)(11110)(11001)(11101)(00011)(00111)\\
+  (5,3)-block\\
+  Generator:\\
+  $$
+    G=\left[\begin{array}{lll}
+        0 & 1 & 1 \\
+        0 & 1 & 1 \\
+        1 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 1
+      \end{array}\right]
+  $$\\
+  (d)\\
+  Null(H):\\
+  (0000000)(0001111)(0010110)(0011001)\\
+  (0100101)(0101010)(0110011)(0111100)\\
+  (1000011)(1001100)(1010101)(1011010)\\
+  (1100110)(1101001)(1110000)(1111111)\\
+  (7,4)-block\\
+  Generator:
+  $$
+    G=\left[\begin{array}{llll}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        1 & 1 & 0 & 1 \\
+        1 & 0 & 1 & 1 \\
+        0 & 1 & 1 & 1 \\
+        0 & 0 & 0 & 1
+      \end{array}\right]
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-9]
+\end{problem}
+
+\begin{solution}
+  $H(01111)^T=(001)^T\Rightarrow (01111)->(01101)$\\
+  $H(10101)^T=(110)^T\Rightarrow multipl errors$\\
+  $H(01110)^T=(110)^T\Rightarrow multipl errors$\\
+  $H(00011)^T=(110)^T\Rightarrow multipl errors$\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-11(b,d)]
+\end{problem}
+
+\begin{solution}
+  (b)
+  这是标准奇偶校验矩阵。相应的标准生成矩阵：
+  $$
+    \left(\begin{array}{ll}
+      1 & 0 \\
+      0 & 1 \\
+      0 & 1 \\
+      1 & 1 \\
+      0 & 1 \\
+      1 & 1
+    \end{array}\right)
+  $$\\
+  可以至少纠错1位、检测2位.\\
+  (d)这是标准奇偶校验矩阵.相应的标准生成矩阵:
+  $$
+    \left(\begin{array}{lll}
+      1 & 0 & 0 \\
+      0 & 1 & 0 \\
+      0 & 0 & 1 \\
+      0 & 0 & 0 \\
+      0 & 1 & 1 \\
+      1 & 0 & 1 \\
+      0 & 1 & 1
+    \end{array}\right)
+  $$\\
+  可以检测1位,不可以纠错.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-13]
+\end{problem}
+
+\begin{solution}
+  (a)$(001)^T$\\
+  (b)$(101)^T$\\
+  (c)$(111)^T$\\
+  (d)$(011)^T$\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-19]
+\end{problem}
+
+\begin{solution}
+  (1)群$C$中权重都为奇数。\\
+  因为$e\in C\land w(e)=0$，显然不成立。\\
+  (2)群$C$中权重都为偶数。\\
+  考虑群$C=\{e\}$，此时显然成立，故存在权重都为偶数的情况。\\
+  (3)群$C$中权重有奇有偶。\\
+  考虑$c\in C_{odd}$，构造函数$f:C_{even}\to C_{odd}$ by $x\to x+c$其中$x\in C_{even}$(显然$x+c\in C_{odd}$)。\\
+  one to one:\\
+  $\forall x_1, x_2\in C_{even}, x_1+ c = x_2 + c \to x_1 = x_2$\\
+  onto:\\
+  $\forall y\in C_{odd}, \exists x = y + c^{-1}\in C_{even}, st.x + c = y$\\
+  So $|C_{even}|=|C_{odd}|$, 那么它们中的一半都有偶数权重\\
+
+  \noindent 所以，每个码字的权重都是偶数，或者恰好一半的码字具有偶数权重。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-21]
+\end{problem}
+
+\begin{solution}
+  (a)error-correcting linear code\\
+  假设$H$矩阵为$m\times n$的，对$2^7=128$进行编码时，需要满足
+  $$ \left\{
+    \begin{aligned}
+      n-m =  7        \\
+      n \leq 2^ m - 1 \\
+    \end{aligned}
+    \right.
+  $$
+  $m=4,n=11$为符合条件的最小正整数解。则最小的generator matrix为$11\times 7$。\\
+  同理，当对$2^8=256$进行编码时，需要满足
+  $$ \left\{
+    \begin{aligned}
+      n-m =  8        \\
+      n \leq 2^ m - 1 \\
+    \end{aligned}
+    \right.
+  $$
+  $m=4,n=12$为符合条件的最小正整数解。则最小的generator matrix为$12\times 8$。\\
+
+  \noindent(b)only error detection\\
+  假设$H$矩阵为$m\times n$的，对$2^7=128$进行编码时，需要满足
+  $$ \left\{
+    \begin{aligned}
+      n-m =  7 \\
+      n \geq 1 \\
+    \end{aligned}
+    \right.
+  $$
+  $m=1,n=8$为符合条件的最小正整数解。则最小的generator matrix为$8\times 7$。\\
+  同理，当对$2^8=256$进行编码时，需要满足
+  $$ \left\{
+    \begin{aligned}
+      n-m =  8 \\
+      n \geq 1 \\
+    \end{aligned}
+    \right.
+  $$
+  $m=1,n=9$为符合条件的最小正整数解。则最小的generator matrix为$9\times 8$。\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-22]
+\end{problem}
+
+\begin{solution}
+  (1)three information position:\\
+  $$H=\begin{pmatrix}1 & 1 & 1 & 1 \\
+    \end{pmatrix}$$
+  $$G=\begin{pmatrix}1 & 0 & 0 \\
+               0 & 1 & 0 \\
+               0 & 0 & 1 \\
+               1 & 1 & 1 \\
+    \end{pmatrix}$$
+
+  \noindent (2)seven information position:\\
+  $$H=\begin{pmatrix}1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+    \end{pmatrix}$$
+  $$G=\begin{pmatrix}1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+               0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+               0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+               0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+               0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+               0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+               0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+               1 & 1 & 1 & 1 & 1 & 1 & 1
+    \end{pmatrix}$$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 8-23]
+\end{problem}
+
+\begin{solution}
+  (a)
+  假设有$n-m$位information bits, $m$位check bits
+  $$ \left\{
+    \begin{aligned}
+      n-m =  20       \\
+      n \leq 2^ m - 1 \\
+    \end{aligned}
+    \right.
+  $$
+  解得$m\geq 5$\\
+  (b)
+  假设有$n-m$位information bits, $m$位check bits
+  $$ \left\{
+    \begin{aligned}
+      n-m =  32       \\
+      n \leq 2^ m - 1 \\
+    \end{aligned}
+    \right.
+  $$
+  解得$m\geq 6$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[各种花式距离]
+  请查阅资料，介绍曼哈顿距离、欧几里得距离、契比雪夫距离分别是什么意思，他们的典型应用是什么。你还有哪些创意，来定义二进制位串之间的距离？
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[编码率]
+  解释什么是编码率，分析hamming码的最大编码率，分析还有比hamming码编码率更好的方法吗？
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

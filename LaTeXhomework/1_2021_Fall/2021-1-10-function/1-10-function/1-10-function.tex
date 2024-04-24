@@ -1,0 +1,272 @@
+% 1-10-function.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第10讲: 函数}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+	\begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large
+					\begin{itemize}
+						\item 有了 functions，(大部分) 数学就 functions 了。
+					\end{itemize}}}}
+	\end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 14.3 (b, d, g)]
+\end{problem}
+
+\begin{solution}
+	(b) The relation in (b) is not function, because when $x = 1$ and $x \in \mathbb{R} $, The denominator in f (x) is 0, there is no element to match with it.So it violates condition(i).\\
+	(d)The relation in (d) is function.$\forall x \in [a, b], f(x) = a, a \in \mathbb{R}$;and $ \forall x \in [a, b]$, there is only $a\in \mathbb{R}$ can satisfy $(x, a) \in f$\\
+	(g)The relation in (g) is not function.$\exists x = 6k(k \in \mathbb{Z} ) s.t. x \in 2\mathbb{Z} and x \in 3\mathbb{Z} $such that $f(x) = x + 1 = x - 1$, that means -1 = 1, which is obviously wrong.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 14.5]
+\end{problem}
+
+\begin{proof}
+	for condition(i): let there be a set $A \subseteq \mathbb{R} $ there doesn't exist $b \in \mathbb{Z} $ such that $(A, b) \in f$. That means $A \cap \mathbb{N} = \emptyset$ is false and $A \cap \mathbb{N} \neq  \emptyset$ is also false, in other words $A \cap \mathbb{N} = \emptyset$ and $A \cap \mathbb{N} \neq  \emptyset$, which is obviously wrong.So there is no such A. This assumption is wrong.\\
+	for condition(ii): if and only if $A \cap \mathbb{N} = \emptyset$ and $A \cap \mathbb{N} \neq  \emptyset$, there will be two different values corresponding to the same $A$. There is no such $A$.
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 14.23]
+\end{problem}
+
+\begin{solution}
+	x = x
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 15.10 (f, g, h)]
+\end{problem}
+
+\begin{solution}
+	(f) The function is one-to-one. \\
+	$\forall a_1, a_2,f(a_1) = f(a_2) \rightarrow \exists b\in B$, and  $(a_1, b) = (a_2, b) \rightarrow a_1 = a_2$;\\
+	The function is onto.\\
+
+	(g)The function is one-to-one.\\
+	$\forall A, B \subseteq P(X)$, $f(A) = f(B) \rightarrow X \backslash A = X \backslash B \rightarrow A = B$\\
+	The functionn is onto.\\
+	(h)The function is not one-to-one.\\
+	Let $B \subseteq X, A \subseteq X \backslash B$ such that $A \cap B = \emptyset$. Obviously, A can be $\emptyset$ and for $B != X$ there must exist another C != $emptyset$ and $C \subseteq X \backslash B$ such that $C \cap B = \emptyset$.\\
+	example:$X = \{1, 2, 3, 4, 5\}; B = {1, 2}; A = \emptyset; C = {3}$, $C \cap B = A \cap B = \emptyset$ and $A != C$\\
+	The function is not onto. The range is $B$.
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 15.14]
+\end{problem}
+
+\begin{solution}
+	Let $x \in [a, b], y \in [c, d]$\\
+	Define $f:[a, b]\rightarrow [c, d]$ by $f(x) = ((x - a) / (b - a)) * (d - c)$;\\
+	$proof.$\\
+	one-to-one:f(q) = f(p) $\rightarrow$ $((q - a) / (b - a)) * (d - c) = ((p - a) / (b - a)) * (d - c)$, it's easy to get that $p = q$.\\
+	onto:Let $y \in [c, d]$ and let $x = (y / (d - c)) * (b - a) + a$ Then $x \in [a, b] = dom(f)$ and $f(x) = (((y / (d - c)) * (b - a) + a) - a) / (b - a)) * (d - c) = y$.\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 15.15]
+\end{problem}
+
+\begin{solution}
+	$\phi$ is a function from $F([0, 1])$ to $\mathbb{R}$.\\
+	$\forall f \in F([0, 1]), \exists y = f(0) = \phi(f)$\\
+	$\forall f \in F([0, 1]), \forall y_1, y_2 \in \mathbb{R}$ , and $\phi (f) = f(0) = y_1 = y_2$\\
+	$\phi$ is not one to one. $f_1(x) = x, f_2(x) = x^2$, $\phi(f_1) = f_1(0) = 0, \phi(f_2) = f_2(0) = 0$, we can get that $\phi(f_1) = \phi(f_2), f_1 \neq f_2$.\\
+	$\phi$ is onto.$\forall y \in \mathbb{R}, \exists f \in dom(\phi), \phi(f) = f(0) = y$\\
+	example:Let $f_q = x + q, q \in \mathbb{R}$, $f(0) = q \in \mathbb{R} $.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 16.6]
+\end{problem}
+
+\begin{solution}
+	(a) $f \circ g = \frac{\frac{3 + 2x}{1-x} - 3}{\frac{3 + 2x}{1-x} + 2} = x (x \neq 1)$\\
+	$g\circ f = \frac{3 + 2 * \frac{x - 3}{x + 2}}{1 - \frac{x - 3}{x + 2}} = x, (x \neq -2)$\\
+	(b) $g = f^{-1}$\\
+	Theorem 16.4. Let $f:A \Rightarrow B$ be a bijective function. Then (iv) $If g: B \rightarrow A$ is a functioni satisfying $f \circ g = i_B or g \circ f = i_A, then g = f^{-1}.$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 16.14]
+\end{problem}
+
+\begin{solution}
+	$\forall y \in B, \exists x, f(g_1(x)) = f(g_2(x)) = y$ so $g_1(x) = g_2(x).$\\
+	$\forall y \in A, \exists x, g_1(f(x)) = g_2(f(x)) = y$, that is $g_1 = g_2.$\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 16.17]
+\end{problem}
+
+\begin{solution}
+	(a)\\
+	one-to-one:\\
+	let $H(a_1, c_1) = H(a_2, c_2) = (f(a_1), f(c_1)) = (f(a_2), f(c_2))$. That is $f(a_1) = f(a_2)$ and $f(c_1) = f(c_2)$. So $a_1 = a_2, c_1 = c_2$\\
+	\\
+	function:\\
+	$\forall x_1 \in A,x_2 \in C$ there exists $f(x_1) \in B$ and $f(x_2) \in D$, that is $\forall (x_1, x_2) \in A\times C$ there exists $(f(x_1), f(x_2)) \in B \times D$.\\
+	(b)\\
+	$\forall y_1 \in B$, $\exists x_1 \in A, f(x_1) = y_1$,and $\forall y_2 \in B$, $\exists x_2 \in A, g(x_2) = y_2$\\
+	So $\forall (y_1, y_2) \in B\times D$, $\exists (x_1, x_2) \in A \times C$ $(f(x_1), g(x_2)) = (y_1, y_2)$\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 16.22]
+\end{problem}
+
+\begin{proof}
+	$f(f(x)) = x$
+	$f(x_1) = f(x_2)\rightarrow f(f(x_1)) = f(f(x_2)) \rightarrow x_1 = x_2$\\
+	So $f$ is bijective.
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 17.22]
+\end{problem}
+
+\begin{solution}
+	(a)Needn't.\\
+	Let $f(x) = x^2$, $A_1 = \{1, 2\}, A_2 = \{-1, -2\}$, $f(A_1) = f(A_2) = \{1, 4\}$\\
+	(b) $\forall x_1 \in A_1, \forall x_2 \in A_2$, for $f$ is a bijective function, $f(x_1) = f(x_2) \rightarrow x_1 = x_2$.\\
+	So if $f(A_1) = f(A_2)$, then $\forall x_1 \in A_1 \Leftrightarrow  \forall x_2 \in A_2, \Rightarrow A_1 = A_2$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 17.23]
+\end{problem}
+
+\begin{solution}
+	(a)Needn't.\\
+	Let $f(x) = x^2$, $B_1 = \{-1, 0\}, B_2 = \{0\}$, obviously $f^{-1}(B_1) = f^{-1}(B_2)$ and $B_1 \neq B_2$.\\
+	(b)Because $f$ is onto, $\forall y_1\in B_1, \forall y_2 \in B_2, \exists x_1 \in f^{-1}(B_1), \exists x_2 \in f^{-1}(B_2), f(x_1) = y_1, f(x_2) = y_2$(onto)\\
+	If $f^{-1}(y_1) = f^{-1}(y_2) \rightarrow y_1 = y_2$.(one-to-one)\\
+	So if $f^{-1}(B_1) = f^{-1}(B_2) \rightarrow B_1 = B_2$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Monotonicity]
+Assume that $F: \mathcal{P}(A) \to \mathcal{P}(A)$ and that $F$ has the monotonicity property:
+\[
+	X \subseteq Y \subseteq A \implies F(X) \subseteq F(Y).
+\]
+
+\noindent Define
+\[
+	B = \bigcap \set{X \subseteq A \mid F(X) \subseteq X}
+\]
+
+\[
+	C = \bigcup \set{X \subseteq A \mid X \subseteq F(X)}.
+\]
+
+\begin{enumerate}[(a)]
+	\item Show that $F(B) = B$ and $F(C) = C$.
+	\item Show that if $F(X) = X$, then $B \subseteq X \subseteq C$.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+\begin{ot}[自然数]
+	介绍如何使用集合定义 (不限于):
+	\begin{itemize}
+		\item 自然数
+		\item 自然数上的大小关系
+		\item 自然数上的运算
+	\end{itemize}
+
+	\noindent 参考资料:
+	\begin{itemize}
+		\item \href{https://en.wikipedia.org/wiki/Natural\_number}{Natural number @ wiki}
+	\end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[选择公理]
+	介绍选择公理 (Axiom of Choice), 如 (不限于):
+	\begin{itemize}
+		\item 不同定义形式
+		\item 怎么理解 (怎么也不理解)
+		\item 有什么用
+	\end{itemize}
+
+	\noindent 参考资料:
+	\begin{itemize}
+		\item \href{https://en.wikipedia.org/wiki/Axiom\_of\_choice}{Axiom of choice @ wiki}
+		\item \href{https://plato.stanford.edu/entries/axiom-choice/}{The Axiom of Choice @ Stanford Encyclopedia of Philosophy}
+	\end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+\begincorrection
+
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

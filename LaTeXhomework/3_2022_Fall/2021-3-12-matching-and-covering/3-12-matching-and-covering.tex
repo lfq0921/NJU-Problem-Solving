@@ -1,0 +1,181 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第3-12讲: 图中的匹配与覆盖}
+\me{朱宇博}{191220186}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 8.3]
+ Figure 8.5 shows two bipartite graphs G1 and G2, each with partite sets U = {v, w, x, y, z } and W = {a, b, c, d, e}. In each case, can U be matched to W?
+ \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.50\linewidth]{figs/a}
+  \end{figure}
+\end{problem}
+
+\begin{solution}
+G1可以。(a,v), (b,w), (c,y), (d,z),(e,x)\\
+G2不行，$b,d,e$三点的领接点数量为$2$，小于$3$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 8.5]
+Prove that every tree has at most one perfect matching.
+\end{problem}
+
+\begin{solution}
+假设树$G$含有完美匹配。\\
+考虑其叶子结点，叶子结点的度数均为$1$，故其只存在一种匹配方式，即和自己的父亲节点匹配。将这些确定的匹配方式所含点删去，得到图$G_1$。\\
+重复该操作，直至最后只有两个结点，将其匹配。此时已经完成所有点对的匹配。\\
+由此可见。对于一棵树，若其存在完美匹配，则匹配方案唯一。\\
+故树最多有一种完美匹配
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 8.14]
+ Prove that a graph G without isolated vertices has a perfect matching if and only if   $\alpha_1(G) = \beta_1(G)$.
+\end{problem}
+
+\begin{solution}
+若$n$j阶图$G$有完美匹配，则有最大匹配数=$\beta_1{G}=\frac{n}{2}$。\\
+由定理可知$\beta_1{G}+\alpha_1{G}=n$，故 $\alpha_1(G) = \beta_1(G)$。\\
+若$\alpha_1(G) = \beta_1(G)$，则$\alpha_1(G) = \beta_1(G)=\frac{n}{2}$\\
+因此图的最大匹配数为$\frac{n}{2}$，存在完美匹配。\\
+综上，得证
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 8.16]
+ Prove that if G is a graph of order n, maximum degree $\delta$ and having no isolated vertices, then $\beta(G)\geq \frac{n}{\delta + 1}$
+\end{problem}
+
+\begin{solution}
+设$G$中最小点覆盖集为$S$。\\
+设$T$为$G-S$。由点覆盖集性质可得$S$在$G$中所连点全在$T$中，则$|T|\leq \delta \times |S|$\\
+则有$n-\beta(G)\leq \delta \times \beta(G)$\\
+得 $\beta(G)\geq \frac{n}{\delta + 1}$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 8.18]
+Give an example of a 5-regular graph that contains no 1-factor.
+\end{problem}
+
+\begin{solution}
+\newpage
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 8.21]
+Use Tutte’s characterization of graphs with 1-factors ( Theorem 8.10) to show that $K_{3,5}$ does not have a 1-factor.
+\end{problem}
+
+\begin{solution}
+设其两个部分$S$和$T$中，$|S|= 3$, $|T|=5$。\\
+则有$K_0(G-S)=5<|S|$\\
+由定理8.10可知，$G$不含有1因子。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 8.24]
+Show that every 3-regular bridgeless graph contains a 2-factor.
+\end{problem}
+
+\begin{solution}
+没有割边的3正则图一定含有1因子。在该图中去掉这个完美匹配后的图为$2$正则子图。\\
+由定理可知，原没有割边的3正则图含有2因子。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+\begin{ot}[点独立与点覆盖]
+	请证明定理8.8。在证明中，请你给出以下思考：关于点覆盖/独立的所有相关定理，是否在边覆盖/独立讨论范畴内，均有相应的定理？你能“杜撰”出几条吗？
+	
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+\begin{ot}[Kőnig's theorem]	
+请你给出一种合理的循环赛排名方法
+\noindent 参考资料:
+  \begin{itemize}
+     \item \href{https://en.wikipedia.org/wiki/K\%C5\%91nig\%27s_theorem_(graph_theory)}{https://en.wikipedia.org/wiki/K\%C5\%91nig\%27s\_theorem\_(graph\_theory)}
+  \end{itemize}
+		
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

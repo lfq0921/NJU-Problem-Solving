@@ -1,0 +1,20 @@
+Failed
+Failed
+------------------------
+?- main.
+[31mWarning: /home/riju/src/main.pl:23:
+Warning:    Singleton variables: [X]
+[0m[31mWarning: /home/riju/src/main.pl:97:
+Warning:    Singleton variables: [Pos]
+[0mWelcome to SWI-Prolog (threaded, 64 bits, version 8.2.4)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- main.
+Failed at li1
+X: zhao, Y: other
+Failed at li2
+X: zhao, Y: other

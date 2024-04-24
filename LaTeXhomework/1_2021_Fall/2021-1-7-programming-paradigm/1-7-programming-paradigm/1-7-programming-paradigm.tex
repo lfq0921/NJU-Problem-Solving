@@ -1,0 +1,109 @@
+% 1-6-programming-language.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+\usepackage{listings}
+\lstset{
+    keywordstyle=\color{purple}\bfseries,
+    identifierstyle=\color{brown!80!black},
+    commentstyle=\color{gray},
+    showstringspaces=false,
+    frame=trBL,
+    frameround=fftt,
+    backgroundcolor=\color[RGB]{245,245,244},
+    breaklines=true,
+    numbers=left,
+}
+%%%%%%%%%%%%%%%%%%%%
+\title{第7讲: 程序设计范型}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \mfig{width = 0.80\textwidth}{figs/haskell-side-effects}
+  \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.45\textwidth}{\large
+          \begin{itemize}
+            \item 函数式程序设计, 你值得拥有
+          \end{itemize}}}}
+  \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Haskell 与 函数式]
+学习 Haskell 语言和函数式程序设计
+\footnote{推荐学习 \href{https://learnyouahaskell.mno2.org/zh-cn}{在线教程} 的第2章和第5章。}
+，完成下列题目
+\footnote{推荐使用 \href{https://replit.com/languages/haskell}{在线平台} 运行程序。（免注册，但请记得保存！）}
+。
+\end{problem}
+\begin{solution}
+  \footnote{作业压缩包中含有上述程序的源代码 haskell1-sol.hs，你可以将修改后的程序放入该文件中并与作业一起上传。}
+
+  \lstinputlisting[language=Haskell]{haskell1-sol.hs}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+\beginoptional
+%%%%%%%%%%%%%%%
+\begin{problem}[24 点]
+下面的程序试图使用 Haskell 解决 24 点问题。
+得益于 Haskell 和 函数式 的强大表达能力，多数函数均只有一行。
+推荐在开始前学习 \href{https://learnyouahaskell.mno2.org/zh-cn}{教程} 第4章、第6章的内容。
+\end{problem}
+\begin{solution}
+  \footnote{作业压缩包中含有上述程序的源代码 haskell2-sol.hs，你可以将修改后的程序放入该文件中并与作业一起上传。}
+
+  \lstinputlisting[language=Haskell]{haskell2-sol.hs}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Lambda Calculus]
+  请介绍 lambda 演算的历史和主要概念。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Lambda\_calculus}{Lambda Calculus @ wiki}
+    \item \href{https://plato.stanford.edu/entries/lambda-calculus/}{Stanford Encyclopedia of Philosophy}
+  \end{itemize}
+\end{ot}
+
+\begin{ot}[函数式编程]
+  以Haskell为例，请介绍函数式编程语言如何体现Lambda Calculus的主要概念。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Functional\_programming}{Functional Programming @ wiki}
+  \end{itemize}
+\end{ot}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginfb
+
+你可以写
+~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+\begin{itemize}
+  \item 对课程及教师的建议与意见
+  \item 教材中不理解的内容
+  \item 希望深入了解的内容
+  \item $\cdots$
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

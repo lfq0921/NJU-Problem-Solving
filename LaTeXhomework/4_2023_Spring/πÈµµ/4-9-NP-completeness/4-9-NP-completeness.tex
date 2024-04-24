@@ -1,0 +1,225 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-9讲: NP完全理论初步}
+\me{朱宇博}{191220186 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC  34.1-5]
+\end{problem}
+
+\begin{solution}
+(1)\\
+假设执行$k$次子例程。\\
+则第一次输入的规模为$O(n)$，输出的规模为$O(n^c)$，时间为$O(n^c)$。\\
+则第$k$次输入的规模为$O(n^{c^{k-1}})$，输出的规模为$O(n^{c^k})$，时间为$O(n^{c^k})$。\\
+其中$c^k$为常数，则显然为多项式时间。\\
+
+\noindent 若执行$n$次子例程。\\
+则第$k$次输入的规模为$O(n^{c^{n-1}})$，输出的规模为$O(n^{c^n})$，时间为$O(n^{c^n})$。\\
+显然不为多项式时间。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 34.2-3]
+\end{problem}
+
+\begin{solution}
+将图中顶点标号为$v_1,..,v_n$\\
+从$v_1$开始依次做如下操作：	\\
+设和$v_1$相连的边集为$E_1$,则任取$e_1,e_2\in E_1$，检验图$G`=(V,(E-E_1)\lor(e_1,e_2))$是否有哈密顿回路。\\
+因为图$G$存在哈密顿回路，则总存在上述$G`$使得$G`$中存在哈密顿回路。\\
+找到存在哈密顿回路的$G`$后，令$G=G`$，继续对顶点$v_2,v_3,...,v_n$做上述操作。\\
+显然若哈密顿回路问题是$P$问题，则上述算法可在多项式时间内结束，并找到顶点集。\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 34.2-4]
+\end{problem}
+
+\begin{solution}
+假设$L_1, L_2\in NP$，$A_1$, $A_2$为 $L_1, L_2$ 的一个多项式验证算法。\\
+对于union: \\
+对于输入的(x,y)，算法A: 若$A_1(x,y)$可接受，或$A_2(x,y)$可接受，则判定为接受，否则拒绝。\\
+显然，其可在多项式时间验证，属于$NP$.\\
+对于intersection: \\
+对于输入的(x,y)，算法A: 若$A_1(x,y)$可接受，并且$A_2(x,y)$可接受，则判定为接受，否则拒绝。\\
+显然，其可在多项式时间验证，属于$NP$.\\
+对于concatenation: \\
+对于输入的(x,y)，算法A: 若$A_1(x[1,...,i],y[1,...,j])$可接受，并且$A_2(x[i+1,...,n],y[j+1,...,m])$可接受，则判定为接受，否则拒绝。其中$n=|x|, m = |y|$。\\
+显然，其可在多项式时间验证，属于$NP$.\\
+ Kleene star:\\
+ 在concatenation中，我们将$(x,y)$各分成$2$段。在该算法中，我们参照该做法，将$x$分为不超过
+ 在concatenation的验证中，我们将$x$各分成不超过$|x|$段，$y$分成不超过$|y|$段，若每段都可接受，则判定为接受，否则拒绝。\\
+ 讨论：\\
+ 若$L\in P$，则$\overline{L}\in P$。 若$L\in NPC$，则目前没有确定的答案，对$\overline{L}$给出明确的界定。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 34.3-2]
+\end{problem}
+
+\begin{solution}
+若$L_1\leq L_2$，则存在多项式时间的转换函数$f(x)$，其中$x\in L_1, f(x) \in L_2$\\
+若$L_2\leq L_3$，则存在多项式时间的转换函数$g(x)$，其中$x\in L_2, g(x) \in L_3$\\
+从而有$g(f(x))$为多项式时间的转换函数，其中$x\in L_1, g(f(x)) \in L_3$\\
+故$L_1\leq L_3$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 34.4-3]
+\end{problem}
+
+\begin{solution}
+对于有 $n$个变量的布尔公式, 列出其真值表的时间复杂度为$\Omega(2^n)$，故该方法不能多项式时间规约
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 34.2-11]
+\end{problem}
+
+\begin{solution}
+数学归纳法。\\
+若 n = 3，则 其为$K_3$，显然存在哈密顿回路\\
+假设对于所有点数为$k$ $(3 \leq k < n)$的连通图都成立\\
+则当$k=n$时\\
+令 T 表示 G 的任意生成树，取任意一点$x$，并且移除，可以得到 T 的若干个连通块 $G_1, G_2, · · · , G_l$\\
+对于任意 $|G_i|>1$，则选出$u, v\in G_i$，满足$e(u,x)\in G_i$，$e(u,v)\in G_i$。根据归纳假设$G_i$ 包含一条由$u$ 到 $v$ 的哈密顿通路。\\
+若$|G_i|=1$，则将该点视为该联通块内的哈密顿通路。\\
+显然，从$v$出发，依次遍历每个联通块，在每个联通块内按哈密顿通路遍历，即可找到哈密顿回路。\\
+综上得证
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 34.4-7]
+\end{problem}
+
+\begin{solution}
+设有$n$个变量，$m$个子句，对于变量$x_1,x_2,...,x_n$，每个变量创建两个顶点$x_i$和$\neg x_i$。\\
+则若有子句$a\lor b$，则添加$ (\neg a, b),(\neg b, a)$两条边。\\
+tarjan缩点，若存在$x_i.\neg x_i$在同一强连通分量里，则不可满足。否则，可满足。\\
+复杂度$O(n+m)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 34.5-6]
+\end{problem}
+
+\begin{solution}
+(1)\\
+首先，我们证明哈密顿路径问题是NP问题。若给出证书$y$，我们只需检验$y$是否构成排列，并且$y$中相领点之间是否存在边即可。显然可多项式时间验证，故为NP问题。\\
+(2)\\
+我们证明可将哈密顿回路问题规约到哈密顿通路。\\
+对于图中的每一条边$e(u,v)\in G$\\
+构造$G_1$, $V(G_1)=V(G)\lor \{u_{new}, v_{new}\}$，$E(G_1) = E(G)\lor\{(u_{new}, u), (v_{new}, v)\}/\{(u,v)\}$\\
+下证$G$中存在哈密顿回路当且仅当存在符合构造的$G_1$，其存在哈密顿通路。\\
+若在原图$G$中存在哈密顿回路，则显然若$(u,v)$属于哈密顿圈，在删去$(u,v)$构造的$G_1$中，存在一条$u_{new}$出发，$v_{new}$结束的哈密顿路径。\\
+若在$G_1$中存在哈密顿通路，则一定是条$u_{new}$出发，$v_{new}$结束的哈密顿路径。故原图$G$中显然存在哈密顿回路。\\
+调用需要$O(m)$次，显然调用为多项式时间规约。\\
+故得证。
+\end{solution}
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 34.5-2]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[NP]	
+	The name ``NP'' stands for ``nondeterministic polynomial time.'' The class NP was originally studied	in the context of nondeterminism, but this book uses the somewhat simpler yet equivalent notion of verification. 
+	Hopcroft and Ullman [180] give a good presentation of NP-completeness in terms of nondeterministic models of computation.
+	
+	阅读TC参考文献[180]，介绍Hopcroft等人的NP问题定义，并说说两种定义方法是一致的吗？为什么？
+	
+	\href{http://ce.sharif.edu/courses/94-95/1/ce414-2/resources/root/Text\%20Books/Automata/John\%20E.\%20Hopcroft,\%20Rajeev\%20Motwani,\%20Jeffrey\%20D.\%20Ullman-Introduction\%20to\%20Automata\%20Theory,\%20Languages,\%20and\%20Computations-Prentice\%20Hall\%20(2006).pdf}{John E. Hopcroft and Jeffrey D. Ullman. Introduction to Automata Theory, Languages, and	Computation. Addison-Wesley, 1979.
+}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[TSP is NP-hard]	
+证明旅行商问题是NPC问题.
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

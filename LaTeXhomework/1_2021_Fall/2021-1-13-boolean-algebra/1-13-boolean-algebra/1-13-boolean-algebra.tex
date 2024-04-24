@@ -1,0 +1,210 @@
+% 1-13-boolean-algebra.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第13讲: 布尔代数}
+\me{林凡琪}{{ 211240042     }}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \mfigcap{width = 0.85\textwidth}{figs/George-Boole}{George Boole}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Definition]
+请证明: A bounded, distributive, and complemented lattice is a Boolean algebra.
+\end{problem}
+
+\begin{solution}
+  代数系统<B, $\lor$ , $\land$>($\lor, \land$ 为B上二元运算), 称为布尔代数, 如果B满足以下条件:\\
+  (1)运算$\lor$, $\land$满足交换律.\\
+  (2)$\lor$运算对$\land$运算满足分配律,$\land$运算对$\lor$运算也满足分配律.\\
+  (3)B有$\lor$运算幺元1和$\land$ 运算零元0, $\land$运算幺元和$\lor$运算零元1.\\
+  (4)B中的任意元素a,都有其补元$a'$\\
+  \\
+  有补分配格首先是格,所以满足(1);\\
+  分配格满足分配律,所以满足条件(2);\\
+  因为B是有补分配格,所以每一个元素都有唯一一个补元,其中元素0, 1的补元就是对方, 所以一定满足(3);\\
+  B是有补分配格, 所以不妨设a为B中任意一个元素, b和c 都是a的补元, 那么$a \land b = 0 = a \land c$, $a \lor b = 1 = a \lor c$\\
+  但因为B是分配格, 所以当且仅当$b = c$时,$a \land b = a \land c$,$a \lor b = a \lor c$, 所以$a$只有唯一补元.
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[$D_{n}$]
+请证明: $D_{n}$ (定义见阅读材料 Example 15.1 (c))
+是 Boolean algebra 当且仅当 $n = p_1 p_2 \cdots p_k$ (for some $k$),
+这里 $p_i$ 皆为素数且互异。
+\end{problem}
+
+\begin{solution}
+  不妨假设$p_i$不为素数, $p_i = p_{i - 1} \times p_{i + 1}$, 则lcm($p_{i - 1}, p_{i + 1}$) = $p_i$ $\neq$ n, 不符合分配格的条件,所以不是布尔代数.\\
+  再不妨假设$p_i = p_{i + 1}$, 则一定有一个$p_{i + 2} = p_i \times p_{i + 1}$,此时$p_{i + 2}$不是素数,证明过程同上一假设.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Atom]
+设 $B$ 为 Boolean algebra, 对于任意元素 $a \in B$,
+定义 $\textsf{Atom}(a) = \set{x \le a \mid x \text{ is an atom}}$。
+
+\noindent 现假设 $B$ 为有穷 Boolean algebra。
+请证明:
+\[
+  \forall a \in B: a \neq 0 \implies \textsf{Atom}(a) \neq \emptyset.
+\]
+\end{problem}
+
+\begin{solution}
+  因为B为有穷布尔代数,所以对B中每一元素a,均存在元素$a^{'}$,使得$a \land a^{'} = 0$ 所以$0 \leqslant a$所以$\forall a \in B: a \neq 0 \implies \textsf{Atom}(a) \neq \emptyset.$因为0一定小于a.\\
+  证明:设存在原子b，使得$b \leqslant a$\\
+  1)如果a是原子，则令a = b， 则$b \leqslant a$\\
+  2)如果a不是原子，则必存在$a_1 \in B$使得$0 < b_1 < a$,如果$b_1$不是原子，则必存在$b_2 \in B$使得$0 < b_2 < b_1 < a$,如此下去，因为B是有穷布尔代数，上述过程经过有限步骤而最后会结束，最后得到原子$b_k$,$0 < b_k < ... <b_2 < b_1 < a$令$b_k = b$ 则$b \leqslant a$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Isomorphic]
+请证明: 有穷且等势的 Boolean algebras 均同构。
+\end{problem}
+
+\begin{solution}
+  由Stone布尔代数的表示定理可推出有穷且等势的 Boolean algebras 均同构, 所以在此证明Stone定理即可.\\
+  即证:任意有限布尔代数<B,$\lor$,$land$,->,M是所有原子构成的集合,则<B,$lor$,$land$,->与<P(M),$\cup$,∩,~>同构.\\
+  证明:构造映射f:B$\rightarrow\Pi (M)$, 对于$\xi \in B$有
+  $$ f(x)=\left\{
+    \begin{aligned}
+      \Phi                           &  & {x = 0}    \\
+      \{a | a \in M, a \leqslant x\} &  & {x \neq 0} \\
+    \end{aligned}
+    \right.
+  $$
+  (1)先证明$\phi$是双射\\
+  (a)先证明$\phi$是入射:只有$\xi = 0$时,才有$\phi(\xi) = \Phi$.\\
+  任取$x_1,x_2\in B,x_1 \neq 0, x_2 \neq 0, 且x_1\neq x_2$\\
+  $x_1 = a_1 \lor a_2 \lor ... \lor a_k$其中$a_i \leqslant x_1$  ($1 \leqslant i \leqslant k)$\\
+  $x_2 = b_1 \lor b_2 \lor ... \lor b_m$其中$b_j \leqslant x_2$  ($1 \leqslant j \leqslant m)$\\
+  因为每一个非0元素写成上述表达式的形式是唯一的,又因为$x_1\neq x_2$, 所以$\{a_1, a_2,...a_k\} \neq \{b_1, b_2,...,b_m\}$故$\phi(x_1) \neq f(x_2)$,f入射.\\
+  (b)证明f满射:任取$M_1 \in \Pi(M)$如果$M_1$为$Phi$,则$\phi(0) = M_1$,如果$M_1 \neq Phi$,令$M_1 = \{a_1,a_2,...,a_k\}$,由$\lor$的封闭性得,必存在$\xi \in B$,使得$a_1 \lor a_2 \lor ... \lor a_k= x$显然每个$a_i \leqslant \xi$,故$\phi(\xi) = M_1$,所以$\phi$是满射的.\\
+  由(1)得$\phi$是双射的.\\
+  (2)证明f满足三个同构关系式.\\
+  任取$x_1, x_2,\in B$因为$phi$是双射,必有$M_1, M_2 \in \Pi(M)$,使得$f(x_1) = M_1, f(x_2) = M_2$,\\
+  (a)证明$f(x_1 \land x_2) = f(x_1) \cap f(x_2) = M_1 \cap M_2$\\
+  先证$M_3 \subseteq M_1 \cap M_2$\\
+  如果$M_3 = \Phi$显然有$M_3 \subseteq M_1 \cap M_2$\\
+  如果$M_3 \neq \Phi$,任取$a \in M_3$,由$f$定义得$a \leqslant x_1 \land x_2$,又因为$x_1 \land x_2 \leqslant x_1$,$x_1 \land x_2 \leqslant x_2$,所以$a \leqslant x_1, a \leqslant x_2$由f定义得$a\in f(x_1), a\in f(x_2)$即$a \in M_1, a\in M_2$,故$a \in M_1 \cap M_2$,所以$M_3 \subseteq M_1 \cap M_2$\\
+  再证$M_1 \cap M_2 \subseteq M_3$\\
+  如果 $M_1 \cap M_2 = \Phi$ 显然有$M_1 \cap M_2 \subseteq M_3$\\
+  如果$M_1 \cap M_2 \neq \Phi$, 任取$a \in M_1 \cap M_2$ 是满足$a \leqslant x_1, a \leqslant x_2$的原子,$a \leqslant x_1 \land x_2$由f定义得\\
+  $a\in f(x_1 \land x_2)$即$a\in M_3$,所以$M_1 \cap M_2 \subseteq M_3$\\
+  所以$M_1 \cap M_2 = M_3$ 即$f(x_1 \land x_2) = f(x_1) \cap f(x_2)$\\
+  (b)证明$f(x_1 \lor x_2) = f(x_1) \cup f(x_2) = M_1 \cup M_2$\\
+  令$f(x_1 \lor x_2) = M_4$,即证明$M_4 = M_1 \cup M_2$\\
+  先证$M_4 \subseteq M_1 \cup M_2$\\
+  若$M_4 = \Phi$,显然$M_4 \subseteq M_1 \cup M_2$\\
+  如果$M_4 \neq Phi$,任取$a \in M_4$,由f定义得$a \leqslant x_1 \lor x_2$,则必有$a \leqslant x_1$ 或者 $a \leqslant x_2$\\
+  由f定义得$a\in f(x_1)$即 $a \in M_1$ 或$a \in f(x_2)$ 即 $a \in M_2$\\
+  所以$a \in M_1 \cup M_2$,则 $M_4 \subseteq M_1 \cup M_2$.\\
+  再证$M_1 \cup M_2 \subseteq M_4$\\
+  如果 $M_1 \cup M_2 = \Phi$,显然有$M_1 \cup M_2 \subseteq M_4$\\
+  如果$M_1 \cup M_2 \neq \Phi$,任取$a \in M_1 \cup M_2$\\
+  如果$a \in M_1$,则$a \leqslant x_1 \leqslant x_1 \lor x_2$, 所以$a \in f(x_1 \lor x_2)$, $a \in M_4$\\
+  如果$a \in M_2$,则$a \leqslant x_2 \leqslant x_1 \lor x_2$, 所以$a \in f(x_1 \lor x_2)$, $a \in M_4$\\
+  所以$M_1 \cup M_2 \subseteq M_4$\\
+  综上所述 $M_4 = M_1 \cup M_2$\\
+  即$f(x_1 \lor x_2) = f(x_1) \cup f(x_2)$
+  (3)证明$f(\overline{x_1}) = ~f(x_1), x \in B$\\
+  令$x_2 = \overline{x_1}$且$f(x_1) = M_1,f(x_2) = M_2$\\
+  于是$x_1 \lor x_2 = 1, x_1 \land x_2 = 0$\\
+  $\phi(x_1 \lor x_2) = M, \phi(x_1 \land x_2) = \Phi$\\
+  $\phi(x_1 \lor x_2) =\phi(x_1) \cup \phi(x_2) = M_1 \cup M_2 = M$\\
+  $\phi(x_1 \land x_2) =\phi(x_1) \cap \phi(x_2) = M_1 \cap M_2 = \Phi$\\
+  所以 $M_2 = ~M_1$ 即\\
+  由(1)(2)(3)得$f(x_1 \land x_2) = f(x_1) \cap f(x_2)，\phi(x_1 \lor x_2) =\phi(x_1) \cup \phi(x_2)$
+  所以<B,$\lor$,$land$,->与<P(M),$\cup$,∩,~>同构
+  所以可推得有限等势布尔代数同构。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Isomorphic]
+是否任何 Boolean Algebra 都与某个幂集 Boolean Algebra 同构?
+请证明或给出反例。
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Karnaugh map]
+  以三变量为例，介绍卡诺图的应用与基本原理。
+
+  参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Karnaugh\_map}{Karnaugh map @ wiki}
+    \item 课程阅读材料 Section 15.12
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Circuit Design]
+  为了在液晶显示器上显示数字 $0 \sim 9$，
+  我们通常设置 7 个液晶段 $a \sim g$。
+  请设计数字电路，实现该显示器的功能。
+
+  \mfig{width = 1.00\textwidth}{figs/digital}
+  提示: 该电路有 4 个输入信号，7个输出信号。如右图所示。
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

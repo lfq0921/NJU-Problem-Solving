@@ -1,0 +1,285 @@
+% 1-5-data-structure.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第5讲: 数据结构}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \mfig{width = 1.30\textwidth}{figs/data-structure-linus}
+  \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.32\textwidth}{\large
+          \begin{itemize}
+            \item 数据之美，在于结构
+            \item 掌握基础的数据结构
+          \end{itemize}}}}
+  \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH 2.11: Generating Permutations]
+\end{problem}
+
+\begin{solution}
+  \noindent
+  \begin{algorithm}
+    \caption{ permutations}\label{euclid}
+    \begin{algorithmic}[1]
+      \State read{$N$}
+      \State solve{$1$}
+      \Procedure{solve}{$k$}
+      \If {$k = N + 1$}
+      \For{$i \gets 1$ to $N$}
+      \State print(val[$i$])
+      \State print(endl)
+      \EndFor
+      \State return
+      \EndIf
+      \For{$i\gets 1$ to $N$}
+      \If{vis[$i$] = $1$}
+      \State continue
+      \EndIf
+      \State val[$k$] = $i$
+      \State vis[$i$] = $1$
+      \State solve($k + 1$)
+      \State vis[$i$] = 0
+      \EndFor
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH 2.12 (a: III; b; c): Examples for Generating Permutations via Stack]
+\end{problem}
+
+\begin{solution}
+  (a)$iii.$\\
+  read($X$) 1\\
+  push($X$,$S$) 1\\
+  read($X$) 2\\
+  push($X$,$S$) 2\\
+  read($X$) 3\\
+  print($X$) 3\\
+  read($X$) 4\\
+  push($X$,$S$) 4\\
+  read($X$) 5\\
+  print($X$) 5\\
+  read($X$) 6\\
+  push($X$,$S$) 6\\
+  read($X$) 7\\
+  print($X$) 7\\
+  pop($X$,$S$) 6\\
+  print($X$) 6\\
+  read($X$) 8\\
+  print($X$) 8\\
+  pop($X$,$S$) 4\\
+  print($X$) 4\\
+  read($X$) 9\\
+  print($X$) 9\\
+  pop($X$,$S$) 2\\
+  print($X$) 2\\
+  read($X$) 10\\
+  print($X$) 10\\
+  pop($X$,$S$) 1\\
+  print($X$) 1\\
+  (b)\\
+  $i.$\\
+  证明:输出3后，栈顶元素应为2,1一定在2后面输出，所以不可能是出栈序列\\
+  $ii.$\\
+  证明：输出7时，6一定是栈顶元素，2和1一定在6的后面输出，所以不可能是出栈序列\\
+  (c)\\
+  $A_4 = 24$，四个元素共有14种，所以有10种不是出栈序列
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH 2.13: Algorithms for Generating Permutations via Stack]
+\end{problem}
+
+\begin{solution}
+  \noindent
+  \begin{algorithm}
+    \caption{match}\label{euclid}
+    \begin{algorithmic}[2]
+      \Procedure {judge}{}
+      \State read {$order[]$}
+      \State $n$ = size of $order[]$
+      \For{$i \gets 1$ to $n$}
+      \State $arr[i] = i$
+      \EndFor
+      \State i = 1
+      \State $k$ = $1$
+      \For{$j \gets 1$ to $n$}
+      \State operation[k] = read
+      \State k++
+      \If{$arr[j]$ = order[i]}
+      \State operation[k] = print
+      \State k++
+      \Else
+      \State push(S)
+      \State operation[k] = push
+      \State k++
+      \EndIf
+      \If{top = order[i]}
+      \State pop($S$)
+      \State operation[k] = pop
+      \State k++
+      \State operation[k] = print
+      \State k++
+      \State i++
+      \EndIf
+      \EndFor
+      \If{is-empty(S)}
+      \State return true
+      \Else return false
+      \EndIf
+      \EndProcedure
+
+      \If{judge = true}
+      \State print "yes"
+      \For{i $\gets 1$ to $k - 1$}
+      \State print operation[i]
+      \EndFor
+      \Else
+      \State print "no"
+      \EndIf
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH 2.14 (b, c): Generating Permutations via Queue]
+\end{problem}
+
+\begin{solution}
+  $(b)$\\
+  证明：当需要队列中的第n个数时，只需要将其前面的n-1个数一一弹出再一一入队，此时n就到了队列顶端，可以弹出并输出.\\
+  $(c)$\\
+  证明：当需要栈S1中的第n个数时，只需要将其后面的N-n个数一一弹出，再一一进入栈S2，此时n就到了栈顶，可以弹出并输出.\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[DH 2.16: Treesort]
+\end{problem}
+
+\begin{solution}
+  \noindent
+  (a)\\
+  以第一个数为rootT，如果一个数小于所在的T且left（T）非空，就走向left（T），将其当做新的T继续判断，如果这个数大于所在的T且right(T)非空，就走向right(T)，将其当成新的T继续判断，直到碰见空T，就把该数字放进去。\\
+  (b)\\
+  中序遍历会输出从小到大的排列顺序\\
+  按照题目的遍历方式会输出从大到小的排列顺序
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Generating Permutations via Stack]
+How many permutations of $A_n$ can be obtained by a stack?
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+\mfig{width = 0.85\textwidth}{figs/boring-teachers}
+{\bf 注意:} 本周的两个OT都是介绍程序设计语言的特性。
+平铺直叙的介绍方式很容易让听众精神涣散。
+你需要思考如何才能让大家对你以及你所讲解的知识保持兴趣。
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Pointers and Arrays]
+  介绍 C/C++ 语言中的指针与数组, 如 (不限于):
+  \begin{itemize}
+    \item 指针的基本概念
+    \item 数组的声明与使用
+    \item 指针与数组的关系
+    \item 多维数组
+  \end{itemize}
+
+  \noindent 参考资料
+  \begin{itemize}
+    \item \href{http://cslabcms.nju.edu.cn/problem\_solving/images/c/cc/The\_C\_Programming\_Language\_\%282nd\_Edition\_Ritchie\_Kernighan\%29.pdf}{Chapter 5 of ``K\&R: The C Programming Language (2nd Edition)''}
+    \item \href{http://cslabcms.nju.edu.cn/problem\_solving/images/5/53/Understanding\_and\_Using\_C\_Pointers\_\%28Richard\_Reese\%29.pdf}{Chapter 4 of ``Understanding and Using C Pointers''}
+    \item \href{http://ptgmedia.pearsoncmg.com/images/9780321714114/samplepages/0321714113.pdf}{Sections 3.5 and 3.6 of ``C++ Primer (5th Edition)''}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Sequential Containers in C++ STL]
+  请介绍 C++ STL 中的顺序存储容器
+  (\texttt{vector}, \texttt{deque}, \texttt{list}, \texttt{forward\_list}, \texttt{string}) 的用法。
+  \mfig{width = 0.70\textwidth}{figs/data-structure-first}
+
+  \noindent 要求:
+  \begin{itemize}
+    \item 不要引入过多的概念，报告的目的是让大家掌握这些基础容器的用法 (目前不必了解过多技术细节)
+  \end{itemize}
+
+  \noindent 参考资料
+  \begin{itemize}
+    \item \href{http://ptgmedia.pearsoncmg.com/images/9780321714114/samplepages/0321714113.pdf}{Chapters 3 and 9 of ``C++ Primer (5th Edition)''}
+    \item \href{https://en.wikipedia.org/wiki/Sequence\_container\_(C\%2B\%2B)}{Sequence container (C++) @ wiki}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+\begincorrection
+1-4\\
+三分法最优。因为三分法称量后可以使每个单份中的硬币数量最少，且一定能判断假币在哪一堆。\\
+因为每操作一次后，样本容量变为原来的1/3，当样本容量为3时就只需一次称量。所以下界为  $\lceil \log_3 n \rceil$\\
+3-3\\
+假设形如4k+3的素数是有限个，设其为$p_1, p_2,...,p_n$\\
+令$n = 4 * p_1, p_2,...,p_n - 1$\\
+首先可知n形如4k+1且n>$p_n$\\
+继续证明n为素数\\
+因为n为奇数，所以它的因子只能为奇数，又因为任何形如4k+3的素数都不是它的因子，所以只需证明形如4k+1的素数也不是它的因子。\\
+易知，如果n有形如4k+1的因子，那n也能被表达为x倍的4k+1的形式，但n实际上是4k+3的形式，所以n不可能有形如4k+1的因子。\\
+
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

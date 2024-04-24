@@ -1,0 +1,114 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-12讲: 启发式算法}
+\me{林凡琪 }{ 211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+	% \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+	%   \begin{itemize}
+	%     \item 
+	%   \end{itemize}}}}
+	% \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[探索题]
+选择一道典型"难题", 给出一种启发式算法(不限于模拟退火与遗传算法;可百度,可Bing,可Google)并作简要分析
+\end{problem}
+
+\begin{solution}
+	可选择用模拟退火算法求解TSP问题。\\
+	该问题的解可表示为$(a_1, a_2, ..., a_n)$，其中序列$a$为一个长度为$n$的排列，代表遍历城市的顺序。目标为使得路程之和最小化\\
+	在开始时设置初始温度$T$，终止条件，并随机一个排列做为初始解\\
+	之后的每一轮，在以下两种策略中，随机选择一种:
+	1,  随机选择不同的下标$i,j$，交换$a_i$, $a_j$\\
+	2，随机选择不同的下标$i,j,k(i < j <k)$，将$a_i$到$a_j$之间的路径，插到$a_k$后面。\\
+	在此之后若新解优于原解，则接受；否则，则以$e^{\frac{\delta}{T}}$的概率接受。此后降低温度。\\
+	若降低温度后达到结束温度，则结束并输出答案，否则，继续迭代。
+\end{solution}
+%%%%%%%%%%%%%%%
+\simeq
+
+
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[超级玛丽是 NP-hard 的.]
+	请证明超级玛丽是 NP-hard的。
+	\begin{itemize}
+		\item 参考资料：\href{http://cslabcms.nju.edu.cn/problem_solving/images/e/e0/Classic_Nintendo_Games_are_Computationally_Hard_\%28arXiv12_1203.1895\%29.pdf}{Classic Nintendo Games are Computationally Hard}
+	\end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+\begin{ot}[经典随机算法介绍.]
+	介绍几个经典的（没有在课堂上讲解过的）随机算法。
+	\begin{itemize}
+		\item 参考资料：\href{https://immorlica.com/randAlg/Karp91.pdf}{An introduction to randomized algorithms}
+	\end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

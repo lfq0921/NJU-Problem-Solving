@@ -1,0 +1,123 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+
+\usepackage{amsmath, amsthm, amssymb, mathrsfs, graphicx}
+\usepackage{tcolorbox, hyperref, enumerate}
+
+\input{hw-preamble}
+
+\title{\vspace{-2em}\textbf{第0讲：\LaTeX}}
+\me{李四}{210000000}{}{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\section*{Problem 1}
+\begin{problem}
+证明:
+$$
+  Pr(\bigcup_{i=1}^n A_i) \leq \sum_{i=1}^n Pr(A_i)
+$$
+\end{problem}
+
+\begin{proof}
+  概率空间的定义：非负性和可加性。
+
+  首先，证明一个性质$$P(A\cup B) \leq P(A) + P(B)$$(事件的并概率上界)
+
+  设两个相交的事件，即A和B。
+
+  可知$A \cup B = A\cup (A^c \cap B), B=(A\cap B)\cup (A^c \cap B)$
+
+  由可加性可知：
+
+  $$P(A\ cup B) = P(A)+P(A^c \cap B)$$
+  $$P(B) = P(A\cap B) + P(A^c\cap B)$$
+
+  $$\Rightarrow P(A \cup B) = P(A)+P(B) - P(A \cap B)$$
+
+  由非负性可知, $$P(A \cup B) \leq P(A)+P(B)$$
+
+  至此证成事件的并概率上界性质;
+
+  可以将此性质用于$A_1$和$A_2\cup A_3 \cup ... \cup A_n$
+
+  $$Pr(A_1) \cup Pr(A_2\cup A_3 \cup ... \cup A_n) \leq Pr(A_1) + Pr(A_2\cup A_3 \cup ... \cup A_n)$$
+
+  再用此方法计算$Pr(A_2)$和$Pr(A_3\cup A_4 \cup ... \cup A_n)$;
+
+  得到$$Pr(A_2) \cup Pr(A_3\cup A_4 \cup ... \cup A_n) \leq Pr(A_2) + Pr(A_3\cup A_4 \cup ... \cup A_n)$$
+
+  以此类推,可得
+
+  $$\Rightarrow Pr(A_1 \cup A_2 \cup .. \cup A_n) \leq Pr(A_1) + Pr(A_2) + ... + Pr(A_n)$$
+  即
+  $$Pr(\bigcup_{i=1}^n A_i) \leq \sum_{i=1}^n Pr(A_i)
+  $$
+\end{proof}
+
+
+\begin{problem}
+[Principle of Inclusion and Exclusion (PIE)] Prove that
+$\mathbf{Pr}\left( \bigcup_{i=1}^n A_i\right) = \sum_{\emptyset \neq S \subseteq [n]} (-1)^{|S|-1} \mathbf{Pr}\left( \bigcap_{i \in S} A_i \right) $
+, where$ [n]=\{1,2,\ldots,n\} $.
+\end{problem}
+
+\begin{proof}
+
+  将用数学归纳法证明.
+
+  Consider a single set $A_1$. Then the principle of inclusion-exclusion states that $|A_1| = |A_1| + | A_1 | - | A_1 \cap A_1 | = | A_1 |$, which is trivially true. Now consider a collection of exactly two sets $A$ and $B$. Then $|A \cup B| = |A| + |B| - |A \cap B|$. Assume that the principle of inclusion-exclusion holds for unions of $n$ terms. By grouping terms, and simplifying some of them, the principle can be deduced for unions of $n+1$ terms⁴.
+
+  Therefore, $\mathbf{Pr}\left( \bigcup_{i=1}^n A_i\right) = \sum_{\emptyset \neq S \subseteq [n]} (-1)^{|S|-1} \mathbf{Pr}\left( \bigcap_{i \in S} A_i \right) $, where $[n]=\{1,2,\ldots,n\}$.
+
+
+\end{proof}
+
+\begin{note}
+  无论 \textbackslash itemlize 还是\textbackslash enumerate 中的 \textbackslash item 都支持一个可选参数以临时更换列表标志（即无序列表前的点或有序列表前的 ``1.''）。
+  此外，使用 \textbackslash enumerate 的可选参数也可以改变有序列表的图标。当然，这些列表是可以嵌套的。
+\end{note}
+
+\begin{problem}
+请用 \LaTeX 输出下图中的公式。
+
+\includegraphics[width=1\textwidth]{figs/formula}
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{note}
+  当你不认识某些数学符号的时候，你可以使用 \href{http://detexify.kirelabs.org/classify.html}{Detexify} 或 \href{https://mathpix.com/}{mathpix} 等工具进行识别。
+  你也可以使用 \href{https://latex.codecogs.com/legacy/eqneditor/editor.php}{Online LaTeX Equation Editor} 或者你编辑器中的符号表进行输入。
+\end{note}
+
+\begin{problem}
+请用 \LaTeX 输出下图中的表格。
+
+\includegraphics[width=.3\textwidth]{figs/table}
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{note}
+  如果你觉得 \LaTeX 的表格填起来太麻烦，你也可以使用 \href{https://www.tablesgenerator.com/}{TablesGenerator} 帮你生成。
+\end{note}
+
+\begin{problem}
+（此部分为选做）本学期还有可能需要你编写一些伪代码，\LaTeX 中当然有相应的宏包—— \href{http://tug.ctan.org/macros/latex/contrib/algorithmicx/algorithmicx.pdf}{algorithmicx} 。
+
+请用 \LaTeX 输出下图中的算法。
+
+\includegraphics[width=\textwidth]{figs/algorithm}
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\end{document}

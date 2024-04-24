@@ -1,0 +1,296 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第3-15讲: 矩阵计算}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}x{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}X
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.1-2]
+\end{problem}
+
+\begin{solution}
+  $$
+    \left(\begin{array}{ccc}
+      4  & -5 & 6  \\
+      8  & -6 & 7  \\
+      12 & -7 & 12
+    \end{array}\right)=\left(\begin{array}{ccc}
+      1 & 0 & 0 \\
+      2 & 1 & 0 \\
+      3 & 2 & 1
+    \end{array}\right)\left(\begin{array}{ccc}
+      4 & -5 & 6  \\
+      0 & 4  & -5 \\
+      0 & 0  & 4
+    \end{array}\right)
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.1-3]
+\end{problem}
+
+\begin{solution}
+  已知
+  $$
+    A=\left(\begin{array}{ccc}
+      1 & 5 & 4 \\
+      2 & 0 & 3 \\
+      5 & 8 & 2
+    \end{array}\right)\\
+    b = \left(\begin{array}{c}
+      12 \\
+      9  \\
+      5
+    \end{array}\right)$$
+  \\LUP分解是:
+  \\
+  $$L=\left(\begin{array}{ccc}
+      1   & 0        & 0 \\
+      0.2 & 1        & 0 \\
+      0.4 & -3.2/3.4 & 1
+    \end{array}\right),
+    U=\left(\begin{array}{ccc}
+      5 & 8   & 2                     \\
+      0 & 3.4 & 3.6                   \\
+      0 & 0   & 2.2+\frac{11.52}{3.4}
+    \end{array}\right),
+    P=\left(\begin{array}{ccc}
+      0 & 0 & 1 \\
+      1 & 0 & 0 \\
+      0 & 1 & 0
+    \end{array}\right).$$\\
+  进行代换, 解出$Ly=Pb$中的$y$:
+  $$\left(\begin{array}{ccc}
+      1   & 0        & 0 \\
+      0.2 & 1        & 0 \\
+      0.4 & -3.2/3.4 & 1
+    \end{array}\right)
+    \left(\begin{array}{c}
+      y_1 \\
+      y_2 \\
+      y_3
+    \end{array}\right)=
+    \left(\begin{array}{c}
+      5  \\
+      12 \\
+      9
+    \end{array}\right),\\
+  $$
+  计算$y_1,y_2,y_3$, 我们得到
+  $$
+    y=\left(\begin{array}{c}
+      5  \\
+      11 \\
+      7+35.2/3.4
+    \end{array}\right)$$\\
+  因为 $Ux=y$\\
+  $$
+    \left(\begin{array}{ccc}
+      5 & 8   & 2                     \\
+      0 & 3.4 & 3.6                   \\
+      0 & 0   & 2.2+\frac{11.52}{3.4}
+    \end{array}\right)
+    \left(\begin{array}{c}
+      x_1 \\
+      x_2 \\
+      x_3
+    \end{array}\right)=
+    \left(\begin{array}{c}
+      5  \\
+      11 \\
+      7 + 35.2/34
+    \end{array}\right)$$
+  所以 $x=\left(\begin{array}{c}
+      -3/19 \\
+      -1/19 \\
+      49/19
+    \end{array}\right)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.1-6]
+\end{problem}
+
+\begin{solution}
+  零矩阵始终具有LU分解，将L作为任意单位下三角矩阵，将U作为零矩阵，即上三角矩阵。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.1-7]
+\end{problem}
+
+\begin{solution}
+  对于LU-DECOMPOSITION,确实是有必要的.\\
+  如果没有运行最外层for循环的第六行,$u_{nn}$将会保留初始值0,而不是等于$a_{nn}$\\
+  但实际上任何非奇异矩阵的LU-DECOMPOSITION分解都必须具有行列式值为正的L和U.但是如果$u_{nn}=0$,那么$U$的行列式将会为0.\\
+  K=N时发生的最外层for循环的迭代不会改变最终答案,因为$\pi$必须是一个on a single element的permutation, 因此它不能是非平凡的.(并且第十六行的for循环根本不会运行)
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.2-1]
+\end{problem}
+
+\begin{solution}
+  It is obvious that multiplying and squaring matrices have essentially the same difficulty, since squaring a matrix is just multiplying it by itself.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.2-2]
+\end{problem}
+
+\begin{solution}
+  设A是一个$n \times n$的矩阵\\
+  不失一般性地,我们假设$n=2^k$,并且规定$L(n/2)\leq cL(n)$其中$c<1/2$,并且$L(n)$是涨到$n \times n$矩阵地LUP分解所需要的时间.\\
+  首先,将A分解为\\
+  $A=\left(\begin{array}{ccc}
+        A_1 \\
+        A_2
+      \end{array}
+    \right)$
+  再让$A_1=L_1U_1P_1$成为$A_1$的一个LUP分解.\\
+  把$U_1$分解为$A_2P_1^{-1}$,其中$U_1=[\overline{U}_1|B]$并且$A_2P_1^{-1}=[C|D]$.\\
+  设$F=D-C\overline{U}_1^{-1}B$. \\
+  $$\rightarrow
+    A=\left(\begin{array}{ccc}
+        L_1                  & 0       \\
+        C\overline{U}_1^{-1} & I_{n/2}
+      \end{array}
+    \right)
+    \left(\begin{array}{ccc}
+        \overline{U}_1 & B \\
+        0              & F
+      \end{array}
+    \right)P_1$$\\
+  现在让$F=L_2U_2P_2$为一个F的LUP分解,并且令$\overline{P}=\left(\begin{array}{ccc}
+        I_{n/2} & 0 \\
+        0       & F
+      \end{array}\right)$.
+  $$\rightarrow
+    A=\left(\begin{array}{ccc}
+        L_1                  & 0   \\
+        C\overline{U}_1^{-1} & L_2
+      \end{array}
+    \right)
+    \left(\begin{array}{ccc}
+        \overline{U}_1 & BP_2^{-1} \\
+        0              & U_2
+      \end{array}
+    \right)\overline{P}P_1$$\\
+  这就是A的一个LUP分解.过程中我们完成了两次LUP分解,一个常数的矩阵乘法和一个常数的矩阵逆运算.因为矩阵逆运算和矩阵乘法等价,所以我们得出运行时间是$O(M(n))$
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.2-3]
+\end{problem}
+
+\begin{solution}
+  从problem 28.2-2可知,我们能找到一个时间复杂度为$O(M(n))$的LU分解算法.所以我们运行那个算法并且将U对角线上的所有元素相乘,这将会是原矩阵的行列式.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.3-1]
+\end{problem}
+
+\begin{solution}
+  设$e_i$是一个除了第i位是1,其他位全是0的向量.\\
+  $Ae_i$获取A的每一行并提取其中的第i行,并将这些值放进列向量.然后将其乘以左侧的$e^{T}_i$,得出该quantity的第i行.\\
+  因为$e_i$是非零的,那么quantity一定是正的.因为我们对每个i都进行一样的操作,所以每个在对角线上的元素都是正数.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 28.3-3]
+\end{problem}
+
+\begin{solution}
+  反证法:\\
+  假设存在一个$a_{ij},i\neq j$是最大的元素.设$e_i$是一个除了第i位是1,其他位全是0的向量.\\
+  我们考虑$(e_i-e_j)^TA(e_i-e_j)$.\\
+  $$
+    \begin{aligned}
+      \left(e_i-e_j\right)^{\mathrm{T}} A\left(e_i-e_j\right) & =a_{i i}-a_{i j}-a_{j i}+a_{j j}  \\
+                                                              & =a_{i i}+a_{j j}-2 a_{i j} \leq 0
+    \end{aligned}
+  $$
+  但A是正的,所以我们的假设错误.\\
+  得证.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%
+%\beginoptional
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+%\begin{problem}[TC Problem 28-1]
+%\end{problem}
+%
+%\begin{solution}
+%\end{solution}
+%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%
+\begin{ot}[TC Problem 28-1]
+
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,216 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第3-13讲: 网络流}
+\me{马林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.1-1]
+\end{problem}
+
+\begin{solution}
+  假设,在源节点为s,汇点为t的流动网络图$G=(V,E)$中,最大流量是$|f|=\sum f(s,v)$\\
+
+  根据流量守恒定律,我们可以在s和t之间加减一些点而不改变流量且不违反流量守恒定律,\\
+  那么这个新图$G^{'}=(V^{'},E^{'})$将和原图G有一样的最大流量,那就是为什么我们可以用(u,x)和(x,v)代替(u,v)(其中c(u,x)=c(x,v)=c(u,v)).\\
+  这样之后,结点$v_1$和$v_2$仍然遵守流量守恒定律,因为流进和流出结点$v_1$和$v_2$的流量值依旧没有改变.同时,$|f|=\sum f(s,v)$保持不变\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.1-2]
+\end{problem}
+
+\begin{solution}
+  容量限制:对于所有$u,v\in V$,我们要求$0\leq f(u,v) \leq c(u,v)$.\\
+  流量守恒定律,对于所有$u\in V-S-T$,我们要求$\sum_{v\in V}f(v,u)=\sum_{v\in V}f(u,v)$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.1-6]
+Adam教授有两个儿子，可不幸的是，他们互相讨厌对方。随着时间的推移，问题变得如此严重，他们之间不仅不愿意一起走到学校，而且每个人都拒绝走另一个人当天所走过的街区。两个孩子对于自己所走的路径与对方所走的路径在街角交叉并不在意。幸运的是，教授的房子和学校都位于街角上。但除此之外，教授不能肯定是否可以在满足上述条件的情况下把两个小孩送到同一所学校。教授有一份小镇的地图，试说明如何将这个问题转换为一个最大流问题，以便央定是否可以将孩子送到同一所学校。
+\end{problem}
+
+\begin{solution}
+  创建一个图,结点代表街道交叉，定义对所有边$(u,v)$有$c(u,v)=1$，又因为每条街道是可以双向通行的，所以还要在每个结点直接加一条反平行边，然后利用处理反平行边的方法来将其转化为没有反平行边的流动网络图.\\
+  把家设为源结点,把学校设为汇点.如果存在至少两个不同的路径能从家到学校,那么流量则最少为2,因为我们可以为每一条边设$f(u,v)=1$.但是如果至多有一条路径从家到学校,就一定有一条边(u,v),移除它之后之后s和t就无法连接.因为$c(u,v)=1$, 所以流进u的流量最多是1.\\
+  我们可以假设没有边进入源节点并且没有边离开汇点.根据流量守恒定律,这表示$f=\sum_{v\in V}f(s,v)\leq 1$所以,最大流量能够决定他的两个儿子能否成功走不同的路去学校.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.1-7]
+假定除边的容量外,流网络还有结点容量.即对于每个结点v,有一个极限值l(v),这是可以流经结点v的最大流量.请说明如何将一个带有结点容量的流网络$G=(V,E)$转换为一个等价的单没有节点容量的流网络$G'=(V',E')$,使得$G'$中的最大流与G中的最大流的取值一样.
+\end{problem}
+
+\begin{solution}
+  把每个带结点容量的结点都分裂为两个,在其中加一条边,边的容量是结点的容量.\\
+  新的流动网络里,如果在原图有边$(v,u)$, 则有$\{0,1\}\times V$,在$1\times v$和$0\times u$之间有一条边.这是第一种边,正常处理.\\
+  另一种边,将有从$0\times v$到$1 \times v$对于每一个拥有结点容量l(v)的结点v.\\
+  这个新的流动网络将拥有$2|V|$的结点,并且有$|V|+|E|$条边.\\
+  最后,我们可以看见,任意流经原图中结点v的,都必须流经新图中的边$(0\times v,1 \times v)$,所以新图$G'$满足要求.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.2-2]
+\end{problem}
+
+\begin{solution}
+  横跨切割$\{s,v_2,v_4\},\{v_1,v_3t\}$的流是11+1+7+4-4=19\\
+  该切割的容量是16+4+7+4=31
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.2-6]
+\end{problem}
+
+\begin{solution}
+  首先和在26.1节中一样地处理,把多源图改成单源.在每一个$s$和$s_i$之间加一个额外的$s_{i1}$,去除$s$和$s_i$之间的边,连接$(s,s_{i1})$和$(s_{i1},s_i)$.\\
+  对于汇点做同样的事情.\\
+  令$c(s_{i1},s_i)=p_i,c(t_i,t_{i1})=q_i$\\
+  如果存在一个满足条件的流,那么$f(s_{i1},s_i)=p_i$.根据流量守恒定律,这意味着$\sum_{v\in V}f(s_i,v)=p_i$同理,$\sum_{v\in V}f(v,t_i)=q_i$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.2-8]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.2-10]
+\end{problem}
+
+\begin{solution}
+  第 3 行的 while 循环选择的路径从 s 到 t，并且很简单，因为容量始终为非负数。因此，进入 s 的边永远不会出现在增广路径，所以不存在进入s的边不影响算法。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.2-12]
+\end{problem}
+
+\begin{solution}
+  由于每个顶点都位于从 s 开始的某条路径上，因此必须存在一个包含边 （v, s） 的环。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.2-13]
+\end{problem}
+
+\begin{solution}
+  使用深度第一次搜索来发现这样的没有零流边的环。根据流量守恒定律,这样的环一定存在。由于图是连通的，因此需要 O（E）。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 26.3-3]
+\end{problem}
+
+\begin{solution}
+  增广路径的长度至多为$2min\{|L|,|R|\}+1$.\\
+  假设L中的顶点是$\{l_1,l_2,..,l_{|L}\}$,R的顶点是$\{r_1,r_2,...,r_{|R|}\}$,为了方便,设$m=min\{|L|,|R|\}$.然后我们放置这些边.\\
+  $\{(l_m,r_m-1),(l_1,r_1),(l_1,r_m)\}\cup(\cup^{i=m-1}_{i=2}\{(l_i,r_i),(l_i,r_{i-1})\})$\\
+  然后再对最短的路径augumenting$min\{|L|,|R|\}-1$次,我们最后能沿着$\{(l_i,r_i)\}_{i=1,...,m-1}$送出一个unit的flow.只有一个single argumenting路径,比如$\{s,l_m,r_{m-1},l_{m-1},...,l_2,r_1,l_1,r_m,t\}$这条路径长度是2m+1.\\
+  很明显，任何简单路径的长度必须最多为 2m+ 1，因为
+  路径必须从 s 开始，然后在 L 和 R 之间来回交替，然后
+  在 t 处结束。由于增强路径必须简单，因此很明显，我们对最长增强路径的给定界限是紧密的。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 26-1]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+\begin{ot}[TC Problem 26-2 (Minimum path cover)]
+
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+\begin{ot}[网络流的各种变体]
+  请介绍各种网络流的变体（例如多源多汇网络流、节点有容量限制的网络流、循环流、有最小流限制的网络流、无向图的网络流、费用流等）。
+
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

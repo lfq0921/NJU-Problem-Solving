@@ -1,0 +1,359 @@
+% 1-11-infinity.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第11讲: 有穷与无穷}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \mfigcap{width = 0.80\textwidth}{figs/cantor}{Georg Cantor (1845 $\sim$ 1918)}
+  \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large
+          \begin{itemize}
+            \item ``Veniet tempus, quo ista que nunc latent, in lucem dies extrahat et longioris avi diligentia.''
+          \end{itemize}}}}
+  \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 21.6]
+\end{problem}
+
+\begin{solution}
+  (a)Let $f(x) = tan(\pi x - \frac{\pi}{2}), x\in(0, 1), ran(f) = \mathbb{R}.$\\
+  (b)Let $f(x) = |x|, x \in (\mathbb{R} / {0}),\\
+    f(0) = 1$\\
+  then $f$ is the bijection from $\mathbb{R}$ to $\mathbb{R}^+.$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 21.10]
+\end{problem}
+
+\begin{proof}
+  According to Problem 16.17, let $f: A \rightarrow B$ and $g:C \rightarrow D$ be functions. Then $H:A\times C \rightarrow B \times D$ is a one-to-one function.\\
+  Similarly, $A\approx C$ and $B\approx D$(it means there exists bijections, $f:A \rightarrow C$, $g:B \rightarrow D$),so it is easy to know that $H:A\times B \rightarrow C \times D$, that is $A\times B \approx C \times D$.\\
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 22.10]
+\end{problem}
+
+\begin{solution}
+  According to Corollary 21.10, let S be a finite set. Then every subset of S is finite.\\
+  B is an infinite subset of A, so A can't be a finite set, that is A is a infinite set.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 22.11]
+\end{problem}
+
+\begin{solution}
+  If there doesn't exist $b \in B$ such that $A_b = f^{-1}(\{b\})$ is infinite, then $ran(f^{-1}) = \cup A_b$ is finite, while actually $ran(f^{-1}) = A$ is infinite. \\
+  Thus there exists $b \in B$ such that $f^{-1}(\{b\})$ is infinite.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 22.18]
+\end{problem}
+
+\begin{solution}
+  (a)\\
+  Let the cardinality of A to be n, the cardinality of B be m.\\
+  Suppose, to the contrary, |B| > |A|, which means m > n.\\
+  According to the pigeonhole principle, we can get that $f:B \rightarrow A$ is not a one-to-one function.\\
+  But actually $B \subseteq A$, we can easily get that $g:B \rightarrow A$ by $g(x) = x$.It is contradict with our assumption.\\
+  So $|B| <= |A|$.\\
+  \\
+  (b)\\
+  According  to (a), A is a finite set and $B \subseteq A$, then $|B| <= |A|$.We suppose that |B| = n, |A| = m. \\
+  If $|B| = |A|$. And $B \subseteq A$, then $\forall b\in B, \exists a\in A$, that $a = b$. \\
+  Because there is m elements in B, so there is at least n elements which satisfy $a = b$ in A. And m = n, so all elements in A satisfy $a = b$, that is A = B, which is contradict with $B \neq A$. \\
+  So $|B| = |A|$ is wrong.\\
+  Since
+  $|B| <= |A|$ and $|B| \neq |A|$, we can know $|B| < |A|$.\\
+  \\
+  (c)\\
+  According to (a) if $B \subseteq A$ then $|B| <= |A|$. \\
+  So if in the same time $|B| >= |A|$ then $|B| = |A|$.\\
+  According to (b), if $|B| = |A|$ then A = B.\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 22.21]
+\end{problem}
+
+\begin{solution}
+  1)Suppose to the contrary that if $f$ is one-to-one then $f$ is not onto.\\
+  Let $f(x) = x, x\in A$. We can easily know $f$ is a one-to-one function.\\
+  Meanwhile $f$ is onto.\\
+  So the assumption is false.\\
+  \\
+  2)Suppose to the contrary that if $f$ is onto then $f$ is not one-to-one.\\
+  Put forward the same example, $f(x) = x, x\in A$, Since $f$ is a bijection, which means $f$ is onto and $f$ is one-to-one.\\
+  So the assumption is false.\\
+  Judging from (1) and (2),  we can know $f:A\rightarrow A$ is one-to-one if and only if it is onto.\\
+  \\
+  Using the same example $f(x) = x, x\in A$, we can also reach the same conclusion when A is infinite.\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 23.1]
+\end{problem}
+
+\begin{solution}
+  (a)$\{k\mathbb{N} \}$, k is a prime number.\\
+  (b)Not possible.\\
+  (c)Not possible.\\
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 23.3 (a, d)]
+\end{problem}
+
+\begin{solution}
+  (a)It's countable.\\
+  Define the set of all lines with rational slopes to be denoted by A.\\
+  Let $f:A \rightarrow \mathbb{Q} $, for the line $l:y = kx + b,f(l) = k \in \mathbb{Q}$. So $A \approx \mathbb{Q}$.\\
+  Since $\mathbb{Q}$ is countable, $A$ is also countable.
+
+  (d)It's uncountable. Let $f:\mathbb{R} \rightarrow \mathbb{R}, y = f(x) = 1 - x$. Since $f{x}$ is a rigidly monotonically increasing function, $f$ is bijection.\\
+  So$\{(x,y)\in \mathbb{R} \times \mathbb{R} :x + y = 1\} \approx \mathbb{R}$.Since $\mathbb{R}$ is infinity, $\{(x,y)\in \mathbb{R} \times \mathbb{R} :x + y = 1\}$ is also infinity.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 23.4]
+\end{problem}
+
+\begin{solution}
+  It's uncountable.\\
+  We will suppose, to the contrary, that the sequences are countable.Let the sequences be denoted by A. We can know that \{0, 1\} is finite, there exists a bijection function $f:\{0, 1\} \rightarrow A$. We will list the values of $f$. So\\
+  $f(1) = a_{11}a_{12}a_{13}...$\\
+  $f(2) = a_{21}a_{22}a_{23}...$\\
+  $f(3) = a_{31}a_{32}a_{33}...$\\
+  .\\
+  .\\
+  .\\
+  where each $a_{i, j}$ represents 0 or 1. Since $f$ is onto, each sequence in A appears in this list.\\
+  The odd thing is this: we can construct a number $b = b_1b_2...$ not in this list  (hence showing that our function cannot possibly be onto) by describing it as follows.\\
+  We constructed $b$ so that $b_n \neq a_{nn}$ and therefore $b \neq f(n)$ for every n. Then $b$ can not be in our list. So this contradiction must mean that we have assunmed falsely that the sequence are countable.\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 23.9]
+\end{problem}
+
+\begin{proof}
+  First, if the set A is finite, which means it's countable, then its subset is also finite, so its subset is also countable.\\
+  If the set A is countably infinite. There can be a bijection $f:A \rightarrow \mathbb{N} $. \\
+  Define a restriction$f|_{B}:B \rightarrow \mathbb{N}$. Then $f|_{B}$ is a one-to-one function. \\
+  And according to Exercise 23.5, B is countable.\\
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 23.12]
+\end{problem}
+
+\begin{solution}
+  $A_i = \{\frac{p}{i} | i \in \mathbb{N} ^+\}$
+  Define a function $f_i:A_i \rightarrow \mathbb{N} ^+$ ny $f_i(x) = x \times i$.\\
+  $\forall x_1, x_2 \in A_i,$if $f_i(x_1) = f_i(x_2)$ ,then $x_1 = x_2 = \frac{n}{i}$.\\
+  So $f_i$ is one-to-one.\\
+  $\Rightarrow A_i$ is countable.
+  We will prove $\cup_{i \in \mathbb{N^+}}^n A_i$ is countable by introduction on $n$.\\
+  $(i)$ (The base step) (n = 1), $\cup_{i \in \mathbb{N^+}}^1 A_i = A_1$ is obviously countable, and\\
+  $(ii)$ (The induction step)for the positive integer $n$, $\cup_{i \in \mathbb{N^+}}^n A_i$ is countable.\\
+  Then $\cup_{i \in \mathbb{N^+}}^{n + 1} A_i$ = $(\cup_{i \in \mathbb{N^+}}^n A_i) \cup A_{m + 1}$.\\
+  According to Theorem 23.6, $\cup_{i \in \mathbb{N^+}}^{n + 1} A_i$ is countable.\\
+  So, $\cup_{i \in \mathbb{N}_+} A_i$ is countable.
+  So $\mathbb{Q}_+$ is countable.\\
+  So $\mathbb{Q} = \mathbb{Q}_+ \cup \mathbb{Q}_- \cup \{0\}$ is countble.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 24.16]
+\end{problem}
+
+\begin{solution}
+  In the proof of Theorem 23.12. We got that $(0, 1) \approx \mathbb{R}$.\\
+  According to Theorem 21.13, $(0, 1) \times (0, 1) \approx \mathbb{R} \times \mathbb{R}$\\
+  Define $f:(0, 1) \rightarrow (0, 1) \times (0, 1)$, $f$ is bijection. So $(0, 1) \approx (0, 1) \times (0, 1)$
+  Since $(0, 1) \times (0, 1) \approx \mathbb{R} \times \mathbb{R}$, $(0, 1) \approx \mathbb{R} \times \mathbb{R}$\\
+  So $\mathbb{R} \approx \mathbb{R} \times \mathbb{R}$\\
+  Define $g:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{C}$ by $g(a, b) = a + bi, a,b \in \mathbb{R}$.\\
+  Since $g$ is a bijection, $\mathbb{R} \times \mathbb{R} \approx \mathbb{C}$\\
+  Since $\mathbb{R} \times \mathbb{R} \approx \mathbb{R}$, $\mathbb{R} \approx \mathbb{C}$.\\
+  So $|\mathbb{R}| = |\mathbb{C}|$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 24.15]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+注: 基数与序数比较难以理解。你可以选择介绍一些相对容易的部分。
+%%%%%%%%%%%%%%%
+\begin{ot}[基数]
+  \mfig{width = 0.60\textwidth}{figs/aleph-null}
+  请介绍基数 (Cardinal number) ，如 (不限于):
+  \begin{itemize}
+    \item 定义
+    \item 运算
+    \item 你认为有意思的相关内容
+  \end{itemize}
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Cardinal\_number}{Cardinal number @ wiki}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[序数]
+  请介绍序数 (Ordinal number) ，如 (不限于):
+  \mfig{width = 0.85\textwidth}{figs/ordinal-number}
+  \begin{itemize}
+    \item 定义
+    \item 运算
+    \item 你认为有意思的相关内容
+  \end{itemize}
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Ordinal\_number}{Ordinal number@ wiki}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+\begincorrection
+8-1\\
+(f)$(B \cap C) \backslash A$\\
+(g)$(A \cup B \cup C) \backslash (A \cap B \cap C)$ \\
+\\
+\\
+8-2\\
+(d)\\
+$(i)$ \\
+If $A \subseteq B$ then $\forall x\in A,\rightarrow x \in B$, so $\forall x \notin B \rightarrow x\notin A$. That is $\forall x \in (X \backslash B) \rightarrow x \in (X \backslash A)$.\\
+So $(X \backslash B) \subseteq (X \backslash A)$\\
+$(ii)$\\
+If $(X \backslash B) \subseteq (X \backslash A)$, then $\forall x \in (X \backslash B) \rightarrow x \in (X \backslash A)$,that is $\forall x \notin B \rightarrow x\notin A$. So $\forall x\in A,\rightarrow x \in B$.\\
+So $A \subseteq B$.\\
+\\
+(f)\\
+$(i)$\\
+If $A \cap B = B$\\
+$\Rightarrow \forall x \in B, \rightarrow x \in A \cap B$, that is $x \in A$.\\
+So $B \subseteq A$\\
+$(ii)$\\
+If $B \subseteq A$, then $\forall x \in B \rightarrow x \in A$. So $x \in A \cap B$.\\
+In other words, $\forall x \in B \rightarrow x \in A \cap B$.\\
+So $B = A\cap B$.\\
+\\
+\\
+8-7\\
+(a)\\
+$\bigcup^\infty _{n=1}A_n$ = [0, 1)\\
+$\bigcup^\infty _{n=1}B_n$ = [0, 1]\\
+$\bigcup^\infty _{n=1}C_n$ = (0, 1)\\
+(b)\\
+$\bigcap^\infty _{n=1}A_n$ = \{0\}\\
+$\bigcap^\infty _{n=1}B_n$ = \{0\}\\
+$\bigcap^\infty _{n=1}C_n$ = $\emptyset$\\
+\\
+\\
+8-11\\
+Let $E \in \mathcal{P} (A_\alpha)$
+\\then $E \in \mathcal{P} (A_{\alpha_1}) \cup \mathcal{P} (A_{\alpha_2}) \cup \mathcal{P} (A_{\alpha_3})...\cup\mathcal{P} (A_{\alpha_n}),\alpha_1, \alpha_2 ... \in I$\\
+then $E \in \mathcal{P} (A_{\alpha_1})\cup \mathcal{P}(A_{\alpha_2})...\cup \mathcal{P}(A_{\alpha_n})$\\
+So, $E \in \mathcal{P} (A_{\alpha_1}\cup A_{\alpha_2}...\cup A_{\alpha_n})$\\
+\\
+\\
+8-12\\
+(i)prove $\bigcap_{\alpha\in I}\mathcal{P} (A_\alpha) \subseteq \mathcal{P}(\bigcap_{\alpha\in I}A_\alpha):$\\
+$E \in \bigcap_{\alpha\in I}\mathcal{P}(A_\alpha)$\\
+then $E \in \mathcal{P} (A_{\alpha_1})\cap \mathcal{P}(A_{\alpha_2})...\cap \mathcal{P}(A_{\alpha_n})$\\
+then $E \in \mathcal{P} (A_{\alpha_1}\cap A_{\alpha_2}...\cap A_{\alpha_n})$\\
+so $E \in \mathcal{P}(\bigcap_{\alpha\in I}A_\alpha)$\\
+(ii)prove $\mathcal{P}(\bigcap_{\alpha\in I}A_\alpha \subseteq \bigcap_{\alpha\in I}\mathcal{P} (A_\alpha) $\\
+$E \in \mathcal{P} (\bigcap_{\alpha\in I}A_\alpha)$\\
+then $E \in \mathcal{P} (A_{\alpha_1}\cap A_{\alpha_2}...\cap A_{\alpha_n})$\\
+then $E \in \mathcal{P} (A_{\alpha_1})\cap \mathcal{P}(A_{\alpha_2})...\cap \mathcal{P}(A_{\alpha_n})$\\
+then $E \in \mathcal{P} (A_\alpha) $\\
+\\
+SO $\bigcap_{\alpha\in I}\mathcal{P} (A_\alpha)   = \mathcal{P}(\bigcap_{\alpha\in I}A_\alpha)$\\
+\\
+\\
+3-4
+第一类数学归纳法证明第二类数学归纳法\\
+要证第二类数学归纳法，也即任给一个命题$F$，若满足$F(1)$及$(F(1)\wedge F(2) \wedge ...\wedge F(n))\Rightarrow F(n + 1)$ ，则有$\forall k \in \mathbb{N} , F(k)$成立。\\
+构造命题$G(n) = F(1)\wedge F(2) \wedge ...\wedge F(n)$\\
+显然，$G(n)\Rightarrow F(n + 1)$，又$G(n)\Rightarrow G(n)$所以$G(n)\Rightarrow G(n)\wedge F(n + 1) = G(n+1)$\\
+所以G满足第一类数学归纳法的条件，所以$\forall k \in \mathbb{N} , G(k)$成立。而$G(n)\Rightarrow F(n)$，故$\forall k \in \mathbb{N} , F(k)$成立 ，也即第二类数学归纳法成立。\\
+\\
+第二类数学归纳法证明第一类数学归纳法
+要证第一类数学归纳法，也即任给一个命题$F$，若满足$F(1)$及$F(n)\rightarrow F(n + 1)$，则有$\forall k \in \mathbb{N} , F(k)$成立。\\
+因为1的条件比2强,所以F一定满足第二类数学归纳法.故根据第二类数学归纳法$F(k)$对所有正整数$k$都成立,也即第一类数学归纳法成立.\\
+
+显然， [公式] 是满足第二类数学归纳法的条件的（因为1的条件比2强），故根据第二类数学归纳法， [公式] 对所有正整数 [公式] 成立，也即第一类数学归纳法成立.\\
+\\
+\\
+致谢:鄢振宇学长(zhihu)
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,309 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-5讲: 数论算法}
+\me{朱宇博}{ 191220186}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.1-12]
+\end{problem}
+
+\begin{solution}
+\begin{algorithm}
+\caption{div}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{div}{$A[1,...,\beta],B[1,...,\alpha]$}\Comment{$A$ is Dividend and $B$ is divisor}
+	\State $C[1...\beta] = 0$
+		\For {$i \gets \beta - \alpha + 1 \to 1$}
+			\While{$A[\beta,...,i]\geq B[\alpha,...,1]$}
+				\State $A[\beta,...,i]\gets A[\beta,...,i]-B[\alpha,...,1]$
+				\State $C[i]\gets C[i] + 1$
+			\EndWhile
+		\EndFor
+	\State \Return A, C \Comment{$A$ is remainder and $C$ is quotient}
+	\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.2-5]
+\end{problem}
+
+\begin{solution}
+假设该算法执行了$k$次迭代，则由引理3.10可知，$b\geq F_{k+1}$，即$b\geq \frac{\phi^{k+1}}{\sqrt{5}}$\\
+从而得到$k+1\leq \log_{\phi}\sqrt{5}+ \log_{\phi}b$, 推得$k<1+ \log_{\phi}b$\\
+设整数$r$和$s$的最大公因数为$d$, 根据欧几里得算法，$gcd(r,s)$调用一次后变成$gcd(s, r\mod s)$, $gcd(rd,sd)$调用一次后变成$gcd(sd, (r\mod s)d)$\\
+根据算法终止条件，当第二维为$0$时停止递归。由于$r \mod s =0$ 当且仅当$ (r\mod s)d$为0（d不为0）\\
+故$gcd(r,s)$和$gcd(rd,sd)$迭代次数相同。\\
+由此引理可知$gcd(\frac{a}{gcd(a,b)}, \frac{b}{gcd(a,b)})$和$gcd(a,b)$的次数相同。\\
+将$\frac{b}{gcd(a,b)}$代入，可得$k<1+ \log_{\phi}\frac{b}{gcd(a,b)}$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.3-5]
+\end{problem}
+
+\begin{solution}
+$\forall x_1,x_2\in \mathbb{Z}_n^{*}, f_a(x_1)=f_a(x_2)\to ax_1\mod n= ax_2\mod n \to x_1=x_2$(群的right and left cancellation laws)\\
+$\forall y\in \mathbb{Z}_n^{*}, \exists x  = a^{-1}y \mod n \in \mathbb{Z}_n^{*}, f_a(x)=y$\\
+因此$f$是双射函数，可得其为$\mathbb{Z}_n^{*}$的一个置换
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.4-2]
+\end{problem}
+
+\begin{solution}
+当$gcd(a,n)=1$时，$a$存在逆元$a'$使得$aa'\equiv 1 \pmod n$。则
+\[
+ax\equiv ay \pmod n \to a'ax\equiv a'ay\pmod n\to x\equiv y\pmod n
+\]
+当$n=4$时，$2*5\equiv 2 *3 \pmod 4$但$5$和$3$在模$4$的意义下不相等
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.5-2]
+\end{problem}
+
+\begin{solution}
+$m_1=56,m_2=63,m_3=72,c_1=280, c_2=441, c_3=288$\\
+\[
+\begin{aligned}
+a&\equiv 1*c_1+2*c_2+3*c_3\pmod{9*8*7}\\
+&\equiv 2026\pmod {504}\\
+&\equiv 10 \pmod {504}
+\end{aligned}
+\]
+\end{solution}
+%%%%%%%%%%%%%%%
+\newpage
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.6-2]
+\end{problem}
+
+\begin{solution}
+\begin{algorithm}
+\caption{quick-mod}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{quick\_mod}{$a,b,n$}\Comment{$ab\%n$}
+	\State $ans \gets 1$
+	\While {$b \neq 0$}
+		\If {$b\mod2 == 1$}
+			\State $ans \gets ans *a \%n$
+		\EndIf
+		\State $a\gets a*a\%n$
+		\State $b\gets \lfloor \frac{b}{2}\rfloor$
+	\EndWhile
+	\State \Return ans 
+	\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.1-13(有勘误)]
+Give an efficient algorithm to convert a given $\beta$-bit (binary) integer to a decimal representation. 
+Argue that if multiplication or division of integers whose length is at most $\beta$ takes time \red{ $M(\beta)=\Omega(\beta)$}, 
+then we can convert binary to decimal in time \red{$O(M(\beta)\lg \beta)$}. (Hint: Use a divide-and-conquer approach, obtaining the top and
+bottom halves of the result with separate recursions.)
+
+勘误详细参见: \href{https://www.cs.dartmouth.edu/~thc/clrs-bugs/bugs-3e.php}{https://www.cs.dartmouth.edu/~thc/clrs-bugs/bugs-3e.php}
+\end{problem}
+
+\begin{solution}
+采用分治算法解决该问题，每次将二进制串分为两部分，分而治之，递归处理计算每部分转成十进制后的结果。\\
+在合并时，将高位所在区间的结果，乘上对应位数的位权。根据题设已知乘法时间\\
+故$T(\beta)=2T(\frac{\beta}{2})+M(\beta)$，解得$T(\beta)=O(M(\beta)\lg\beta)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.2-9]
+\end{problem}
+
+\begin{solution}
+$\textbf{Theorem 31.6}$\\
+For any integers $a$, $b$, and $p$, if both $gcd(a,p)=1$ and $gcd(b,p)=1$, then $gcd(ab,p)=1$.\\
+(1)\\
+充分性：\\
+若$gcd(n_1n_2,n_3n_4)=1$，即可推出$n_1,n_2$中任意整数，与$n_3，n_4$中任意整数互质。\\
+证明： 反证。不矢一般性地假设$gcd(n_1,n_3)=k(k>1)$，则$k|gcd(n_1n_2,n_3n_4)$，与题设相悖。故得证。\\
+同理，$gcd(n_1n_3,n_2n_4)=1$，即可推出$n_1,n_3$中任意整数，与$n_2,n_4$中任意整数互质。\\
+综上可得出$n_1,n_2,n_3,n_4$互质。即$gcd(n_1n_2,n_3n_4)=1\land gcd(n_1n_3,n_2n_4)=1\to n_1,n_2,n_3,n_4$互质。\\
+必要性：\\
+若 $n_1,n_2,n_3,n_4$互质,由TH31.6，可得$gcd(n_1n_2,n_3)=1,gcd(n_1n_2,n_4)=1$,再用TH31.6，可得$gcd(n_1n_2,n_3n_4)=1$。
+同理，$gcd(n_1n_3,n_2n_4)=1$。得证\\
+故为充要条件。\\
+(2)\\
+充分性：\\
+我们需要找到一种划分方法，使得经过$\lceil\lg k\rceil$对互质条件后，推出每两个数之间互质。\\
+为简便起见，以下讨论\textbf{不考虑奇偶对“均分”带来的影响}。\\
+初始时，所有的数均标号为$1$, 若要推出所有元素之间互质，我们需要证相同标号的数字之间互质。\\
+第一次：将原标号为$1$的数\textbf{均分}成两部分，分别标号$1$,$2$。则将$\{\text{标号为1}\}$,$\{\text{标号为2}\}$作为新数对。显然这之后，我们仍只需证相同标号的元素之间互质。。\\
+第二次：将原标号为$1$的数\textbf{均分}成两部分，分别标号$1$,$2$。将原标号为$2$的数均分成两部分，分别标号$3$,$4$。则将$\{\text{标号为1和3}\}$,$\{\text{标号为2和4}\}$作为新数对。显然这之后，我们仍只需证相同标号的元素之间互质。\\
+第$k$次：将原标号为$k$的数\textbf{均分}成两部分，分别标号$2k-1$,$2k$。则将$\{\text{标号为奇数}\}$,\\$\{\text{标号为偶数}\}$作为新数对。显然这之后，我们仍只需证相同标号的元素之间互质。\\
+当划分到每个标号都只有1个数时，即可说明两两互质。\\
+因为标号相同的数在每一轮开始时，都会被\textbf{均分}成两组标号不同的数，故经过$\lceil\lg k\rceil$次后，即可满足每个标号都只有1个数。\\
+故我们找到了一种经过$\lceil\lg k\rceil$对互质条件后，推出每两个数之间互质的方法。充分性得证。\\
+
+\noindent 必要性：\\
+若 $n_1,n_2,n_3,n_4$互质,由TH31.6即其拓展，显然可得其中导出的$\lceil \lg k \rceil$对整数互质。\\
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.5-3]
+\end{problem}
+
+\begin{solution}
+由于$gcd(n,a)=1$，根据群的性质，在$\mathbb{Z}_n$中，有
+\[
+a^{-1}\leftrightarrow a
+\]
+由中国剩余定理，有
+\[
+a\leftrightarrow (a_1,a_2,...,a_n)
+\]
+由于$gcd(n,a)=1$，可推得$gcd(n_i,a)=1$。\\
+由欧几里得定理,$gcd(n_i, a_i)=gcd(n_i, a \mod n_i)=gcd(n_i,a)=1$。\\
+根据群的性质，在$\mathbb{Z}_{n_1}\times \mathbb{Z}_{n_2}\times...\times\mathbb{Z}_{n_k}$中，有
+\[
+(a_1,a_2,...,a_k)\leftrightarrow (a_1^{-1},a_2^{-1},...,a_k^{-1})
+\]
+由以上三组关系的传递性，可得
+\[
+a^{-1}\leftrightarrow (a_1^{-1},a_2^{-1},...,a_k^{-1})
+\]
+即
+\[
+a^{-1}\mod n\leftrightarrow (a_1^{-1}\mod n_1,a_2^{-1}\mod n_2,...,a_k^{-1}\mod n_k)
+\]
+得证。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.6-3]
+\end{problem}
+
+\begin{solution}
+由欧拉定理，利用该算法计算$a^{\phi(n)-1}\mod n$即可，该数即为$a$的模$n$乘法逆元。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[同余方程组]
+解同余方程组：
+$$\begin{array}{ll}
+	x &= 3 (\mod 8),\\
+	x &= 11 (\mod 20),\\
+	x &=1 (\mod 15). 
+\end{array}
+$$
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[乘法算法]	
+	请给出n位整数相乘的算法
+	\begin{itemize}
+	\item $O(n^2)$?
+	\item $O(n^{\lg 3})$?
+	\item 更快的其他算法？
+	\end{itemize}	
+	(参考资料：\href{https://en.wikipedia.org/wiki/Multiplication_algorithm}{https://en.wikipedia.org/wiki/Multiplication\_algorithm})
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Pollard's rho algorithm]	
+	Pollard's rho algorithm is an algorithm for integer factorization.
+	
+	(参考资料：\href{https://en.wikipedia.org/wiki/Pollard's_rho_algorithm}{https://en.wikipedia.org/wiki/Pollard's\_rho\_algorithm})
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

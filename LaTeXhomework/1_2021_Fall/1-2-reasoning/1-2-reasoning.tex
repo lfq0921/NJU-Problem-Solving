@@ -1,0 +1,399 @@
+% 1-2-reasoning.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第2讲: 什么样的推理是正确的?}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \mfig{width = 0.95\textwidth}{figs/logic-imagination}
+  \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.40\textwidth}{\large
+          \begin{itemize}
+            \item 消除对``符号''的恐惧
+            \item 培养与``逻辑''的亲密情感
+          \end{itemize}}}}
+  \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[改编自 UD Exercise $2.1$: Propositions]
+以下哪些是命题? 请简要说明理由。
+
+\begin{enumerate}[(1)]
+  \item $X + 6 = 0$
+  \item $X = X$
+  \item 哥德巴赫猜想
+  \item 今天是雨天
+  \item 明天是晴天
+  \item 明天是周二
+  \item 这句话是假话
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (2)(4)(5)(6)(7)都是命题。
+
+  因为这些都是只能对或者只能错的句子。
+
+  (1)不是命题。因为x不是确定的量。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[关于笛卡尔的一则笑话: Joke]
+\mfigcap{width = 0.60\textwidth}{figs/Descartes}{Ren\'e Descartes (1596 $\sim$ 1650)}
+笛卡尔是法国著名哲学家、物理学家、数学家、神学家。
+有一天，他走进一家酒吧。
+酒吧服务员问，``要来一杯吗?''。
+笛卡尔说，``I think not''~\footnote{嗯，在这道题里，笛卡尔讲英语。}。
+话音刚落，笛卡尔消失了。
+
+\begin{enumerate}[(1)]
+  \item 请问，这则笑话的笑点在哪~\footnote{想想笛卡尔说过什么 (英文版本)?}?
+  \item 请问，这则笑话在逻辑上是否有漏洞?
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (1)笑点：笛卡尔说过我思故我在，而在笑话里说了"我不思"所以他消失了。
+
+  (2)在逻辑上有漏洞。“我思”是“我在”的充分条件，而不是必要条件，所以“我不思”不能推导出“我不在”。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $2.5$: Truth Table]
+\end{problem}
+
+\begin{solution}
+
+  \begin{table}[!h]
+    \begin{tabular}{|l|l|l|l|l|l|l|l|}
+      \hline
+      $P$ & $Q$ & $ \neg P $ & $Q \wedge \neg P$ & $\neg (Q \wedge \neg P) $ & $P\to \neg (Q \wedge \neg P)$ \\ \hline
+      T   & T   & F          & F                 & T                         & T                             \\ \hline
+      T   & F   & F          & F                 & T                         & T                             \\ \hline
+      F   & T   & T          & T                 & F                         & T                             \\ \hline
+      F   & F   & T          & F                 & T                         & T                             \\ \hline
+    \end{tabular}
+  \end{table}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $2.7\; (a, c, f)$: Negation]
+\end{problem}
+
+\begin{solution}
+
+  (a) I won't do my homework or I won't pass this class.
+
+  (b) Seven isn't an integer or even.
+
+  (c) T is continuous and T isn't bounded.
+
+  (d) I can't eat dinner and go to the show.
+
+  (e) x is odd and x isn't prime.
+
+  (f) The number x is prime and even.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $2.16$: Liar]
+\end{problem}
+
+\begin{solution}
+
+  (a)Arnie是truth-teller，如果她是liar那么她所说的话的前提条件是假的，整句话就是真的，与她是liar矛盾。
+
+  (b)Arnie和Barnie是truth-teller,如果她是liar那么她所说的话的前提条件是假的，整句话就是真的，与她是liar矛盾。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $3.3\; (d)$: Contrapositive and Converse]
+\end{problem}
+
+\begin{solution}
+
+  (a)contrapositive:Id you don't live in a white house, then you aren't the President of the United States.
+
+  converse:If you live in a white house, then you are the President od the United States.
+
+  (b)contrapositive:If you don't need eggs,then you aren't going to bake a souffle.
+
+  converse:If you need eggs, then you are going to bake a souffle.
+
+  (c)contrapositive:If x is not an integer, then x is not a real number.
+
+  converse:If x is an integer, then x is a real number.
+
+  (d)contrapositive:If $x^2$ >= 0 , then x is not  a real number.
+
+  converse:If $x^2$ < 0 , then x is a real number.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $3.10$: Breakfast]
+\end{problem}
+
+\begin{solution}
+  only cereal.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $3.12$: Truth Table]
+\end{problem}
+
+\begin{solution}
+
+  \begin{table}[h!]
+    \begin{tabular}{|l|l|l|}
+      \hline
+      P & Q & $ P \to Q$ \\ \hline
+      T & T & T          \\ \hline
+      T & F & F          \\ \hline
+      F & T & T          \\ \hline
+      F & F & T          \\ \hline
+    \end{tabular}
+  \end{table}
+
+  \begin{table}[h!]
+    \begin{tabular}{|l|l|l|l|l|}
+      \hline
+      P & Q & $\neg P$ & $Q \vee \neg P$ & $P \to (Q \vee \neg P)$ \\ \hline
+      T & T & F        & T               & T                       \\ \hline
+      T & F & F        & F               & F                       \\ \hline
+      F & T & T        & T               & T                       \\ \hline
+      F & F & T        & T               & T                       \\ \hline
+    \end{tabular}
+  \end{table}
+
+  结论：$P \to Q$的真假性与$P \to (Q \vee \neg P)$一致
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $4.1$: Formalization]
+\end{problem}
+
+\begin{solution}
+
+  (a)$\forall x ,\exists y$ , x=2y;
+
+  (b)$\forall y ,\exists x$ , x=2y;
+
+  (c)$\forall x,\forall y$,x=2y;
+
+  (d)$\exists x, \exists y$,x=2y;
+
+  (e)$\exists x,y$,x=2y;
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[两种连续性: Continuity]
+A function $f$ from $\mathbb{R}$ to $\mathbb{R}$ is called
+\begin{itemize}
+  \item \emph{pointwise continuous} if
+        for every $x \in \mathbb{R}$
+        and every real number $\epsilon > 0$,
+        there exists real $\delta > 0$ such that
+        for every $y \in \mathbb{R}$ with $|x - y| < \delta$,
+        we have that $|f(x) -  f(y)|< \epsilon$.
+  \item \emph{uniformly continuous} if
+        for every real number $\epsilon > 0$,
+        there exists real $\delta > 0$ such that
+        for every $x, y \in \mathbb{R}$ with $|x - y| < \delta$,
+        we have that $|f(x) -  f(y)|< \epsilon$.
+\end{itemize}
+
+\begin{enumerate}[(1)]
+  \item 请用一阶谓词逻辑公式表示上述定义。
+  \item 请比较两种连续性的``强弱''关系，并举例说明。
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+  (1)\item \emph{pointwise continuous}:$\forall x(x \in \mathbb{R}),\forall \epsilon >0,\exists \delta >0 (y \in \mathbb{R}\land  |x - y| < \delta \rightarrow |f(x) -  f(y)|< \epsilon$)
+
+  \item \emph{uniformly continuous}:$\forall \epsilon>0,\exists \delta >0(\forall x, y \in \mathbb{R}\bigwedge |x - y| < \delta\rightarrow |f(x) -  f(y)|< \epsilon$)
+
+  (2)后者的连续性更强。比如y=$x^2$不满足uniformly continuous，但满足pointwise continuous.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $4.5\; (j, k)$: Negation]
+\end{problem}
+
+\begin{solution}
+
+  (a) $\exists$ x $\in $ R,  $x^2$ <= 0.
+
+  (b) There is an odd integer is not nonzero.
+
+  (c) I am hungry, and I don't eat chocolate.
+
+  (d) There is a girl that she likes every boy.
+
+  (e) For every x , g(x) <= 0.
+
+  (f) There exists an x there isn't a y such that xy = 1.
+
+  (g) For all y ,there exsits an x such that xy != 0.
+
+  (h) $x^6$= 0, for all y such that xy != 1.
+
+  (i) x > 0, there exists a y,xy$^2$ < 0.
+
+  (j) There exsits an $\epsilon  > 0$, for all $\delta  > 0$ such that if x is a real number with $|x−1| < \delta$ ,
+  then $|x^2 −1| >= \epsilon$ .
+
+  (k) There exists a real number M, for all real numbers N such that | f(n)| <= M for
+  all n > N.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $4.9\; (a, c)$: Negation]
+\end{problem}
+
+\begin{solution}
+
+  (a)$\exists$ x,((x$\in \mathbf{Z} \bigwedge \neg (\exists,(y \in \mathbf{Z}\bigwedge x=7y))\rightarrow \forall z \in \mathbf{Z},x\neq 2z ))$
+
+  (b)If x is not a multiple of seven,then x is even.
+
+  (c)The negation is true.For example,47 is not a multiple of seven,but 47 is odd.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $4.20$: Prove/Disprove]
+\end{problem}
+
+\begin{solution}
+
+  (a)false.爱Bill是爱Sam的充分条件但不是必要条件。
+
+  (b)false.Susie穿着红裙子去舞会是我不呆在家的必要条件，不是充分条件。
+
+  (c)假的。t>m>l>0
+
+  (d)真的。因为My name is Stewart是真的，所以 my name is Igor是假的，且Every little breeze seems to whisper Louise or my name is Igor必有一真，所以Every little breeze seems to whisper Louise是真的。
+
+  (e)假的。蓝房子隔壁是黑房子，不代表黑房子一定再蓝房子隔壁。
+
+  (f)真的。因为y>1/5，所以第一句的结论是假的，但因为第一句整句话是真的，所以第一句的前提也是假的，即x>=5.
+
+  (g)假的。n>M是$n^2>M^2$的必要条件，但不是充分条件。
+
+  (h)真的。因为y<=z，所以第一句的结论是假的，但因为第一句整句话是真的，所以第一句的前提也是假的，即y <= x or y <=0.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+%%%%%%%%%%%%%%%
+\begin{problem}[Hilbert 式的命题逻辑推理系统]
+\mfigcap{width = 0.55\textwidth}{figs/Hilbert}{David Hilbert (1862 $\sim$ 1943)}
+我们平常使用的推理系统是自然推理系统。
+本题介绍另一种推理系统，称为 Hilbert 式的推理系统。
+它的特点是有多条公理，但只有一条推理规则，而且推理是线性的。
+对于本题而言，我们只需要使用其中两条公理
+(其中, $\alpha, \beta, \gamma$ 为任意命题):
+\begin{enumerate}[(a)]
+  \item $\alpha \to (\beta \to \alpha)$
+  \item $\big(\alpha \to (\beta \to \gamma)\big) \to
+          \big((\alpha \to \beta) \to (\alpha \to \gamma) \big)$
+\end{enumerate}
+推理规则是: 从 $\alpha$ 与 $\alpha \to \beta$, 可以推出 $\beta$。
+
+\vspace{8pt}
+\noindent 问题: 请在上述公理系统内~\footnote{这意味着，你能且仅能使用该系统中规定的公理以及推理规则。}
+证明 $\alpha \to \alpha$。
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[自然推理系统]
+  \mfigcap{width = 0.55\textwidth}{figs/Gentzen}{Gerhard Gentzen (1909 $\sim$ 1945)}
+  请结合 Coq
+  \href{https://github.com/hengxin/problem-solving-class-coq/blob/master/2019-1-coq/Logic.v}{Logic.v}
+  介绍命题逻辑的自然推理系统 (Designed by Gerhard Gentzen)。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://github.com/hengxin/problem-solving-class-coq/blob/master/2019-1-coq/Logic.v}{Logic.v} in Coq
+    \item \href{https://www.cs.cornell.edu/courses/cs3110/2013sp/lectures/lec15-logic-contd/lec15.html}{Natural Deduction for Propositional Logic @ cs.cornell.edu}
+    \item \href{http://leanprover.github.io/logic\_and\_proof/natural\_deduction\_for\_propositional\_logic.html}
+          {Natural Deduction for Propositional Logic @ leanprover.github.io}
+    \item \href{http://leanprover.github.io/logic\_and\_proof/natural\_deduction\_for\_first\_order\_logic.html}
+          {Natural Deduction for First Order Logic @ leanprover.github.io}
+  \end{itemize}
+\end{ot}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[前束范式]
+  介绍一阶谓词逻辑中的前束范式 (Prenex Normal Form), 如:
+  \begin{itemize}
+    \item 定义
+    \item 转换方法与举例
+    \item 用途简介
+  \end{itemize}
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Prenex\_normal\_form}{Prenex normal form @ wiki}
+  \end{itemize}
+\end{ot}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginfb
+
+你可以写
+~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+\begin{itemize}
+  \item 对课程及教师的建议与意见
+  \item 教材中不理解的内容
+
+        英语真的好难：（
+  \item 希望深入了解的内容
+  \item $\cdots$
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

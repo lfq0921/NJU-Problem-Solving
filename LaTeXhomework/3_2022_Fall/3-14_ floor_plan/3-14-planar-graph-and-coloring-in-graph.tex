@@ -1,0 +1,232 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第3-14讲: 平面图与图的染色}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 9.3]
+\end{problem}
+
+\begin{solution}
+  We can know that:
+  \begin{equation}
+    p=
+    \left\{
+    \begin{array}{ll}
+      1,                          & f(x_1)\leq f(x) \\
+      e^{-\frac{f(x_1)-f(x)}{T}}, & f(x_1)> f(x)
+    \end{array}
+    \right.
+  \end{equation}
+  \\
+  (a)
+  $m = \frac{(3+4+4+4+5+6+6)}{2} = 16, n = 6$.\\
+  For $m> 3n - 6$, so G is nonplanar.\\
+  \\
+  (b)
+  $m = \frac{(4+4+4+5+5+5+6+6+6+7+7+7)}{2} = 33, n = 12$.\\
+  For $m> 3n - 6$, so G is nonplanar.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 9.5]
+\end{problem}
+
+\begin{solution}
+  (a)
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.30\linewidth]{figs/a}
+  \end{figure}
+  \\
+  $K_5$\\
+  (b)
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.30\linewidth]{figs/b}
+  \end{figure}
+  \\
+  $K_6$\\
+  (c)Since $\frac{r\times n}{2} \leq 3n-6$, we can know that there is no r-regular planar graph for $r\geq 6$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 9.7]
+
+\end{problem}
+
+\begin{solution}
+  (a)$C_4$\\
+  (b)There is no such graph.The graph of order 4 doesn't include $K_{3,3},K_5$ and subgraphs for their segmentation.\\
+  (c)
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.30\linewidth]{figs/c}
+  \end{figure}\\
+  (d)Since $n=5,m=10$, we can know it is $K_5$. So it can not be a planar graph.\\
+  (e)$C_3$\\
+  (f)\begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.30\linewidth]{figs/d}
+  \end{figure}\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 9.8]
+\end{problem}
+
+\begin{solution}
+  $G=K_4\times K_2$ can not be a planar graph.\\
+  The subgraph of $K_4 \times K_2$ contains a breakdown of $K_5$, as shown in the figure.\\
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.30\linewidth]{figs/e}
+  \end{figure}\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 10.2]
+\end{problem}
+
+\begin{solution}
+  (a)
+  If the maximum degree of the Petersen diagram is 3 and contains odd circles, its color number is 3.\\
+  (b)
+  n-cube is a bipartite with a color number of 2\\
+  (c)
+  When $n=1$, it is the number of color 2.\\
+  $n > 1$ and $n$ is even, the number of colors is 3.\\
+  $n > 1$ and $n$ is odd, the color number is 4.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 10.3]
+\end{problem}
+
+\begin{solution}
+  If there is only 1 point, the number of colors is 1. Otherwise, the number of colors is 2.\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 10.4]
+\end{problem}
+
+\begin{solution}
+  (a)
+  No, $K_4$ is a counterexample. \\
+  (b)
+  No, $C_4$ is a counterexample. \\
+  (c)
+  No, $K_2$ is a counterexample. \\
+  (d)
+  No, $K_{3,3}$ is a counterexample.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CZ 10.5]
+\end{problem}
+
+\begin{solution}
+  Suppose it can be divided into three independent sets of $ V_1, V_2, V_3 $. \\
+  Generally assumes $ | v_1 | \geq | v_2 | \geq | V_3 | $. \\
+  If $ | v_1 | \geq 3 $, the number of edges is $ \leq | k_6 |-| k_ {v_1} | = 12 $ \\
+  Otherwise, $ | v_1 | = | v_2 | = | v_3 | = 2 $, then number of edges $ \geq | K_6 | -3 = 12 $
+\end{solution}
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[请证明Brooks定理]
+  \textbf{(Brooks’ Theorem)}For every connected graph G that is not an odd cycle or a
+  complete graph, $\chi(G) \le \Delta(G)$
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+\begin{ot}[Martin Gardner的愚人节礼物]
+  《科学美国人》即《Scientific American》，是美国出版的一种著名科学杂志，在国际上极富声誉。该刊1975年4月号上登载了著
+  名数学专栏作家，马丁·加德纳（Martin Gardner）的一篇文章。文章附了一张有着110个区域的地图：
+  \fig{width=0.5\linewidth}{figs/Martin-Gardner-fool‘s-day-gift.png}
+
+  加德纳在该图下赫然写道：“四色定理被推翻了！”正文中他还语气肯定地说：该地图不能用少于5种颜色使相邻区域着不同颜色。
+
+  请问：四色定理真的被推翻了么？
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,94 @@
+\documentclass{ctexart}
+
+\title{如何使用 \LaTeX 描述算法}
+\author{李晗}
+\date{November 2021}
+
+\usepackage{amsmath, amsthm, amssymb, mathrsfs, graphicx}
+\usepackage{tcolorbox, hyperref, enumerate}
+\usepackage{tabu}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\begin{document}
+
+\maketitle
+
+\section{文本环境}
+
+如果需要让 \LaTeX 在单行文本中 \textbf{原样输出} ，可以使用 \verb|\verb| 环境。
+具体使用方式见源代码。
+
+使用 \verb|\verbatim| 或 \verb|\lstlisting| 等环境都可以让环境内的多行文本 \textbf{原样输出}，包括空格、换行等。
+
+\noindent verbatim：
+\begin{verbatim}
+#include <stdio.h> 
+int main() {
+    printf("Hello world!");
+}
+\end{verbatim}
+
+\noindent lstlisting：
+\begin{lstlisting}
+#include <stdio.h> 
+int main() {
+    printf("Hello world!");
+}
+\end{lstlisting}
+
+也许你会觉得 \verb|\lstlisting| 环境看上去比较丑，但是 1-6 作业中的代码就是用它完成的。经过配置之后看上去能舒服一些。
+
+\lstdefinestyle{style1}{
+    basicstyle=\ttfamily,
+    breaklines=true,
+    numbers=left,
+    keywordstyle=\color{purple}\bfseries,
+    identifierstyle=\color{brown!80!black},
+    commentstyle=\color{gray},
+    showstringspaces=false,
+    frame=trBL,
+    frameround=fftt,
+    backgroundcolor=\color[RGB]{245,245,244},
+}
+\begin{lstlisting}[language=C++,style=style1]
+#include <stdio.h> 
+int main() {
+    printf("Hello world!");
+}
+\end{lstlisting}
+
+\section{algorithm环境}
+
+使用 \verb|algorithm| 环境能够方便的排版非常直观的伪代码代码。
+
+\begin{algorithm}[H]
+  \caption{The Name of Algorithm}
+  \label{alg:sum}
+  \begin{algorithmic}[1]
+    \Procedure{Fib}{$n$} \Comment{通常伪代码的函数名是这样特殊的大写}
+      \If {$n \le 1$}
+        \State \Return $1$
+      \ElsIf {$n = 2$}   \Comment{仅为说明如何使用 else if}
+        \State \Return $2$
+      \Else
+        \State \Return $n \times \Call{Fib}{n}$ \Comment{使用 Call 符合伪代码函数名}
+      \EndIf
+    \EndProcedure
+    \Procedure{Another}{}
+      \For {$ i \gets 1, n $}
+        \State $ sum \gets sum + i $
+      \EndFor
+      \While {$ sum > 0 $}  \label{The While Loop}
+        \State $ sum-- $
+      \EndWhile
+      \Repeat
+        \State 编不下去了
+        \State while 循环在第\ref{The While Loop}行
+      \Until {$cond$}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+\end{document}

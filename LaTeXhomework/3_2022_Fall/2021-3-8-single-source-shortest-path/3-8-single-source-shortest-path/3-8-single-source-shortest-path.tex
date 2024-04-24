@@ -1,0 +1,251 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第3-8讲: 单源最短路}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+	% \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+	%   \begin{itemize}
+	%     \item 
+	%   \end{itemize}}}}
+	% \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.1-2]
+Prove Corollary 24.3.
+\end{problem}
+
+\begin{solution}
+	Suppose there is a path from s to v. Then there must be a shortest such path of length $\delta(s, v)$. It must have finite length since it contains at most $|V| - 1$ edges and each edge has finite length. By Lemma 24.2, $v.d = \delta(s, v) < \infty$ upon termination.
+
+	On the other hand, suppose $v.d < \infty$ when \text{BELLMAN-FORD} terminates. Recall that $v.d$ is monotonically decreasing throughout the algorithm, and \text{RELAX} will update $v.d$ only if $u.d + w(u, v) < v.d$ for some u adjacent to v. Moreover, we update $v.\pi = u$ at this point, so v has an ancestor in the predecessor subgraph. Since this is a tree rooted at s, there must be a path from s to v in this tree. Every edge in the tree is also an edge in G, so there is also a path in G from s to v.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.1-3]
+Given a weighted, directed graph $G = (V, E)$ with no negative-weight cycles, let mm be the maximum over all vertices $v \in V$ of the minimum number of edges in a shortest path from the source s to v. (Here, the shortest path is by weight, not the number of edges.) Suggest a simple change to the Bellman-Ford algorithm that allows it to terminate in $m + 1$ passes, even if m is not known in advance.
+\end{problem}
+
+\begin{solution}
+	By the upper bound theory, we know that after $m$ iterations, no $d$ values will ever change. Therefore, no $d$ values will change in the $(m + 1)$-th iteration. However, we do not know the exact m value in advance, we cannot make the algorithm iterate exactly m times and then terminate. If we try to make the algorithm stop when every d values do not change anymore, then it will stop after $m + 1$ iterations.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.1-4]
+Modify the Bellman-Ford algorithm so that it sets $v.d$ to $-\infty$ for all vertices v for which there is a negative-weight cycle on some path from the source to v.
+\end{problem}
+
+\begin{solution}
+	\noindent verbatim：
+	\begin{verbatim}
+		BELLMAN-FORD'(G, w, s)
+		INITIALIZE-SINGLE-SOURCE(G, s)
+		for i = 1 to |G.V| - 1
+			for each edge (u, v) ∈ G.E
+				RELAX(u, v, w)
+		for each edge(u, v) ∈ G.E
+			if v.d > u.d + w(u, v)
+				mark v
+		for each vertex u ∈ marked vertices
+			DFS-MARK(u)
+
+		DFS-MARK(u)
+		if u != NIL and u.d != -∞
+			u.d = -∞
+			for each v in G.Adj[u]
+				DFS-MARK(v)
+			
+	\end{verbatim}
+	After running \text{BELLMAN-FORD}, run \text{DFS} with all vertices on negative-weight cycles as source vertices. All the vertices that can be reached from these vertices should have their d attributes set to $-\infty$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.2-2]
+
+\end{problem}
+
+\begin{solution}
+	When we reach vertex v, the last vertex in the topological sort, it must have out\text-degree 0. Otherwise there would be an edge pointing from a later vertex to an earlier vertex in the ordering, a contradiction. Thus, the body of the for-loop of line 4 is never entered for this final vertex, so we may as well not consider it.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.3-2]
+\end{problem}
+
+\begin{solution}
+	Consider any graph with a negative cycle. \text{RELAX} is called a finite number of times but the distance to any vertex on the cycle is $-\infty$, so Dijkstra's algorithm cannot possibly be correct here. The proof of theorem 24.6 doesn't go through because we can no longer guarantee that
+
+	$\delta(s, y) \le \delta(s, u).$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.3-4]
+Professor Gaedel has written a program that he claims implements Dijkstra's algorithm. The program produces $v.d$ and $v.\pi$ for each vertex $v \in V$. Give an $O(V + E)$-time algorithm to check the output of the professor's program. It should determine whether the $d$ and $\pi$ attributes match those of some shortest-paths tree. You may assume that all edge weights are nonnegative.
+\end{problem}
+
+\begin{solution}
+	Begin by verifying that proposed shortest paths tree is indeed a tree. Next check that s.d= 0. Then, for each vertex in $V\\\{s\}$, examine all edges cominginto V. Check that U.π is the vertex which minimizes u.d + w(u, v) for all vertices u for which there is an edge (u, v), and that v.d = v.π.d + w(v.π,v). If this is ever false, return false. Otherwise, return true. This takes O(V + E) time. Now we must check that this correctly checks whether or not the d and π attributes match those of some shortest-paths tree. Suppose that this is not true; ie, that the algorithm terminates without returning false on input which doesn't correspond to correctly computed minimum distances and a minimum spanning tree. Let U be a vertex which is incorrect which minimizes $min(v.d, \delta(s, v))$.\\
+	Break ties by choosing the vertex closest to s along the proposed shortest paths tree T. (If there are still ties, choose arbitrarily from among them).
+	First suppose $v.d\leq \delta(s,v)$. Then we must have $v.\pi.d < v.d$ since $U.\pi.d$ is closer to the root along T, so if equality held we would have selected $U.\pi$ instead of v. By construction, $v.\pi.d$ must be correct. Furthermore, if U had a better neighbor than $U.\pi$ according to the estimated distances, the algorithm would have identified it at terminated. Thus, if $U.\pi$ cannot be the parent of U on a shortest paths tree, there must exist a neighbor u of U such that u.d was computed incorrectly, but such that $\delta(s,u) + w(u,u) < v.d$. However, this implies $\delta(s,u) < v.d$, which means we should have initially chosen u instead of U.\\
+	Now suppose $\delta(s,u) < v.d$. If U has no incident edges of weight 0 then each vertex $u\in N(v) = \{u|(u,v) \in E\}$ has been computed correctly. \\
+	Since $v.d$ must equal $u.d + w(u,0)$ for some such vertex $u\in N(v)$, the algorithm would detect if U were incorrectly computed. \\
+	Thus, $V$ must have at least one incident edge of weight 0. \\
+	%Let $S = \{v^'|(v^',v)\in E,w(o^',v) = 0\}$.\\
+	Let $S = \{v^{'}|(v^{'},v)\in E,w(o^{'},v) = 0\}$.\\
+	Then no $v^{'}\in S$ can be the parent of U in the proposed shortest paths tree, since it would have been chosen instead of U to begin with. Furthermore, since v.d is incorrect and each $u\in N(v)- S$ has strictly lower estimated distances, the estimated distances of each $u\in N(u)- S$ must be correct. This implies that the only possible parents
+	of U in a true shortest paths tree must lie in $S$. Let z be one such vertex. Then $\delta (s,z)= \delta (s, v)$, so we may apply the exact same argument as above to z. Continuing in this fashion, follow 0-weight edges back towards the root along some true shortest paths tree. Since $0\leq \delta (s,v) < v.d$, this process will eventually terminate because the estimated distance is nonzero, so either we'll run out of 0-weight edges or we'll hit the root and the algorithm will correctly identify an overestimated distance.
+
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.3-7]
+\end{problem}
+
+\begin{solution}
+	$V+\sum_{(u, v)\in E}w(u,v)-E$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.5-2]
+Give an example of a weighted, directed graph G = (V, E) with weight function $w: E \rightarrow \mathbb R$ and source vertex ss such that G satisfies the following property: For every edge $(u, v) \in E$, there is a shortest-paths tree rooted at ss that contains $(u, v)$ and another shortest-paths tree rooted at ss that does not contain (u, v).
+\end{problem}
+
+\begin{solution}
+	Let G have 3 vertices s, x, and y. Let the edges be $(s, x)$, $(s, y)$, and $(x, y)$ with weights 1, 1, and 0 respectively. There are 3 possible trees on these vertices rooted at s, and each is a shortest paths tree which gives $\delta(s, x) = \delta(s, y) = 1$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 24.5-5]
+Let $G = (V, E)$ be a weighted, directed graph with no negative-weight edges. Let $s \in V$ be the source vertex, and suppose that we allow $v.\pi$ to be the predecessor of v on any shortest path to v from source s if $v \in V - \{s\}$ is reachable from s, and \text{NIL} otherwise. Give an example of such a graph G and an assignment of $\pi$ values that produces a cycle in $G_\pi$G.\\
+(By Lemma 24.16, such an assignment cannot be produced by a sequence of relaxation steps.)
+\end{problem}
+
+\begin{solution}
+	Suppose that we have a grap hon three vertices $\{s, u, v\}$ and containing edges $(s, u), (s, v), (u, v), (v, u)$ all with weight 0. Then, there is a shortest path from s to v of s, u, v and a shortest path from s to u of s v, u. Based off of these, we could set $v.\pi = u$and $u.\pi = v$. This then means that there is a cycle consisting of $u, v$ in $G_\pi$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 24-3]
+\end{problem}
+
+\begin{solution}
+	a. To do this we take the negative of the natural log (or any other base will also work) of all the values $c_i$ that are on the edges between the currencies. Then, we detect the presence or absence of a negative weight cycle by applying Bellman Ford. To see that the existence of an arbitrage situation is equivalent to there being a negative weight cycle in the original graph, consider the following sequence of steps:
+
+	$\begin{aligned} R[i_1, i_2] · R[i_2, i_3] \cdot \cdots \cdot R[i_k, i_1] & > 1 \\ \ln(R[i_1, i_2]) + \ln(R[i_2, i_3]) + \cdots + \ln(R[i_k, i_1]) & > 0 \\ −\ln(R[i_1, i_2]) − \ln(R[i_2, i_3]) − \cdots − \ln(R[i_k, i_1]) & < 0. \end{aligned}$\\
+
+	b. To do this, we first perform the same modification of all the edge weights as done in part (a) of this problem. Then, we wish to detect the negative weight cycle. To do this, we relax all the edges $|V| − 1$ many times, as in BellmanFord algorithm. Then, we record all of the dd values of the vertices. Then, we relax all the edges $|V|$ more times. Then, we check to see which vertices had their dd value decrease since we recorded them. All of these vertices must lie on some (possibly disjoint) set of negative weight cycles. Call S this set of vertices. To find one of these cycles in particular, we can pick any vertex in S and greedily keep picking any vertex that it has an edge to that is also in S. Then, we just keep an eye out for a repeat. This finds us our cycle. We know that we will never get to a dead end in this process because the set S consists of vertices that are in some union of cycles, and so every vertex has out degree at least 1.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 24-2]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+\begin{ot}[Delta stepping algorithm]
+
+	\noindent 参考资料:
+	\begin{itemize}
+		\item \href{https://en.wikipedia.org/wiki/Parallel_single-source_shortest_path_algorithm}{https://en.wikipedia.org/wiki/Parallel\_single-source\_shortest\_path\_algorithm}
+		\item 	\href{https://www.sciencedirect.com/science/article/pii/S0196677403000762?via\%3Dihub} {Meyer, U.; Sanders, P. (2003-10-01). ``Δ-stepping: a parallelizable shortest path algorithm''. }
+	\end{itemize}
+
+
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+\begin{ot}[Radius stepping algorithm]
+
+	\noindent 参考资料:
+	\begin{itemize}
+		\item \href{https://en.wikipedia.org/wiki/Parallel_single-source_shortest_path_algorithm}{https://en.wikipedia.org/wiki/Parallel\_single-source\_shortest\_path\_algorithm}
+		\item \href{https://dl.acm.org/doi/10.1145/2935764.2935765} {Blelloch, Guy E.; Gu, Yan; Sun, Yihan; Tangwongsan, Kanat (2016). "Parallel Shortest Paths Using Radius Stepping". Proceedings of the 28th ACM Symposium on Parallelism in Algorithms and Architectures - SPAA '16. New York, New York, USA: ACM Press: 443–454.}
+	\end{itemize}
+
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

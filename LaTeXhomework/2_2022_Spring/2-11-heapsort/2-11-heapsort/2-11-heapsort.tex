@@ -1,0 +1,290 @@
+% 2-11-heapsort.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第11讲: 堆与堆排序}
+\me{林凡琪 }{211240042 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.1-2]
+证明有n个元素的堆高度为$\lfloor \lg n \rfloor$
+\end{problem}
+
+\begin{solution}
+  令$n = 2^m − 1 + k$,其中$m$很大.\\
+  堆由一个高度为m-1的完全二叉树组成,底部有k个附加的叶节点.\\
+  根的高度是通往这k个叶节点之一的最长的简单路径的长度m.\\
+  从定义可得, $m = \lfloor \lg n \rfloor$
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.1-7]
+\end{problem}
+
+\begin{solution}
+  取序号为$\lfloor n/2 \rfloor + 1$的子节点.\\
+  $$
+    \begin{aligned}
+      \text{LEFT}(\lfloor n / 2 \rfloor + 1) & = 2(\lfloor n / 2 \rfloor + 1) \\
+                                             & > 2(n / 2 - 1) + 2             \\
+                                             & = n - 2 + 2                    \\
+                                             & = n.
+    \end{aligned}
+  $$
+  由于左侧子节点的序号大于堆中元素的个数,所以该节点没有子节点,所以是叶节点.其他有更大区号的节点同理也是叶节点.
+  \\
+  但是对于序号为$\lfloor n/2 \rfloor$的节点,它不是叶节点.在节点数为偶数的情况下它将有一个序号为n的左节点,在节点数为奇数的情况下,它将有一个索引为n-1的左节点和一个索引为n的右节点.\\
+  这使得n大小的堆中的叶子数量为$\lceil n / 2\rceil$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.2-5]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}[H]
+    \caption{MAX-HEAPIFY}
+    \begin{algorithmic}[1]
+      \Procedure{MAX}{$A,i$}
+      \While {1}
+      \State $l = LEET(i)$
+      \State $r = RIGHT(i)$
+      \If {$l \leq A.heap-size and A[l] > A[i]$}
+      \State $largest = l$
+      \Else $largest = i$
+      \EndIf
+      \If {$r \leq  A.heap-size and A[r] > A[largest]$}
+      \State $largest = r$
+      \EndIf
+      \If {$largest == i$}
+      \State \Return
+      \EndIf
+      \State $swap(A[i], A[largest]$)
+      \State $i = largest$
+      \EndWhile
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.2-6]
+\end{problem}
+
+\begin{solution}
+  考虑由A产生的堆，其中$A[1]=1，A[i]=2(2 \leq i \leq n)$\\
+  由于1是堆中最小的元素，它必须通过堆的每一层进行交换，直到它成为一个叶子节点。\\
+  由于堆的高度是$lfloor \lg n\rfloor$因此\text{MAX-HEAPIFY}的最坏情况时间是$\Omega(\lg n)Ω(lgn)$。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.3-3]
+\end{problem}
+
+\begin{solution}
+  从6.1-7中，我们知道，堆的叶子节点序号如下
+
+  $\left\lfloor n / 2 \right\rfloor + 1, \left\lfloor n / 2 \right\rfloor + 2, \dots, n.$
+
+  注意，这些元素对应于堆数组的后半部分（如果nn是奇数，则加上中间的元素）。因此，任何大小为nn的堆中的叶子数量是$\left\lceil n / 2\right\rceil⌈n/2⌉$。\\
+  让我们通过归纳法来证明。\\
+  让$n_h$表示高度为h的节点数.由于$n_0 = \left\lceil n / 2 \right\rceil$所以上界对base成立.\\
+  现在假设它对$h-1$成立.我们已经证明它对h成立.\\
+  如果$n_{h-1}$是偶数,则高度为h的每个节点正好有两个子节点,这意味着$n_h = n_{h - 1} / 2 = \left\lfloor n_{h - 1} / 2 \right\rfloor$\\
+  如果$n_{h-1}$是奇数,高度为h的一个节点有一个孩子,其余的有两个孩子,这也意味着$n_h = \left\lfloor n_{h - 1} / 2 \right\rfloor + 1 = \left\lceil n_{h - 1} / 2 \right\rceil$\\
+  因此,我们有
+  $$
+    \begin{aligned}
+      n_h & = \left\lceil \frac{n_{h - 1}}{2} \right\rceil                                                    \\
+          & \le \left\lceil \frac{1}{2} \cdot \left\lceil \frac{n}{2^{(h - 1) + 1}} \right\rceil \right\rceil \\
+          & = \left\lceil \frac{1}{2} \cdot \left\lceil \frac{n}{2^h} \right\rceil \right\rceil               \\
+          & = \left\lceil \frac{n}{2^{h + 1}} \right\rceil
+    \end{aligned}
+  $$
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.4-2]
+\end{problem}
+
+\begin{solution}
+  Initialization:数组A[i+1...n]是空的,所以不变式成立\\
+  Maintenance:\\
+  $A[1]$是A[1...i]中最大的元素，它比A[i + 1...n]A[i+1...n]中的元素小。当我们把它放在第i个位置的时候,那么$A[i..n]$含有已被排序的最大的元素.\\
+  减少堆的大小并调用 text{MAX-HEAPIFY}将A[1...i-1]变成一个最大堆。\\
+  递减i为下一次迭代奠定了不变性。\\
+  Termination:\\
+  循环后i=1。这意味着A[2...n]被排序，A[1]是数组中最小的元素\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.4-4]
+\end{problem}
+
+\begin{solution}
+  花费线性的时间把它转换为max-heap,然后用$n \lg n$的时间排序
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.4-5 (\red{$^{\ast}$})]
+\end{problem}
+
+\begin{solution}
+  假设这个堆是个满二叉树,$n=2^k - 1$,有$2^{k-1}$个叶子节点和$2^{k-1}-1$个内部节点.\\
+  考虑把堆前面的$2^{k-1}$个元素排序.我们考虑它们在堆中的排列,把叶子节点涂成红色,内部节点涂成蓝色,有色节点是堆的一个子树.因为有$2^{k-1}$个有色节点,所以最多只有$2^{k - 2}$个是红色的,这意味着最少有$2^{k - 2} - 1$个节点是蓝色的.\\
+  虽然红色节点可以直接跳到根部，但蓝色节点在被移除之前需要向上移动。让我们计算一下将蓝色节点移到根部的最少交换次数。\\
+  此时有$2^{k - 2} - 1$个节点是蓝色的,并且它们被排列在二叉树中.\\
+  如果有d个这样的蓝色节点，那么就会有$i=\lg d$层，每个层包含$2^i$个长度为i的节点。因此，互换的次数是
+  $$
+    \sum_{i = 0}^{\lg d}i2^i = 2 + (\lg d - 2)2^{\lg d} = \Omega(d\lg d).$$
+  有这样的递推关系
+  $$T(n) = T(n / 2) + \Omega(n\lg n).$$
+  利用master method 我们得到$T(n) = \Omega(n\lg n)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.5-5]
+\end{problem}
+
+\begin{solution}
+  Initialiazation:\\
+  A是一个堆，只是A[i]可能比它的父代大，因为它已经被修改了。A[i]比它的子代大，否则guard clause会失败，不会进入循环（新值比旧值大，旧值比子代大）。\\
+  Maintenance:\\
+  当我们将A[i]与其父本交换时，max-heap属性得到了满足，只是现在A[text{PARENT}(i)]可能比其父本大。把i改成它的父本，就能保持不变性。\\
+  Termination:\\
+  只要堆被耗尽或者A[i]及其父本的max-heap属性被保留，循环就会终止。在循环终止时，A是一个max-heap。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 6.5-9]
+\end{problem}
+
+\begin{solution}
+  \begin{algorithm}
+    \begin{algorithmic}
+      \Procedure{merge-sorted-lists}{lists[][]}
+      \State n$\gets$lists.length
+      \State let lowest-from-each be an empty array
+      \For{$i \gets 1 to n$}
+      \State add (lists[i][0], i) to lowest-from-each
+      \State delete lists[i][0]
+      \EndFor
+      \State A$\gets$MIN-HEAP(lowest-from-each)
+      \State let merged-lists be an empty array
+      \While{$!min-heap.EMPTY()$}
+      \State element-value, index-of-list $\gets$ HEAP-EXTRACT-MIN(A)
+      \State add element-value to merged-lists
+      \If{$lists[index-of-list].length > 0$}
+      \State MIN-HEAP-INSERT(A, lists[index-of-list][0], inde-of-list))
+      \State delete lists[index-of-list][0]
+      \EndIf
+      \EndWhile
+      \Return merged-lists
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Heap Equality]
+Prove that
+\[
+  \forall h \in \mathbb{Z}^{+}: \lceil \log(\lfloor \frac{1}{2}h \rfloor + 1) \rceil + 1 = \lceil \log (h + 1) \rceil.
+\]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Binomial Heaps]
+  介绍 Binomial Heap 数据结构。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item Problem 19-2 of《算法导论》
+    \item \href{https://en.wikipedia.org/wiki/Binomial\_heap}{Binomial heap @ wiki}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Fibonacci Heaps]
+  介绍 Fibonacci Heap 数据结构。可不介绍其中的平摊分析内容。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item Chapter 19 of《算法导论》
+    \item \href{https://en.wikipedia.org/wiki/Fibonacci\_heap}{Fibonacci heap @ wiki}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

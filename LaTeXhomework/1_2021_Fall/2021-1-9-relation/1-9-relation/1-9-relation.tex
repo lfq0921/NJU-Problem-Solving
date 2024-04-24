@@ -1,0 +1,234 @@
+% 1-9-relation.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第9讲: 关系及其性质}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.26\textwidth}{\large
+          \begin{itemize}
+            \item ``关系''至关重要
+          \end{itemize}}}}
+  \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 10.9]
+\end{problem}
+
+\begin{solution}
+  This relation is an equivalence relation.\\
+  reflexive:$\forall (x_1, x_2), x_1 - x_1 = 0;x_2 - x_2 = 0;$and 0 is even;therefore $(x_1, x_2)\sim(x_1, x_2)$\\
+  symmetry:$\forall (x_1, x_2),(y_1, y_2)$ if $x_1 - y_1 = 2m; x_2 - y_2 = 2n$ then $(x_1, x_2)\sim(y_1, y_2)$;therefore $ y_1 - x_1 = -2m; y_2 - x_2 = -2n$, therefore $(y_1, y_2)\sim(x_1, x_2)$.\\
+  transitive:if$(x_1, x_2)\sim(y_1, y_2)$ and $(z_1, z_2)\sim(y_1, y_2)$, then $x_1 - y_1 = 2m; x_2 - y_2 = 2n$ and $z_1 - y_1 = 2p; z_2 - y_2 = 2q$; therefore $x_1 - z_1 = (x_1 - y_1) - (z_1 - y_1) = 2(m - p), x_2 - z_2 = (x_2 - y_2) - (z_2 - y_2) = 2(n - q)$; therefore $(x_1, x_2)\sim(z_1, z_2)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 10.10]
+\end{problem}
+
+\begin{solution}
+  如果$E_x = E_y$ 则 $\forall x \in E_x$,满足$x \in E_y$ , 且$\forall x \in E_y$,满足$x \in E_x$.\\
+  不妨设$z \in E_x$且$z \in E_y$,则$z\sim x$且$z\sim y$\\
+  根据传递性,$x\sim y$.\\
+  反推亦成立.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 10.13]
+\end{problem}
+
+\begin{proof}
+  (a) 是一个等价关系.\\
+  自反性:p(0) = p(0) = a0;\\
+  对称性:因为p(0) = q(0) 所以 p$\sim $q;又因为q(0) = p(0),所以q$\sim$p\\
+  传递性:因为p(0) = q(0),所以a0 = b0;\\
+  因为q(0) = r(0), 所以b0 = c0;\\
+  所以a0 = c0,所以q(0) = r(0)\\
+  E = {任何常数项为0的多项式}\\
+  (b)是一个等价关系;\\
+  $E_r =\{ a_2 * x^2 + a_1 * x + a_0 | a_2 \neq 0\}$\\
+  (c)不是一个等价关系.不满足对称性.
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 11.4]
+\end{problem}
+
+\begin{solution}
+  (a)是partition.是法向量为(1,1,1)的无数个平行平面的集合.\\
+  (b)是partition.是无数个球心在原点半径为r的球壳的集合.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 11.8]
+\end{problem}
+
+\begin{proof}
+  (a)对于条件一:每一个级数的多项式都存在,所以A必不是空集.\\
+  对于条件二:$\cup_A = X$所有级数的多项式的集合就是所有多项式的集合\\
+  对于条件三:不妨设A集合中的多项式级数为a,B集合中的多项式级数为b,若级数相同,则a = b,$\forall x\in A, x \in B$即$A = B$;\\
+  若级数不同,$a \neq b$,则$\forall x\in A, x \notin B$即$A \cap B = \emptyset$\\
+  (b)条件一:c一定存在,所以$A_c$必不是空集\\
+  条件二:$\cup A_c = {A_c |c \in R}$又因为c是实数,所以$\cup A_c$是所有多项式的集合.\\
+  条件三:不妨设$A_c$中P(0) = c, $A_d$中P(0) = d,若c = d 则$\forall P(P(0) = c = d) \in A_c$并且$\forall P(P(0) = c = d) \in A_d$,所以$A_c = A_d$\\
+  (c)不是partition.违反了条件三.\\
+  p = qr,若q = m * n;则$p \in A_q$且$p \in A_m$且$p \in A_n$.即$A_m \neq A_n$且$A_m \cap A_n \neq \emptyset$.\\
+  (d)不是partition.违反了条件三\\
+  反例如下:令$p = x^2 -3x + 2$;$p(1) = p(2) = 0$;则$p \in A_1$且$p \in A_2$.即$A_1 \neq A_2$且$A_1 \cap A_2 \neq \emptyset$.
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 11.10]
+\end{problem}
+
+\begin{proof}
+  (a)是partition.\\
+  条件一显然符合.\\
+  条件二:$\cup A_\alpha = X$,则$\cup (A_alpha \cap B) = \cup A_\alpha \cap B = X \cap B = B$\\
+  因为$\{A_\alpha\}$是X的partition,所以$\{A_\alpha\}$必满足条件三,又因为$\{A_\alpha \cap B\} \subseteq \{A_\alpha\}$,所以${A_\alpha \cap B}$一定也满足条件三.\\
+  (b)当$A_\alpha = \emptyset$则${X \backslash A_alpha}$是X的partition.\\
+  否则$X\backslash A_a \cap X\backslash A_b = X\backslash (A_a \cap A_b)$即不满足条件三.
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 12.11 (a, b)]
+\end{problem}
+
+\begin{solution}
+  (a)假设$supS > sup(S\cup T)$,因为supS是上确界,所以任意y<supS,都会$\exists x \in S$ 使得$x < y$所以若$supS > sup(S\cup T)$,则$exists x \in (S \cup T), x >  sup(S\cup T)$,此时$ sup(S\cup T)$不符合定义.所以假设不成立.\\
+  同理可证$supT <= sup(S\cup T)$\\
+  (b)若$sup(S \cup T) \neq supS$则$\exists x\in T,x >supS,但x<=supT$,所以$sup(S \cup T) = sup T$\\
+  同理可证若 $sup(S \cup T) \neq supT$,则$sup(S \cup T) = sup S$\\
+  得证.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 12.12]
+\end{problem}
+
+\begin{solution}
+  (a)$\exists M, (M \in \mathbb{R} \land \forall y, (y \in S \rightarrow y\leqq M)) \rightarrow \exists N, (N = M + x \land \forall y, (y \in x + S \rightarrow y <= N))$\\
+  (b)$\forall y,(y \in S, \rightarrow y\leqq sup S)\rightarrow \forall y, (y \in x + sup S)$\\
+  (c)$\forall y,(y \in x + S \rightarrow y <= x + sup S)\\
+    \forall M,(M \in \mathbb{R} \land\forall y, (y \in S \rightarrow y\leqq M) \rightarrow M >= supS)\\
+    \rightarrow \forall N, (N \in \mathbb{R} \land \forall y, (y \in x + sup S \rightarrow y <= N) \rightarrow N>= x + sup S)$\\
+  (1)$\land$(2) $\rightarrow x + sup S = sup(x + S).$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem 13.14]
+\end{problem}
+
+\begin{solution}
+  1. $\forall x \in S,x \subseteq x$\\
+  2. $\forall x, y \in S,,y \subseteq x,\rightarrow x = y$\\
+  3. $\forall x,y,z\in S,x \subseteq y, y \subseteq z, \rightarrow x \subseteq z$\\
+  4.若$A = \{a|a\in P(A)\},B = \{b,c|b, c\in P(A)\},\rightarrow A\nsubseteq B,B\nsubseteq A$\\
+  前三条满足偏序,第四条不满足全序.\\
+  得证.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[关系的复合]
+\mfigcap{width = 1.00\textwidth}{figs/wulin-relation}{``舅老爷''是什么关系复合而成的?}
+定义二元关系 $R$ 与 $S$ 的复合为:
+\[
+  S \circ R = \set{(x, z) \mid \exists y \big((x, y) \in R \land (y, z) \in S \big)}.
+\]
+
+\noindent 请证明复合操作满足结合律:
+\[
+  T \circ (S \circ R) = (T \circ S) \circ R.
+\]
+\end{problem}
+
+\begin{proof}
+\end{proof}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[二元关系]
+  介绍花样繁多的``二元关系'', 如 (不限于):
+  \begin{itemize}
+    \item Preorder
+    \item Strict weak order
+    \item Strict partial order
+    \item $\cdots$
+  \end{itemize}
+
+  \noindent 基本要求:
+  \begin{itemize}
+    \item 举例说明每种二元关系的应用
+  \end{itemize}
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Binary\_relation}{Binary relation @ wiki}
+  \end{itemize}
+\end{ot}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[实数]
+  介绍实数的完备性 (Completeness), 如 (不限于):
+  \begin{itemize}
+    \item 概念
+    \item 等价形式
+    \item 实数的构造方式
+  \end{itemize}
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Completeness\_of\_the\_real\_numbers}{Completeness of the real numbers @ wiki}
+  \end{itemize}
+\end{ot}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+\begincorrection
+
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,205 @@
+% 1-1-why.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第1讲: 为什么计算机能解题?}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \mfig{width = 0.60\linewidth}{figs/recursion-mirror}
+  \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.50\textwidth}{\large
+          \begin{itemize}
+            \item 体会``思维的乐趣''
+            \item 初步了解递归与数学归纳法
+            \item 初步接触算法概念与问题下界概念
+          \end{itemize}}}}
+  \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $1.6$]
+The following message is encoded using a shifted alphabet just as in Exercise 1.1.
+What does the message say?
+
+RDSXCVIWTDGNXHUJCLTLXAAATPGCBDGTPQDJIXIAPITG
+
+请简单描述你的解题思路。
+\end{problem}
+
+\begin{solution}
+
+  利用ASCII码，将明文中的字母在字母表上按照某固定偏移量向后偏移，即利用凯撒密码法破解密码。
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[UD Problem $1.9$]
+Let $n$ be an odd integer. Prove that $n^3 − n$ is divisible by 24.
+\end{problem}
+
+\begin{solution}
+
+  不妨令n=2a+1，其中a是大于等于0的整数.
+
+  则$n^3$-n=4a(a+1)(2a+1)
+
+  即证a(a+1)(2a+1)能被6整除.
+
+  i)a=0(mod 3)
+
+  此时a能被3整除,a+1能被2整除，所以a(a+1)(2a+1)能被6整除.
+
+  ii)a=1(mod 3)
+
+  此时2a+1能被3整除，a+1能被2整除，所以a(a+1)(2a+1)能被6整除.
+
+  iii)a=2(mod3)
+
+  此时a+1能被3和2同时整除，所以a(a+1)(2a+1)能被6整除.
+
+  综上，得证.
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[$n$ 枚硬币]
+\mfig{width = 0.70\linewidth}{figs/scale}
+
+你有 $n$ 枚外观一模一样的硬币。
+已知其中有一枚假币，并且假币的质量比真币轻。\\
+现有一个带两个托盘的天平秤。
+请设计\red{``称量''}~\footnote{只允许使用``称量''操作。这是我们在做算法分析时关注的关键操作。}\red{方案}~\footnote{这就是算法。}，找到这枚假币。
+
+请用尽可能简洁的自然语言或者伪代码描述你的称量方案。
+不要提交可执行代码。
+\end{problem}
+
+\begin{solution}
+
+  (1)n=0(mod 3)
+
+  则分为三堆硬币数量都为$\frac{n}{3}$的硬币堆甲乙丙。比较甲乙，假币在轻的那份里，若两份重量相等，则假币在丙堆中。继续用相同的方法在目标硬币堆里里找出假币。
+
+  (2)n=1(mod 3)
+
+  则分为硬币数量分别为$\frac{n-1}{3}$的甲乙堆和$\frac{n-1}{3}$+1的丙堆。比较甲乙，假币在轻的那份里，若两份重量相等，则假币在丙堆中。继续用相同的方法在目标硬币堆里里找出假币。
+
+  (3)n=2(mod 3)
+
+  则分为硬币数量分别为(n+1)/3的甲乙堆和(n-2)/3的丙堆。比较甲乙，假币在轻的那份里，若两份重量相同，则假币在丙堆。  继续用该方法寻找假币。
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[$n$ 枚硬币问题的下界]
+接上一题，
+\red{最少}
+~\footnote{这就是问题的下界。显然，只考虑特定的\blue{\it 算法}是不够的；你要考虑\blue{\it 问题}本身的性质以及``称量''操作的本质。}
+需要称量多少次，才能找到这枚假币？
+请证明你的结论。
+\end{problem}
+
+\begin{solution}
+  首先问题不严谨，如果足够幸运的话，可以一次就比较出来。
+
+  所以默认本题的讨论情况是在最不幸运的情况下运用最优方法找到假币的称量次数。
+
+  算法是三分法，所以每一次称量后，样本容量都变为原来的1/3，当样本容量为3时就只需一次称量。
+
+  所以该问题下界为  $\lceil \log_3 n \rceil$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[$12$ 枚硬币 (UD Problem $1.8$)]
+你有 $12$ 枚外观一模一样的硬币。
+已知其中有一枚假币，其质量与真币不同。\\
+\red{但是，你不知道假币比真币轻还是重}。
+只称量三次，如何找出这枚假币，并确定它相对于真币的轻重？
+
+\mfig{width = 0.80\textwidth}{figs/try}
+\end{problem}
+
+\begin{solution}%
+
+  将硬币ABCDEFGHIJKL均分为甲乙丙三堆。
+
+  甲乙比较。
+
+  (1)平。则假币在丙中。比较IJ和AB ，若平，则假币在KL中，将K与A比较，若不平则K是假币，若平则L是假币；IJ和AB若不平，则假币在IJ中，将I与A比较，若不平则I是假币，若平则J是假币。
+
+  (2)甲重乙轻。则假币在ABCDEFGH中。比较ABE和CDI，若平，则假币在FGH中，比较FG，若平，则H是假币，若不平，则谁轻谁是假币。
+
+  (3)甲轻乙重，与(2)中方法对称。
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+%%%%%%%%%%%%%%%
+\begin{problem}[$n$ 枚硬币]
+你有 $n$ 枚外观一模一样的硬币。
+已知其中有一枚假币，其质量与真币不同。\\
+但是，你不知道假币比真币轻还是重。
+\red{好在，每个硬币都有一个标签 ``Possibly Heavy''}~\footnote{表示该硬币是真币或者比真币重。} \red{或者 ``Possibly Light''。}
+请设计``称量''方案，找出这枚假币，并确定它相对于真币的轻重。
+\end{problem}
+
+\begin{solution}
+
+  暂时没想到成熟的称量方案。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[$n$ 枚硬币]
+  你有 $n$ 枚外观一模一样的硬币。
+  已知其中有一枚假币，其质量与真币不同。\\
+  \red{但是，你不知道假币比真币轻还是重，硬币上也没有标签}。
+  请用尽可能少~\footnote{``称量''会带来什么信息？这些信息会如何影响问题的性质？}的称量次数，
+  找到这枚假币并确定它相对于真币的轻重。
+\end{ot}
+
+%%%%%%%%%%%%%%%
+\begin{ot}[汉诺塔问题]
+  三根相邻的柱子标号为A、B、C，A柱上按金字塔状叠放着n个不同大小的圆盘。要求将所有盘子移动到B柱上，每次只能移动一个盘子，并且每次移动后同一根柱子上都不能出现大盘子在小盘子上方，求至少需要多少次移动。
+  \mfig{width = 0.80\textwidth}{figs/Tower-of-Hanoi.png}
+\end{ot}
+
+\begin{solution}
+
+  不妨设n个盘子所需最少移动次数为A[n]，则当有n+1个盘子时，先经过A[n]的移动次数将n个盘子移动到C柱，再将第n+1个盘子移到B柱上，最后再将n个盘子经过A[n]的移动次数移到B柱。
+
+  由此可知，A[n+1]=2A[n]+1.又因为A[1]=1,所以A[n]=$2^n$-1
+
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%
+\beginfb
+
+你可以写
+~\footnote{优先推荐 \href{http://39.100.120.199}{ProblemOverflow}}：
+\begin{itemize}
+  \item 对课程及教师的建议与意见
+  \item 教材中不理解的内容
+  \item 希望深入了解的内容
+  \item $\cdots$
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

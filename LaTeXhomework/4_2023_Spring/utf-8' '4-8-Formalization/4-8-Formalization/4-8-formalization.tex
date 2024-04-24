@@ -1,0 +1,148 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-8讲: 形式化}
+\me{ 211240042}{林凡琪 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[JH  2.3.1.8]
+\end{problem}
+
+\begin{solution}
+  $$
+    \begin{gathered}
+      {\left[\begin{array}{cccc}
+            a_{11}  & a_{12}  & \cdots & a_{1 n} \\
+            a_{21}  & a_{22}  & \cdots & a_{2 n} \\
+            \cdots  & \cdots  & \cdots & \cdots  \\
+            a_{n 1} & a_{n 2} & \cdots & a_{n n}
+          \end{array}\right]} \\
+      \Downarrow \\
+      \bar{a}_{11} \# \bar{a}_{12} \# \cdots \# \bar{a}_{1 n} \# \# \\
+      \bar{a}_{21} \# \bar{a}_{22} \# \cdots \# \bar{a}_{2 n} \# \# \\
+      \cdots \\
+      \bar{a}_{n 1} \# \bar{a}_{n 2} \# \cdots \# \bar{a}_{n n} \# \#
+    \end{gathered}
+  $$
+  $\bar{a}_{i j} \in\{0,1\}^{+}$is the bianary representation of $a_{i j}$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[JH  2.3.3.8]
+\end{problem}
+
+\begin{solution}
+  1.
+  $$
+    \begin{aligned}
+      H C=\left\{w \in\{0,1, \#\}^* \quad \mid w\right. & \text{represents a graph that} \\&\text{contains a Hamiltonian cycle}\}
+    \end{aligned}
+  $$
+  Given $w \in H C$, let $c$ be a certificate of $w$, i.e. $c$ is any path in $w$, where $|c|^{\prime}=n$
+  A verifier checks the followings:
+  $>\left(c_i, c_{i+1}\right) \in w . E$, for $1 \leq i<n$
+  $>\left(c_n, c_1\right) \in w \cdot E$
+  $>c_i \neq c_j$ for $1 \leq i, j \leq n, i \neq j$\\
+  2.
+  $$
+    \begin{aligned}
+      V C P=\left\{u \# w \in\{0,1, \#\}^{+} \quad\right. & \mid u \in\{0,1\}^{+} \text {and } w \text { represents }   \\
+                                                          & \text { a graph that contains a vertext }                   \\
+                                                          & \text { cover of size } \operatorname{Number}(\mathrm{u})\}
+    \end{aligned}
+  $$
+  Given a graph $w$, and a certificate $c \subseteq w \cdot V$
+  A verifier checks the following:
+  $(i)|c|=N u m b e r(u)$
+  $(ii)c$ covers all vertexes of $w$, i.e. $c \cup N(c)=w . V$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[Turing Machine]
+  介绍一种确定性图灵机和一种非确定性图灵机模型.
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[SAT]
+  介绍判定问题SAT和优化问题Max-SAT及其形式描述，简单讨论一下它们为什么会``很难''.
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

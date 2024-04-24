@@ -1,0 +1,280 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-2讲: 置换群与拉格朗日定理}
+\me{林凡琪 }{211240042 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+	% \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+	%   \begin{itemize}
+	%     \item 
+	%   \end{itemize}}}}
+	% \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-3(d)]
+\end{problem}
+
+\begin{solution}
+	(14)(15)(12)(17)(13)(12)(14)(12)(13)(16)(14)(15)\\
+	even
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-5 (注: 只需列出S4的所有子群, 无需解(a)、(b)、(c))]
+\end{problem}
+
+\begin{solution}
+	$S_4$的子群有\\
+	$N_1=\{(1)\}$\\
+	二阶循环群$N_2=\{(1),(12)\}$\\
+	二阶循环群$N_3=\{(1),(13)\}$\\
+	二阶循环群$N_4=\{(1),(23)\}$\\
+	二阶循环群$N_5=\{(1),(24)\}$\\
+	二阶循环群$N_6=\{(1),(14)\}$\\
+	二阶循环群$N_7=\{(1),(34)\}$\\
+	二阶循环群$N_8=\{(1),(12),(34)\}$\\
+	二阶循环群$N_9=\{(1),(13),(24)\}$\\
+	二阶循环群$N_{10}=\{(1),(14),(23)\}$\\
+	三阶循环群$N_{11}=\{(1),(123),(132)\}$\\
+	三阶循环群$N_{12}=\{(1),(134),(143)\}$\\
+	三阶循环群$N_{13}=\{(1),(124),(142)\}$\\
+	三阶循环群$N_{14}=\{(1),(234),(243)\}$\\
+	Klein四元群$N_{15}=\{(1),(12),(34),(12)(34)\}$\\
+	Klein四元群$N_{16}=\{(1),(13),(24),(13)(24)\}$\\
+	Klein四元群$N_{17}=\{(1),(14),(23),(14)(23)\}$\\
+	Klein四元群$N_{18}=\{(1),(14)(23),(13)(24),(14)(23)\}$\\
+	四阶循环群$N_{19}=\{(1),(1234),(13)(24),(1432)\}$\\
+	四阶循环群$N_{20}=\{(1),(1324),(12)(34),(1423)\}$\\
+	四阶循环群$N_{21}=\{(1),(1243),(14)(23),(1342)\}$\\
+	与$S_3$同构$N_{22}=\{(1),(12),(13),(23),(123),(132)\}$\\
+	与$S_3$同构$N_{23}=\{(1),(12),(24),(14),(124),(142)\}$\\
+	与$S_3$同构$N_{24}=\{(1),(34),(13),(14),(143),(134)\}$\\
+	与$S_3$同构$N_{25}=\{(1),(34),(24),(23),(234),(243)\}$\\
+	八阶子群$N_{26}=\{(1),(1234),(13)(24),(1432),(13),(12)(34),(24),(14)(23)\}$\\
+	八阶子群$N_{27}=\{(1),(1324),(12)(34),(1423),(12),(13)(24),(34),(14)(32)\}$\\
+	八阶子群$N_{28}=\{(1),(1243),(14)(23),(1342),(14),(12)(43),(23),(13)(24)\}$\\
+	$N_{29}=\{(1),(123),(132),(134),(143),(124),(142),(234)(243),(12)(34),(13)(24),(14)(23)\}$\\
+	十二阶子群$N_{30}=S_4$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-16]
+Find the group of rigid motions of a tetrahedron. Show that this is the same group as $A4$.
+\end{problem}
+
+\begin{solution}
+	设G为rigid motions的群. 把四面体的顶点标号为1,2,3,4. Rotation由结点1发送的位置(四种可能性)和从该顶点发出边的方向(三种可能性)决定.\\
+	所以在G里有12个元素.\\
+	通过将给定的旋转映射到它在顶点上诱导的permutation，定义一个从 G 到顶点上的symmetric group的映射$\phi$。\\
+	有8个3阶旋转, 固定单个顶点并围绕连接该顶点到对面中心的轴旋转。\\
+	$\phi$下的rotation images:$\{(123), (132), (124), (142), (134), (143), (234), (243)\}$.\\
+	有3个2阶旋转, 绕着中点和对边的轴旋转.\\
+	$\phi$下的rotation images:$\{(12)(34), (13)(24), (14)(23)\}$\\
+	再加上identity, 就是所有的12个rotation.\\
+	$\phi$的image是$A_4$, 它是单射的,并且保留了群运算(因为运算再这两种情况下都是function composition),所以$\phi$给出了$A_4$和四面体rigid motion的群的同构.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-26(b)]
+\end{problem}
+
+\begin{solution}
+	我们通过数学归纳法证明$(1k)$能被写成$(12),(23),...,(n-1,n)$其中$k=2,3...,n$\\
+	Base Case:(12)=(12)\\
+	Induction Step: (1,k+1)=(1k)(k,k+1)(1k).\\
+	由(a)可知,$(12),(13),...,(1n)$能生成$S_n$,所以$(12),(23),...,(n-1,n)$也能.
+	(关于(a)的证明:\\
+	$S_n$的每一个元素都能写成transpositions的乘积, 并且任意transposition(ab)能被写成(1a)(1b)(1a).所以$(12),(13),...,(1n)$能生成$S_n$)
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-29]
+\end{problem}
+
+\begin{solution}
+	设$r$是$D_n$中$2\pi / n$的rotation. 那么$D_n$中的rotations是$\{r,r^2,...,r^{n-1},r^n=id\}$并且对于所有的$m,n$, 都有$r^mr^n=r^{m+n}=r^{n+m}=r^nr^m$\\
+	设$s$是$D_n$中古丁了顶点1的reflection,那么$D_n$中的reflection是$\{s,sr,sr^2,...,sr^{n-1}\}$\\
+	因为$$r^i(sr^j)=r^i(sr^jss)=r^i(srs)^js=r^i(r^{-1})^js=r^ir^{-j}s=r^{i-j}s$$\\
+	并且$$(sr^j)r^i=sr^{i+j}ss=r^{-i-j}s$$\\
+	所以$r^i(sr^j)=(sr^j)r^i$ iff $i-j\equiv -i-j(\mod n)$ iff $2i \equiv 0(\mod n)$.\\
+	所以$Z(D_{2n})=\{id,r^n\}$并且$Z(D_{2n+1})=\{id\}$.\\
+	特别地,$Z(Ds)=\{id,r^4\}$并且$Z(D_{10})=\{id,r^5\}$\\
+
+	致谢:https://math.stackexchange.com/questions/1714723/find-the-center-of-d8-d10-and-dn
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-36]
+Let r and s be the elements in $D_n$ described in Theorem 5.23
+(a) Show that $srs = r^{-1}$.
+(b) Show that $r^ks = sr^{-k} in D_n$.
+(c) Prove that the order of $r^k \in D_n$ is $n/ gcd(k, n)$.
+\end{problem}
+
+\begin{solution}
+	(a)证明:
+
+	$$
+		r=\left[\begin{array}{cc}
+				\cos (\pi / n) & -\sin (\pi / n) \\
+				\sin (\pi / n) & \cos (\pi / n)
+			\end{array}\right], s=\left[\begin{array}{cc}
+				1 & 0  \\
+				0 & -1
+			\end{array}\right]
+	$$
+	Then,
+	$$
+		s r s=\left[\begin{array}{cc}
+				\cos (\pi / n)  & \sin (\pi / n) \\
+				-\sin (\pi / n) & \cos (\pi / n)
+			\end{array}\right]=r^{-1}
+	$$\\
+	(b)证明:
+
+	数学归纳法
+
+	B:由(a)可知, $k=1,rs=sr^{-1}$;
+
+	H:假设对于所有$k<j$全部r成立
+
+	I:$k=j$
+
+	$$r^js=r^{j-1}rs=r^{j-1}sr^{-1}=sr^{-(j-1)}r^{-1}=sr^{-j}$$
+	\\
+	(c)证明:
+
+	$\left\langle r \right\rangle$是n阶的cyclic group, 所以根据TH 4.13, 显然证得.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 6-11 (注意：(c)中 $\subset$表示$\subseteq$)]
+
+\end{problem}
+
+\begin{solution}
+	1.(a)$\Rightarrow$ (c)
+
+	因为$g_1H = g_2H$,所以 $g_1H \subseteq  g_2H$\\
+	2.(c)$\Rightarrow$ (d)
+
+	因为$g_1\in g_1H \subseteq g_2H$, 有$h\in H$满足$g_1=h_2h$,然后$g_2=g_1h^{-1}\in g_1H(h^{-1}\in H)$\\
+	3.(d)$\Rightarrow$(e)
+
+	因为对于某些$h \in H$, 有$g_2=g_1h$, 所以$g_1^{-1}g_2=h\in H$.\\
+	4.(e)$\Rightarrow$(b)
+
+	设 $g_1^{-1} g_2=h \in H$. 我们首先证明$H g_1^{-1} \subseteq H g_2^{-1}$. 假设 $h^{\prime} g_1^{-1} \in H g_1^{-1}$. 因为 $g_1^{-1}=h g_2^{-1}$, 我们有 $h^{\prime} g_1^{-1}=h^{\prime} h g_2^{-1} \in H g_2^{-1}$. 相反地, $h^{\prime \prime} g_2^{-1}=h^{\prime \prime} h^{-1} g_1^{-1} \in H g_1^{-1}$, 所以 $H g_2^{-1} \subseteq H g_1^{-1}$.\\
+	5.(b) $\Rightarrow$ (a)
+
+	因为 $H g_1^{-1}=H g_2^{-1}$,存在$h \in H$满足$g_1^{-1}=h g_2^{-1}$, 所以 $g_1^{-1} g_2=h$ 并且$g_2=g_1 h$. 所以对于任意 $h^{\prime} \in H, g_2 h^{\prime}=g_1 h h^{\prime}$, so $g_2 H \subseteq g_1 H$. 相似地, $g_1 h^{\prime}=g_2 h^{-1} h^{\prime}$, so $g_1 H \subseteq g_2 H$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[$3-cycle$]
+证明：$A_n$ 中的每个置换皆可表成形如 $(k \text{ } k+1 \text{ } k+2)$ 的 3-cycle 的乘积。
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[SageMath学习]
+学习 TJ 第五章, 第六章关于 SageMath 的内容
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[二阶魔方]
+	请构造出二阶魔方相关的置换群，你能设计一种算法来解二阶魔方复原吗？
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[transpositions]
+	\begin{itemize}
+		\item 	证明：Show that any cycle can be written as the product of transpositions:
+		      $$(a_1,a_2,…,a_n)=(a_1 a_n)(a_1 a_{n−1} )⋯(a_1 a_3)(a_1 a_2)$$
+		\item 你能很快地给出一个置换的逆是什么吗？
+	\end{itemize}
+
+
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

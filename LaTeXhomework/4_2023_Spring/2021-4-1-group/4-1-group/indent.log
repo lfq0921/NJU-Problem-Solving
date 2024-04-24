@@ -1,0 +1,23 @@
+INFO:  latexindent.exe version 3.12, 2021-09-16, a script to indent .tex files
+       latexindent.exe lives here: H:/texlive/2021/bin/win32/
+       Sun Jan 28 12:51:15 2024
+       Filename: h:/problemSolving/LaTeXhomework/4/2021-4-1-group/4-1-group/__latexindent_temp_4-1-group.tex
+INFO:  Processing switches:
+       -y|--yaml: YAML settings specified via command line
+       -c|--cruft: cruft directory
+INFO:  Directory for backup files and h:/problemSolving/LaTeXhomework/4/2021-4-1-group/4-1-group//indent.log: h:/problemSolving/LaTeXhomework/4/2021-4-1-group/4-1-group/
+INFO:  YAML settings read: defaultSettings.yaml
+       Reading defaultSettings.yaml from H:/texlive/2021/bin/win32/defaultSettings.yaml
+       Reading defaultSettings.yaml (2nd attempt, TeXLive, Windows) from H:/texlive/2021/bin/win32/../../texmf-dist/scripts/latexindent/defaultSettings.yaml
+INFO:  YAML settings read: indentconfig.yaml or .indentconfig.yaml
+       Home directory is C:\Users\LEGIN (didn't find either indentconfig.yaml or .indentconfig.yaml)
+       To specify user settings you would put indentconfig.yaml here: C:\Users\LEGIN/indentconfig.yaml
+       Alternatively, you can use the hidden file .indentconfig.yaml as: C:\Users\LEGIN/.indentconfig.yaml
+INFO:  YAML settings read: -y switch
+       YAML setting: defaultIndent:'\t'
+       Updating mainSettings with defaultIndent: 	
+FATAL I couldn't find h:/problemSolving/LaTeXhomework/4/2021-4-1-group/4-1-group/__latexindent_temp_4-1-group.tex, are you sure it exists?
+      Exiting, no indendation done.
+       --------------
+INFO:  Please direct all communication/issues to:
+        https://github.com/cmhughes/latexindent.pl

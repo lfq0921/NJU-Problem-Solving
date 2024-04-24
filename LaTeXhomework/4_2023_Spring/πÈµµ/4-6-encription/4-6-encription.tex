@@ -1,0 +1,235 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-6讲: 加密算法}
+\me{朱宇博}{191220186}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 7-7(a,b)]
+Encrypt each of the following rsa messages $x$ so that $x$ is divided into blocks of integers of length $2$; that is, if $x = 142528$, encode $14$, $25$, and $28$ separately.\\
+(a) n = 3551, E = 629, x = 31\\
+(b) n=2257,E =47,x=23
+\end{problem}
+
+\begin{solution}
+(a)\\
+$y=x^{E}\mod n=31^{629}\mod 3551=2791$\\
+(b)\\
+$y = x^{E}\mod n=23^{47}\mod 2257=769$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 7-9(b)]
+Decrypt each of the following rsa messages y.\\
+(b)\\
+n=5893,D=81,y=34
+\end{problem}
+
+\begin{solution}
+$x =y^D\mod n = 34^{81}\mod 5893 = 2014$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 7-12]
+Find integers n, E, and X such that
+\[
+X^{E}\equiv X \pmod n
+\]
+Is this a potential problem in the rsa cryptosystem?
+\end{problem}
+
+\begin{solution}
+对于任意$X$，令$E=k\phi(n) + 1$，其中$k\in \mathbb{N}$，即可满足该等式。\\
+这是一个potential problem in rsa。该方程说明，在给定$n$和$X$下，只需将$X$做$E$次乘法，即可获取$X$。\\
+这可以看成一个加密-解密的过程。我们需要找到一组对应关系，使得$ab=E$,则有加密$y=x^{a}$, 解密$x=y^{b}$。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.7-1]
+Consider an RSA key set with p=11,q=29,n=319, and e=3. What value of d should be used in the secret key? What is the encryption of the message M=100?
+\end{problem}
+
+\begin{solution}
+$m=\phi(pq)=(p - 1)(q-1)=280$, $ed\equiv 1\pmod{280}$. So $d$ could be $187$.\\
+$y = M^{d} \mod n= 100^{3}\mod 319 =254$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 31.7-2]
+ \begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.90\linewidth]{figs/a}
+  \end{figure}
+\end{problem}
+
+\begin{solution}
+当$n\geq 16$时，
+\[
+\phi(n)=(p-1)(q-1)=(p-1)(\frac{n}{p}-1)=n - (p + \frac{n}{p}) + 1 \geq n - 2\sqrt{n} + 1\geq \frac{n}{2}
+\]
+则有
+\[
+k \phi(n) = 3d-1 \leq 3n\to k \leq 6
+\]
+所以在$[1,6]$之间枚举整数k，即可使等式成立，求得$\phi(n)$。\\
+又有$\phi(n)=(p-1)(q-1)=n - (p + \frac{n}{p}) + 1, q = \frac{n}{p}$，即可求得$p,q$。\\
+因为上述计算经过常数次长度不超过$|n|$的加减乘除即可完成，故在$|n|$的多项式时间内可对$n$进行质因数分解。\\
+若$n\leq 16$，则显然可在$|n|$的多项式时间内可对$n$进行质因数分解。\\
+综上，得证。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 31-3]
+\end{problem}
+
+\begin{solution}
+(a)\\
+在该情况下，有
+\[
+T_n =T(n-1)+T(n-2)+O(1)
+\]
+解得$T(n)=O(\phi^n)$，其中$\phi=\frac{\sqrt{5}+1}{2}$\\
+(b)\\
+在(a)的递归基础上，运用记忆化搜索，将每个计算出的$F_i$存下，避免重复计算。则在这种情况下，每个$F_i$都只会被计算一次，且计算时间为常数，故用时为$O(n)$\\
+(c)\\
+根据斐波那契数列的性质，有
+ $$\begin{pmatrix}F_{n+1}\\
+			   F_{n}
+     \end{pmatrix}
+     =
+     \begin{pmatrix} 
+     			     1&1\\
+			     1&0
+     \end{pmatrix}
+     \cdot
+     \begin{pmatrix}F_{n}\\
+     			   F_{n-1}
+     \end{pmatrix}$$
+ 利用矩阵快速幂，即可在$O(\lg n)$时间内完成。\\
+ (d)\\
+ 第一种：\\
+ 在该情况下，有
+\[
+\begin{aligned}
+T(n) =&T(n-1)+T(n-2)+O(\lg F_{n-1})\\
+=&T(n-1)+T(n-2)+O(n)
+\end{aligned}
+\]
+解得$T(n)=O(\phi^n)$\\
+
+\noindent 第二种：\\
+计算$F_{n}$时加法操作耗时$O(n)$，则$F_n$～$F_1$中每个数被计算一次，耗时可近似为$O(n^2)$\\
+故此时时间复杂度为$O(n^2)$\\
+
+\noindent 第三种：
+在该情况下，有
+\[
+\begin{aligned}
+T(n) =&2T(n/2)+O((\lg F_{\frac{n}{2}})^2)\\
+=&2T(n/2)+O(n^2)
+\end{aligned}
+\]
+解得$T(n)=O(n^2)$\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 31-4]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[中国剩余定理]	
+	向同学介绍中国剩余定理及其应用。
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[椭圆曲线加密(Elliptic Curve Cryptography, ECC)]	
+	椭圆曲线加密是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全。
+	
+	(参考资料-1：\href{https://medium.com/dev-genius/introduction-to-elliptic-curve-cryptography-567e47b0e49e}{https://medium.com/dev-genius/introduction-to-elliptic-curve-cryptography-567e47b0e49e})
+	(参考资料-2：\href{https://en.wikipedia.org/wiki/Elliptic-curve_cryptography}{https://en.wikipedia.org/wiki/Elliptic-curve\_cryptography})
+	(参考资料-3：\href{https://www.jianshu.com/p/e41bc1eb1d81}{https://www.jianshu.com/p/e41bc1eb1d81})
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

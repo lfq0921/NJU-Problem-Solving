@@ -1,0 +1,264 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-2讲: 置换群与拉格朗日定理}
+\me{朱宇博 }{191220186 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-3(d)]
+\end{problem}
+
+\begin{solution}
+(17254)(1423)(154632)=(17254)(24615)=(14672)=(12)(17)(16)(14)\\
+It is an even permutation.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-5 (注: 只需列出S4的所有子群, 无需解(a)、(b)、(c))]
+\end{problem}
+
+\begin{solution}
+The subgroup of $S4$:\\
+$N_1=\{1\}$\\
+$N_2=\{1),(12)\}$\\
+$N_3=\{1),(13)\}$\\
+$N_4=\{1),(23)\}$\\
+$N_5=\{1),(24)\}$\\
+$N_6=\{1),(14)\}$\\
+$N_7=\{1),(34)\}$\\
+$N_8=\{1),(12),(34)\}$\\
+$N_9=\{1),(13),(24)\}$\\
+$N_{10}=\{1),(14),(23)\}$\\
+$N_{11}=\{1),(123),(132)\}$\\
+$N_{12}=\{1),(134),(143)\}$\\
+$N_{13}=\{1),(124),(142)\}$\\
+$N_{14}=\{1),(234),(243)\}$\\
+$N_{15}=\{1),(1234),(13)(24),(1432)\}$\\
+$N_{16}=\{1),(1234),(12)(34),(1432)\}$\\
+$N_{17}=\{1),(1243),(14)(23),(1342)\}$\\
+$N_{18}=\{1),(12),(34),(12)(34)\}$\\
+$N_{19}=\{1),(13),(24),(13)(24)\}$\\
+$N_{20}=\{1),(14),(23),(14)(23)\}$\\
+$N_{21}=\{1),(12)(34),(13)(24),(14)(23)\}$\\
+$N_{22}=\{(1),(1234),(13)(24),(1432),(13),(12)(34),(24),(14)(23)\}$\\
+$N_{23}=\{(1),(1324),(12)(34),(1423),(12),(13)(24),(34),(14)(32)\}$\\
+$N_{24}=\{(1,(1243),(14)(23),(1342),(14),(12)(43),(34),(14)(32)\}$\\
+$N_{25}=S_4$\\
+$N_{26}=\{(1),(12),(13),(23),(123),(132)\}$\\
+$N_{27}=\{(1),(12),(24),(14),(124),(142)\}$\\
+$N_{28}=\{(1),(34),(13),(14),(143),(134)\}$\\
+$N_{29}=\{(1),(34),(24),(23),(234),(243)\}$\\
+$N_{30}=\{(1),(123),(132),(134),(143),(124),(142),(234),(243),(12)(34),(13)(24),(14)(23)\} $
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-16]
+\end{problem}
+
+\begin{solution}
+For a tetrahedron,  we mark its vertex as A, B, C and D.\\
+Then $\{(id), (ABC),(ACB), (ABD), (ADB), (ACD), (ADC), (BCD), (BDC), (AB)(CD), (AC)(BD), (AD)(BC)\}$ form the sports group.\\
+There is a bijective function $f$ between $A_4$ and tetrahedron apparently by $\sigma(A)\to 1, \sigma(B)\to 2, \sigma(C)\to 3, \sigma(D)\to 4$.\\
+
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-26(b)]
+\end{problem}
+
+\begin{solution}
+$\forall (a_1,a_2,…,a_n)\in A_4$
+$$(a_1,a_2,…,a_n)=(a_1 a_n)(a_1 a_{n−1} )⋯(a_1 a_3)(a_1 a_2)$$
+For $(a_1, a_2)$, we assume that $a_1 \leq a_2$.\\
+We have that $(a_1,a_2)=(a_1,a_1+1)(a_1+1,a_1+2)...(a_2-2,a_2-1)(a_2-1,a_2)(a_2-2,a_2-1)...(a_1+1,a_1+2)(a_1,a_1+1)$\\
+It is the same as $(a_1,a_3),...,(a_1,a_n)$.\\
+Therefore, any element in $S_4$ can be written as a finite product of $(12),(23),...,(n-1,n)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-29]
+\end{problem}
+
+\begin{solution}
+$Z(D_8)=\{1,r^4\}, Z(D_{10})=\{1, r^5\}$\\
+$Z(D_n)=\{1,\frac{n}{2}\}$(n is even),  $Z(D_n)=\{1\}$(n is odd).  
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 5-36]
+\end{problem}
+
+\begin{solution}
+(a)\\
+$$s^2=1\to s=s^{-1}$$
+$$ srs = r^{-1}\Leftrightarrow rsr=s$$
+So we only need to show $rsr=s$.\\
+We assume that $s=s_1$. Observe that the graph after operations $rsr$.\\
+At the beginning, the first vertex is $1$, and the second vertex is $2$.\\
+After the operation $r$,  the first vertex is $2$, and the second vertex is $3$.\\
+After the operation $s$,  the first vertex is $2$, and the second vertex is $1$.\\
+At the end, after the operation $r$,  the first vertex is $1$, and the second vertex is $n$.\\
+It is the same with the single operation $s$. So $rsr=s$ and $srs=r^{-1}$\\
+(b)\\
+$$ srs = r^{-1}\Leftrightarrow (srs)^k = r^{-k}\Leftrightarrow srss^{-1}rs...s^{-1}rs = r^{-1}\Leftrightarrow  sr^ks = r^{-k} \Leftrightarrow r^ks=sr^{-k}$$\\
+(c)\\
+Let $C_n=\{r^{k} | r^{k}\in D_n\}$. $C_n$ is a subgroup of $D_n$.\\
+Obviously, $C_n$ is a cyclic group with the generator $r$. The order of $r$ is $n$.\\
+Due to \textbf{Theorem 4.13} in TJ, the order of $r_k$ is $\frac{n}{gcd(n,k)}$ in the group $C_n$.\\
+Since $C_n$ is a cyclic subgroup of $D_n$, the order of $r^k$ is also $\frac{n}{gcd(n,k)}$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TJ 6-11 (注意：(c)中 $\subset$表示$\subseteq$)]
+\end{problem}
+
+\begin{solution}
+$1. (a)\to (c):\\$
+$g_1H=g_2H$\\
+$\to (x\in g_1H\to x\in g_2 H)$\\
+$\to g_1H\subset g_2H$\\
+
+\noindent $2. (c)\to (e):\\$
+$ g_1H\subset g_2H$\\
+$\to (x\in g_1H\to x\in g_2 H)$\\
+$\to\forall h_1\in H, (\exists h_2\in H, g_1h_1=g_2h_2)$\\
+$\to \forall h_1\in H, (\exists h_2\in H, h_1h_2^{-1}=g_1^{-1}g_2)$\\
+$\to g_1^{-1}g_2\in H$\\
+
+\noindent $3. (e)\to (d):\\$
+$g_1^{-1}g_2\in H$\\
+$\to \exists h\in H, g_1^{-1}g_2=h$\\
+$\to \exists h\in H, g_2=g_1h$\\
+$g_2\in g_1H$\\
+
+\noindent $4. (d)\to (b):\\$
+$g_2\in g_1H$\\
+$\to \exists h\in H, g_2=g_1h$\\
+$\to \exists h\in H, g_1^{-1}=hg_2^{-1}$\\
+$\to \exists h\in H, (\forall h_1\in H,h_1g_1^{-1}=h_1hg_2^{-1}\in Hg_2^{-1})$\\
+$\to Hg_1^{-1}\subset Hg_2^{-1}$\\
+similarly, we have $Hg_2^{-1}\subset Hg_1^{-1}$\\
+So $Hg_1^{-1}= Hg_2^{-1}$\\
+
+\noindent $5. (b)\to (a):\\$
+$Hg_1^{-1}= Hg_2^{-1}$\\
+$\to Hg_1^{-1}\subset Hg_2^{-1}$\\
+$\to \forall h_1\in H, \exists h_2\in H, h_1g_1^{-1}= h_2g_2^{-1}$\\
+$\to \exists h_3\in H, g_1=g_2h_3$\\
+$\to \forall h_4\in H, \exists h_3\in H, g_1h_4=g_2h_3h_4\in g_2H$\\
+$\to g_1H\subset g_2H$\\
+similarly, we have $g_2H\subset g_1H$\\
+So $g_1H= g_2H$\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[$Z_p$]
+证明：$A_n$ 中的每个置换皆可表成形如 $(k \text{ } k+1 \text{ } k+2)$ 的 3-cycle 的乘积。
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[SageMath学习]
+学习 TJ 第五章, 第六章关于 SageMath 的内容
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[二阶魔方]	
+	请构造出二阶魔方相关的置换群，你能设计一种算法来解二阶魔方复原吗？
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[transpositions]	
+	证明：Show that any cycle can be written as the product of transpositions:
+	$$(a_1,a_2,…,a_n)=(a_1 a_n)(a_1 a_{n−1} )⋯(a_1 a_3)(a_1 a_2)$$
+	
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

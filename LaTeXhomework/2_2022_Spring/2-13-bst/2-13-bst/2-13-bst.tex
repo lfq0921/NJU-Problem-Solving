@@ -1,0 +1,236 @@
+% 2-13-bst.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第13讲: 搜索树}
+\me{林凡琪 }{ 211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 12.1-5]
+Argue that since sorting $n$ elements takes $\Omega(n\lg n)$ time in the worst case in the comparison model, any comparison-based algorithm for constructing a binary search tree from an arbitrary list of $n$ elements takes $\Omega(n\lg n)$ time in the worst case.
+\end{problem}
+
+\begin{solution}
+  反证法:假设我们可以使用少于 $Omega（nlg n）$ 时间通过基于比较的算法构造二叉搜索树，因为有序树遍历是 $Theta（n）$，那么我们可以在小于 $Omega（nlg n）$ 的时间内获得排序的元素，这与$n$ 元素进行排序在最坏情况下需要 $Omega（nlg n）$ 时间的事实相矛盾。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 12.2-9]
+Let $T$ be a binary search tree whose keys are distinct, let $x$ be a leaf node, and let $y$ be its parent. Show that $y.key$ is either the smallest key in $T$ larger than $x.key$ or the largest key in $T$ smaller than $x.key$.
+\end{problem}
+
+\begin{solution}
+  如果 $x = y.left$，则在 $x$ 上调用后续函数将导致 while 循环没有迭代，因此将返回 $y$。\\
+  如果 $x = y.right$，则用于调用前置任务（参见练习 3）的 while 循环将不运行，因此将返回 $y$。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 12.3-5]
+Suppose that instead of each node $x$ keeping the attribute $x.p$, pointing to $x$'s parent, it keeps $x.succ$, pointing to $x$'s successor. Give pseudocode for $\text{SEARCH}$, $\text{INSERT}$, and $\text{DELETE}$ on a binary search tree $T$ using this representation. These procedures should operate in time $O(h)$, where $h$ is the height of the tree $T$. ($\textit{Hint:}$ You may wish to implement a subroutine that returns the parent of a node.)
+\end{problem}
+
+\begin{solution}
+  我们不需要更改 $text{SEARCH}$,但是必须实现 $text{PARENT}$.
+  \begin{algorithm}[H]
+    \begin{algorithmic}
+      \Function{PARENT}{$T,x$}
+      \If {$x == T.root$}
+      \State \Return $NIL$
+      \EndIf
+      \State $y =  TREE-MAXIMUM(x).succ$
+      \If {$y==NIL$}
+      \State $y = T.root$
+      \Else
+      \If {$y.left==x$}
+      \State \Return $y$
+      \EndIf
+      \State $y=y.left$
+      \EndIf
+      \While {$y.right != x$}
+      \State $y = y.right$
+      \EndWhile
+      \State \Return $y$
+      \EndFunction
+      \Procedure{INSERT}{T,z}
+      \State $y = NIL$
+      \State $x = T.root$
+      \State $pred = NIL$
+      \While {$x \neq NIL$}
+      \State $y = x$
+      \If {$z.key < x.key$}
+      \State $x = x.left$
+      \Else
+      \State $pred = x$
+      \State $x = x.right$
+      \EndIf
+      \EndWhile
+      \If {$y == NIL$}
+      \State $T.root = z$
+      \State $z.succ = NIL$
+      \ElsIf {$z.key <y.key$}
+      \State $y.left = z$
+      \State $z.succ = y$
+      \If {$pred \neq NIL$}
+      \State $pred.succc = z$
+      \EndIf
+      \Else
+      \State $y.right = z$
+      \State $z.succ = y.succ$
+      \State $y.succ = z$
+      \EndIf
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+  We modify $\text{TRANSPLANT}$ a bit since we no longer have to keep the pointer of $p$.
+  \begin{algorithm}
+    \begin{algorithmic}
+      \Procedure{TRANSPLANT}{$T,u,v$}
+      \State $p = PARENT(T,u)$
+      \If {$p==NIL$}
+      \State $T.root = v$
+      \ElsIf $u == p.left$
+      \State $p.left = v$
+      \Else \State $p.right = v$
+      \EndIf
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+  此外，我们必须实现 $\text{TREE-PREDECESSOR}$，这有助于我们在 $\text{DELETE}$ 的第 2 行轻松找到predecessor。
+  \begin{algorithm}
+    \begin{algorithmic}
+      \Function {TREE-PREDECESSOR}{$T, x$}
+      \If {$x.left != NIL$}
+      \State \Return $TREE-MAXIMUM(x.left)$
+      \EndIf
+      \State $y = T.root$
+      \State $pred = NIL$
+      \While {$y \neq NIL$}
+      \If {$y.key == x.key$}
+      \State $break$
+      \EndIf
+      \If {$y.key < x.key$}
+      \State $pred = y$
+      \State $y.right$
+      \Else \State $y = y.left$
+      \EndIf
+      \EndWhile
+      \State \Return $pred$
+      \EndFunction
+      \Procedure{DELETE}{$T,z$}
+      \State $pred = TREE-PREDECESSOR(T, z)$
+      \State $pred.succ = z.succ$
+      \If {$z.left== NIL$}
+      \State $TRANSPLANT(T, z, z.right)$
+      \ElsIf {$z.right == NIL$}
+      \State $TRANSPLANT(T, z, z.left)$
+      \Else
+      \State $ y = TREE-MIMIMUM(z.right)$
+      \If {$PARENT(T, y) != z$}
+      \State $TRANSPLANT(T, y, y.right)$
+      \State $y.right = z.right$
+      \EndIf
+      \State $TRANSPLANT(T, z, y)$
+      \State $y.left = z.left$
+      \EndIf
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+
+
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%
+%\beginoptional
+%
+%%%%%%%%%%%%%%%%
+%\begin{problem}[]
+%\end{problem}
+%
+%\begin{solution}
+%\end{solution}
+%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Interval tree]
+  介绍 Interval tree
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Interval_tree}{Interval tree}
+  \end{itemize}
+\end{ot}
+\begin{ot}[Splay tree]
+  介绍 Splay tree (平摊分析部分可仅介绍基本思想)。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Splay\_tree}{Splay tree}
+    \item \href{https://www.cs.princeton.edu/courses/archive/spring06/cos423/Handouts/self\%20adjusting.pdf}{Self-Adjusting Binary Search Trees (Rober Tarjan, JACM85).pdf}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

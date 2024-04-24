@@ -1,0 +1,261 @@
+% 2-12-hashing.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第12讲: Hashing 方法}
+\me{ 林凡琪}{211240042 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[CS 5.5-8 ($a, b, c$)]
+Suppose you hash n items into k locations.\\
+a. What is the probability that all n items hash to different
+locations?\\
+b. What is the probability that the ith item is the first collision?\\
+c. What is the expected number of items you hash until the first
+collision?
+\end{problem}
+
+\begin{solution}
+  (a)如果k<n,那么概率为0\\
+  否则如果k>=n,那么$P=\frac{k^{\underline{n}}}{k^n}$\\
+  (b)如果$i-1>k$那么概率为0;\\
+  否则如果$i-1\leq k$,那么P[i-1]=$\frac{k^{\underline{i-1}}}{k^{i-1}}$\\
+  所以P[i]=$\frac{k^{\underline{i-1}}}{k^{i-1}} \cdot \frac{i-1}{k}$\\
+  (c)$E[X]=\sum _{i=1}^n(i-1)\cdot \frac{k^{\underline{i-1}}}{k^{i-1}}\cdot \frac{i-1}{k}$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 11.2-3]
+\end{problem}
+
+\begin{solution}
+  成功搜索: 没有区别, $\Theta(1 + \alpha)Θ(1+α)$.\\
+  不成功搜索: 更快但仍然是 $\Theta(1 + \alpha)Θ(1+α)$.\\
+  插入: 和成功搜索一样, $\Theta(1 + \alpha)Θ(1+α)$.\\
+  删除: 如果我们使用双向链表，则与以前相同, $\Theta(1)Θ(1)$.
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 11.3-3]
+\end{problem}
+
+\begin{solution}
+  我们将证明每个字符串散列到它的数字之和 $\mod 2^p - 1$.\\
+  我们将通过对字符串长度的归纳来做到这一点。\\
+  Base case\\
+  假设字符串是单个字符，那么该字符的值就是 k 的值，然后取 $\mod$ m。\\
+  Inductive step\\
+  令 $w = w_1w_2$​ 其中 $|w_1| \ge 1$ 和 $|w_2| = 1$。假设 $h(w_1) = k_1$​。 那么，$h(w) = h(w_1)2^p + h(w_2) \mod 2^p − 1 = h(w_1) + h(w_2) \mod 2^p − 1$。所以，由于 $ h(w_1)$ 是除了最后一个数字 $\mod m$ 之外的所有数字的总和，我们添加最后一个数字 $\mod m$，就能得到想要的结论。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 11.4-3]
+\end{problem}
+
+\begin{solution}
+  $\alpha =3/4$,\\
+  不成功: $\frac{1}{1 - \frac{3}{4}} = 4$ probes,
+  成功: $\frac{1}{\frac{3}{4}} \ln\frac{1}{1-\frac{3}{4}} \approx 1.848$ probes.\\
+  $\alpha = 7 / 8$\\
+  不成功: $\frac{1}{1 - \frac{7}{8}} = 8 $ probes,\\
+  成功: $\frac{1}{\frac{7}{8}} \ln\frac{1}{1 - \frac{7}{8}} \approx 2.377$ probes.\\
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 11-1]
+\end{problem}
+
+\begin{solution}
+  (a)$X_i$:probe 的数量\\
+  我们想要计算$Pr(X_i > k)$\\
+  $A_j$是第j个probe发生在已占用的slot\\
+  $X_i>k=A_1\cap A_2 \cap ... \cap A_k$\\
+  $$
+    \begin{aligned}
+      Pr(X_i>k) & = Pr(A_1\cap A_2 \cap ... \cap A_k)                                                                    \\
+                & =Pr(A_1)\cdot Pr(A_2|A_1)\cdot Pr(A_3|A_1\cap A_2)...Pr(A_k|A_1\cap A_2 \cap ... \cap A_{k-1})         \\
+                & = \frac{n}{m}\cdot \frac{n-1}{m-1} ... \frac{n-k+1}{m-k+1}\leq (\frac{n}{m})^k = \alpha ^k \leq 2^{-k}
+    \end{aligned}
+  $$
+  (b)$(X>2 \lg n) = \bigvee ^n _{i=1}(X_i > 2 \lg n)$\\
+  $Pr(X>2 \lg n) = Pr(\bigvee ^n _{i=1}(X_i > 2 \lg n))\leq n \cdot O(\frac{1}{n^2})=O(1/n)$\\
+  (c)$$
+    \begin{aligned}
+      E[X] & = \sum^n_{i=1} i\cdot Pr(X = i)                                                                                              \\
+           & =\sum^{\lceil 2 \lg n\rceil }_{i=1}i\cdot Pr(X = i)+\sum^n_{i = \lceil 2 \lg n\rceil + 1}Pr(X = i)                           \\
+           & \leq \lceil 2 \lg n\rceil \sum^{\lceil 2 \lg n\rceil }_{i=1}i\cdot Pr(X = i)+n\sum^n_{i = \lceil 2 \lg n\rceil + 1}Pr(X = i) \\
+           & =\lceil 2 \lg n\rceil Pr[X\leq \lceil 2 \lg n\rceil]+nPr(X>\lceil 2 \lg n\rceil)                                             \\
+           & \leq \lceil 2 \lg n\rceil + nO(1/n)                                                                                          \\
+           & = O(\lg n)
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 11-2]
+\end{problem}
+
+\begin{solution}
+  (a) 一个特定的密钥以概率 $\frac{1}{n}$ 散列到一个特定的槽，假设我们选择一组特定的 k 个密钥。这些 k 个密钥被插入到相关槽中的概率以及所有其他密钥的概率 插入其他地方是 $(^1_n)^k$$(^1_{n - 1})^{n - k}$
+        因为有 $(^n_k$) 种方法来选择我们的 k 个密钥，所以我们得到
+      $Q_k$ = $(^1_n)^k$$(^1_{n - 1})^{n - k}$$(^n_k$)\\
+        b.对于 i = 1, 2, ...,n，令 $X_i$ 是一个随机变量，表示散列到插槽 i 的键的数量，令 $A_i$ 是 $X_i$ = k 的事件，即 k 密钥哈希到插槽 i。我们知道 Pr$\{$A$\}$ = $Q_k$,$\therefore$\\
+      $P_k$ = Pr$\{$M = k$\}$
+
+        = Pr$\{$($_{1\le i\le n}^{max}X_i$) = k$\}$
+
+        = Pr$\{$there exists i such that $X_i$ = k and that $X_i$$\le$k for i = 1,2,…,n$\}$
+
+  $\le$Pr$\{$there exists i such that $X_i$ = k$\}$
+
+      = Pr$\{$$A_1\bigcup A_2\bigcup …\bigcup A_n$$\}$
+
+  $\le$Pr$\{$$A_1$$\}$ + Pr$\{$$A_2$$\}$ + … + Pr$\{$$A_n$$\}$
+
+      = n$Q_k$
+      c.首先，1-$\frac{1}{n}$ < 1，这意味着 (1 - $\frac{1}{n}$)$^{n - k}$ < 1。其次，$\ frac{n!}{(n - k)!}$ = n(n - 1)(n - 2)...(n - k + 1) < $n^k$.使用这些事实和 k! > ($\frac{k}{e}$)$^k$,我们有
+
+    $Q_k$ < $n^k$k!(n - k)!((1 - $\frac{1}{n}$)$^{n - k}$ < 1)
+
+      <$k^k$(k! > ($\frac{k}{e}$)$^k$)
+
+      d.当 n = 2 时，lglgn = 0，所以准确地说，我们需要假设 n$\ge$3
+
+      对于任何 k，我们都有 $Q_k$ <$\frac{e^k}{k^k}$，特别是，这个不等式对 $k_0$ 成立。因此足以证明 $\frac{e_0^{k_0 }}{k_0^{k_0}}$,或 $n^3$ < $\frac{k_0^{k_0}}{e_0^{k_0}}$
+  $\therefore$3lgn = lglgn(lgc + glgn - lglglgn - lge)
+
+      3 < lglgn(lgc + glgn - lglglgn - lge)
+
+      = c$(_{1 + lglgn - lglgn}^{lgc - lge lglglgn})$
+
+      所以 x = c$(_{1 + lglgn - lglgn}^{lgc - lge lglglgn})$
+      我们需要证明存在一个常数 c > 1 使得 3 <cx
+
+      注意到 lim$_{n\to ∞}$x = 1，我们看到存在 $n_0$ 使得 x$\ge$$\frac{1}{2}$ 对于所有 n $\ge$$n_0 $,因此任何常数 c > 6 适用于 n $\ge$$n_0$\\
+        我们处理较小的 n 值，特别是 3$\le$n < $n_0$-，如下所示。由于 n 被约束为整数，因此在 3 $\le$n < $n_0$。我们可以为每个这样的 n 值计算表达式 x，并确定 c 的值，对于所有 n 值，3 < cx。我们使用的 c 的最终值是 6 中的较大者，它适用于所有 n > $n_0$，我们为范围 3 $\le$n < $n_0$ 选择的 c 的最大值\\
+        因此，我们知道 $Q_{k_0}$ < $\frac{1}{n^3}$
+
+        选择 k = $k_0$ 给出 $P_{k_0}$$\le$n$Q_{k_0}$ < n, ($\frac{1}{n^3}$) = $\frac{1}{n ^2}$。\\
+    $\therefore$$Q_k$ < $\frac{e^k}{k^k}$
+
+  $\le$$\frac{e^{k_0}}{k^{k_0}}$
+
+      < $\frac{1}{n^3}$ for k $\ge$$k_0$
+
+        e.E[M] = $\sum$k * Pr$\{$M = k$\}$
+
+  $\le$$\sum$$k_0$Pr$\{$M = k$\}$ + $\sum$n * Pr$\{$M = k$\}$
+
+  $\le$$k_0$$\sum$Pr$\{$M = k$\}$ + n$\sum$Pr$\{$M = k$\}$
+
+        = $k_0$ * Pr$\{$M$\le$$k_0$$\}$ + n * Pr$\{$M > $k_0$$\}$\\
+      因为$k_0$ =$\frac{clgn}{lglgn}$
+
+      Pr$\{$M > $k_0$$\}$ = $\sum$Pr$\{$M = k$\}$
+
+        =$\sum$$P_k$
+
+      <$\sum$$\frac{1}{n^2}$
+
+        < n * ($\frac{1}{n^2}$)
+
+        = $\frac{1}{n}$
+
+  $\therefore$E[M]$\le$$k_0$ * 1 + n ($\frac{1}{n}$)
+
+      = $k_0$ + 1
+
+      = O($\frac{lgn}{lglgn}$)
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 11.2-6]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Perfect Hashing]
+  介绍 Perfect hashing。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item Section 11.5 of CLRS
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Bloom filter]
+  介绍 Bloom filter。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Bloom\_filter}{Bloom filter @ wiki}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

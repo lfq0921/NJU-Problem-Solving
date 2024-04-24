@@ -1,0 +1,179 @@
+% 2-15-rb-tree.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第4-10讲: 近似算法}
+\me{ 林凡琪}{211240042 }{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[JH 4.2.1.4]
+\end{problem}
+
+\begin{solution}
+  假设在机器$M_l$上满足有$Time(M_l)=cost(I)$，且其最后一个执行的任务为$p_k$。\\
+  根据该任务调度的性质，可得
+  \[
+    opt(I)\geq\frac{\sum_{i=1}^{n}p_i}{m}
+  \]
+  \[
+    cost(I)-p_k\leq\frac{\sum_{i=1}^{n}[i \neq k]\text{·}p_i}{m}
+  \]
+  \[
+    \frac{\sum_{i=1}^{n}[i \neq k]\text{·}p_i}{m}\leq \frac{\sum_{i=1}^{n}p_i}{m}
+  \]
+  结合以上，可得
+  \[
+    opt(I)\geq cost(I) - p_k
+  \]
+  又有
+  \[
+    opt(I)\geq p_k
+  \]
+  于是
+  \[
+    opt(I)\geq cost(I) - opt(I)
+  \]
+  即
+  \[
+    \frac{cost(I)}{opt(I)}\leq 2
+  \]
+  综上得证。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[JH 4.2.1.5]
+\end{problem}
+
+\begin{solution}
+  在GMS问题中，我们可以构造$2m+1$个任务，其中有3个任务的用时为$m$，用时为$m+1$到$2m-1$的各有两个，当有$m$个机器时。\\
+  最优的分配方案是：(m,m,m),(m+1,2m-1),(m+2,2m-2),...,(2m-1,m+1)，总用时为$3m$\\
+  在贪心解法中，(m,m,2m-1)是调度最长的机器上的分配，$cost(I)=4m-1$\\
+  因此，近似比为$\frac{4m-1}{3m}$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[JH 4.2.3.3]
+\end{problem}
+
+\begin{solution}
+  dist: \\
+  对于任意$(G,c)\in L_{\triangle}$，由于三角不等式，$\frac{c(\{u,v\})}{c(\{u,p\})+ {c(\{p,v\})}}<1$，所以$dist(G,c)=0$。\\
+  枚举$u,v,p$的时间复杂度为$O(n^3)$，可以在多项式时间内计算。\\
+  因此，dist是distance functions。\\
+  $dist_{k}$: \\
+  对于任意$(G,c)\in L_{\triangle}$，由于三角不等式，$\frac{c(\{u,v\})}{\sum_{i=1}^kc(\{p_i, p_{i+1}\})}<1$，所以$dist_k(G,c)=0$。\\
+  枚举路径并判断的时间复杂度为$O(n^k+k)$，可以在多项式时间内计算。\\
+  因此，$dist-k$是distance functions。\\
+  distance: \\
+  对于任意$(G,c)\in L_{\triangle}$，由于$dis_k$的性质，distance(G,c)=0。\\
+  枚举$dist_k$中k的复杂度为$O(k)$，且$dist_k$可以在多项式时间内计算，所以distance可以在多项式时间内计算。\\
+  因此，distance是distance functions。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[JH 4.2.3.4]
+\end{problem}
+
+\begin{solution}
+  (1)\\
+  对于任意$(G,c)\in L_{I}$，$h_index(w)=0$\\
+  计算the canonical order of words与输入规模同阶，故若输入规模$O(n)$,$h_{index}$必为多项式可计算。\\
+  综上，$h_{index}$为distance function。\\
+  (2)\\
+  对于距离$r$,有
+  \[
+    \delta_{r,\epsilon}=max\{\delta, R_{A}(I)| I \in BALL_{r,h}(L_I)\}
+  \]
+  由canonical order的性质，可知上述集合为有限集，是可取max的。\\
+  因此其对任意$r$存有$\delta_{r,\epsilon}$近似算法。\\
+  故其为稳定
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+%%%%%%%%%%%%%%%
+\begin{ot}[$\Delta$-TSP]
+  找出一个$\Delta$-TSP问题的近似解，并证明这个解的近似度界，说明这个问题是NPO的哪一类问题？
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{ot}[SCP]
+  介绍SCP问题，证明它属于NPO(IV)，介绍它的贪心近似算法，并证明它的近似比(JH算法4.3.2.11)
+\end{ot}
+
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+% \begin{ot}[]
+% 
+%   \noindent 参考资料:
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,27 @@
+INFO:  latexindent.exe version 3.12, 2021-09-16, a script to indent .tex files
+       latexindent.exe lives here: H:/texlive/2021/bin/win32/
+       Wed Jun  7 21:45:03 2023
+       Filename: h:/problemSolving/LaTeXhomework/4/utf-8' '4-9-NP-completeness/4-9-NP-completeness/__latexindent_temp_4-9-NP-completeness.tex
+INFO:  Processing switches:
+       -y|--yaml: YAML settings specified via command line
+       -c|--cruft: cruft directory
+INFO:  Directory for backup files and h:/problemSolving/LaTeXhomework/4/¹éµµ/4-9-NP-completeness//indent.log: h:/problemSolving/LaTeXhomework/4/¹éµµ/4-9-NP-completeness/
+INFO:  YAML settings read: defaultSettings.yaml
+       Reading defaultSettings.yaml from H:/texlive/2021/bin/win32/defaultSettings.yaml
+       Reading defaultSettings.yaml (2nd attempt, TeXLive, Windows) from H:/texlive/2021/bin/win32/../../texmf-dist/scripts/latexindent/defaultSettings.yaml
+INFO:  YAML settings read: indentconfig.yaml or .indentconfig.yaml
+       Home directory is C:\Users\LEGIN (didn't find either indentconfig.yaml or .indentconfig.yaml)
+       To specify user settings you would put indentconfig.yaml here: C:\Users\LEGIN/indentconfig.yaml
+       Alternatively, you can use the hidden file .indentconfig.yaml as: C:\Users\LEGIN/.indentconfig.yaml
+INFO:  YAML settings read: -y switch
+       YAML setting: defaultIndent:'  '
+       Updating mainSettings with defaultIndent:   
+INFO:  Phase 1: searching for objects
+INFO:  Phase 2: finding surrounding indentation
+INFO:  Phase 3: indenting objects
+INFO:  Phase 4: final indentation check
+INFO:  Output routine:
+       Not outputting to file; see -w and -o switches for more options.
+       --------------
+INFO:  Please direct all communication/issues to:
+        https://github.com/cmhughes/latexindent.pl

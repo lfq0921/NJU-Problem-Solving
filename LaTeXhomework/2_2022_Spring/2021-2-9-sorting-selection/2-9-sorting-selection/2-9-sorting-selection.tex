@@ -1,0 +1,269 @@
+% 2-9-sorting-selection.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+%%%%%%%%%%%%%%%%%%%%
+\title{第9讲: 排序与选择}
+\me{林凡琪}{211240042}{}{}
+\date{\today} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  % \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.65\textwidth}{\large 
+  %   \begin{itemize}
+  %     \item 
+  %   \end{itemize}}}}
+  % \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 7.2-2]
+当数组A的所有元素都具有相同值时,QUICKSORT的时间复杂度是什么?
+\end{problem}
+
+\begin{solution}
+  此时为最坏情况划分:0:n-1.所以此时时间复杂度为$\Theta(n^2)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 7.3-2]
+在RAMDOMIZED-QUICKSORT的运行过程中,在最坏情况下,随机数生成器RANDOM被调用了多少次?在最好情况下呢?以$\Theta $符号的形式给出你的答案.
+\end{problem}
+
+\begin{solution}
+  因为排列n个数最好和最坏情况下都需要选取n-1次主元,所以最好和最坏情况都是$\Theta(n)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 7.4-2]
+证明:在最好情况下,快速排序的运动时间为$\Omega(n\lg n)$
+\end{problem}
+
+\begin{solution}
+  $$
+    \begin{aligned}
+      T(n) & = 2T(\frac{N}{2}) + n                   \\
+           & =2(2T(\frac{n}{4} + \frac{n}{2})) + n   \\
+           & =4T(\frac{n}{4}) + 2n                   \\
+           & =4T(2T(\frac{n}{8} + \frac{n}{4})) + 2n \\
+           & =8T(\frac{n}{8}) + 3n
+    \end{aligned}
+  $$
+  因为T(1) = 0, 所以$T(n) = nT(1)+n*\log n = \Omega(n\lg n)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 8.1-4]
+假设现有一个包含n个元素的待排序序列
+\end{problem}
+
+\begin{solution}
+  一个子序列内部有k!种可能的排列,一共有n/k个子序列,所以整个序列一共有$k!^{n/k}$种可能的排列.设决策树高度为h,有$k!^{n/k} \leq 2^h$\\
+  两边同取对数可得$h \geq \lg k!^{n/k} = \frac{n}{k} \lg k! =\Omega (n\lg k)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 8.2-4]
+设计一个算法，它能够对于任何给定的介于0到k之间的n个整数先进行预处理，然后在O（1）时间内回答输入的n个整数中有多少个落在区间[a..b]内。你设计的算法的预处理时间应为$\Theta (n+k)$
+\end{problem}
+
+\begin{solution}
+  假设输入时一个数组A[1...n],A.length = n.\\
+  B[1...n]存放最终排序的输出\\
+  C[1...n]提供临时存储空间,用于统计数组A中每个元素的个数和小于x的元素个数\\
+  \begin{algorithm}[H]
+    \caption{SORTING}
+    \label{counting_sorting}
+    \begin{algorithmic}[1]
+      \Function{SORTING}{$A, B, k$}
+      \For {$i \gets 0, k$}
+      \State $C[i] = 0$
+      \EndFor
+      \For {$i \gets 1, A.length$}
+      \State $C[A[i]]++$
+      \EndFor
+      \For {$i \gets 1, k$}
+      \State $C[i] += C[i - 1]$
+      \EndFor
+      \State \Return $C[b] - C[a - 1]$
+      \EndFunction
+    \end{algorithmic}
+  \end{algorithm}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 8.3-4]
+\end{problem}
+
+\begin{solution}
+  用基数排序.\\
+  把在$[0..n^3-1]$区间内的数转化成n进制数,则变成3位数.用基数排序进行排列.\\
+  这里用了3次计数排序,每个耗费$\Theta (n)$,所以时间复杂度为$\Theta (n)$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 8-2]
+Suppose that we have an array of nn data records to sort and that the key of each record has the value 00 or 11. An algorithm for sorting such a set of records might possess some subset of the following three desirable characteristics:
+
+1.The algorithm runs in O(n) time.\\
+2.The algorithm is stable.\\
+3.The algorithm sorts in place, using no more than a constant amount of storage space in addition to the original array.\\
+a. Give an algorithm that satisfies criteria 1 and 2 above.
+
+b. Give an algorithm that satisfies criteria 1 and 3 above.
+
+c. Give an algorithm that satisfies criteria 2 and 3 above.
+
+d. Can you use any of your sorting algorithms from parts (a)–(c) as the sorting method used in line 2 of \text{RADIX-SORT}RADIX-SORT, so that \text{RADIX-SORT}RADIX-SORT sorts nn records with b-bit keys in O(bn) time? Explain how or why not.
+
+e. Suppose that the $n$ records have keys in the range from 1 to k. Show how to modify counting sort so that it sorts the records in place in O(n+k) time. You may use O(k) storage outside the input array. Is your algorithm stable? (\textit{Hint:}Hint: How would you do it for k=3?)
+\end{problem}
+
+\begin{solution}
+  (a)计数排序\\
+  (b)快速排序\\
+  (c)插入排序\\
+  (d)用(a)的算法就可以,每一次耗费O(n), 一共有b位, 所以时间复杂度O(bn) = O(n)\\
+  (e)
+  \begin{algorithm}[H]
+    \caption{SORT}
+    \label{counting_sorting}
+    \begin{algorithmic}[1]
+      \Function{MDODIFIED-COUNTING-SORT}{$A, k$}
+      \For {$i \gets 0, k$}
+      \State $C[i] = 0$
+      \EndFor
+      \For {$i \gets 1, A.length$}
+      \State $C[A[i]]++$
+      \EndFor
+      \State insert sentinel element NIL at the start of A
+      \State B = C[0.. k - 1]
+      \State insert number 1 at the start of B
+      \For {$i \gets 2, A.length$}
+      \While {C[A[i]] != B[A[i]]}
+      \State key = A[i]
+      \State $swap(A[C[A[i]]], A[i])$
+      \While{$A[C[key]] == key$}
+      \State $C[key] = C[key] - 1$
+      \EndWhile
+      \EndWhile
+      \EndFor
+      \State remove the sentine element
+      \State \Return A
+      \EndFunction
+    \end{algorithmic}
+  \end{algorithm}
+  不稳定
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 9.1-1]
+Show that the second smallest of n elements can be found with $n + \lceil \lg n \rceil - 2n+⌈lgn⌉−2$ comparisons in the worst case. (\textit{Hint:}Hint: Also find the smallest element.)
+\end{problem}
+
+\begin{solution}
+  将元素分成两个大小相等的数组.每一对两两比较,只考虑较小的元素.答案时和最小元素比较的元素或者时子问题中第二小的元素.这样做可以得到最小的和第二小的元素.\\
+  $$T(n) = T(n/2) + n/2 +1$$
+  $$T(n) \leq n + \lceil \lg n\rceil -2$$
+  因为T(2) = 1, 所以得到
+  $$
+    \begin{aligned}
+      T(n) & = T(n/2)+ n/2 +1                               \\
+           & \leq  n/2 + \lceil \lg {N/2}\rceil -2 + n/2 +1 \\
+           & =n+\lceil \lg n\rceil-2
+    \end{aligned}
+  $$
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC 9.3-7]
+\end{problem}
+
+\begin{solution}
+  在 O（n） 中找到中位数;创建一个新数组，每个元素的绝对值是原始值减去中位数;在 O（n） 中找到第 k 个最小数，则所需值是与中位数的绝对差值小于或等于新数组中第 k 个最小数的元素。
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginoptional
+
+%%%%%%%%%%%%%%%
+\begin{problem}[TC Problem 7-5]
+\end{problem}
+
+\begin{solution}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[Analysis of \textsl{Quicksort}]
+
+  对 \textsl{Quicksort} 更详细的分析。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://github.com/hengxin/problem-solving-class-paperswelove/blob/master/2nd-semester/The\%20Analysis\%20of\%20Quicksort\%20Programs\%20(Sedgewick\%2C\%201976).pdf}{The Analysis of Quicksort Programs (Sedgewick, 1976) @ problem-solving-class-paperswelove}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+% \vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[Sorting Algorithms]
+
+  请介绍其它排序算法或者排序算法的新进展 (比如 TimSort, LibrarySort)。
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Sorting\_algorithm}{Sorting algorithm @ wiki}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有需要订正的题目，可以把这部分删掉
+
+% \begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% 如果没有反馈，可以把这部分删掉
+\beginfb
+
+% 你可以写
+% ~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+% \begin{itemize}
+%   \item 对课程及教师的建议与意见
+%   \item 教材中不理解的内容
+%   \item 希望深入了解的内容
+%   \item $\cdots$
+% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+% \bibliography{2-5-solving-recurrence}
+% \bibliographystyle{plainnat}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

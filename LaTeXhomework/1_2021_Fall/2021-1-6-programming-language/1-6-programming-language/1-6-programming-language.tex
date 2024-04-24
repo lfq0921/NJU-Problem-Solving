@@ -1,0 +1,218 @@
+% 1-6-programming-language.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, justified]{tufte-handout}
+
+\input{hw-preamble} % feel free to modify this file
+\usepackage{listings}
+\lstset{
+    keywordstyle=\color{purple}\bfseries,
+    identifierstyle=\color{brown!80!black},
+    commentstyle=\color{gray},
+    showstringspaces=false,
+    frame=trBL,
+    frameround=fftt,
+    backgroundcolor=\color[RGB]{245,245,244},
+    breaklines=true,
+    numbers=left,
+}
+%%%%%%%%%%%%%%%%%%%%
+\title{第6讲: 程序设计语言的语法与语义}
+\me{林凡琪}{211240042}{}{}
+\date{\zhtoday} % or like 2019年9月13日
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\noplagiarism % always keep this line
+%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \mfig{width = 0.85\textwidth}{figs/syntax-semantics}
+  \begin{center}{\fcolorbox{blue}{yellow!60}{\parbox{0.70\textwidth}{\large
+          \begin{itemize}
+            \item 逻辑系统有语法、语义之分; 程序设计语言亦如是
+            \item 欢迎进入\href{https://en.wikipedia.org/wiki/Programming\_language\_theory}{程序设计语言理论}的广阔世界
+          \end{itemize}}}}
+  \end{center}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%
+\beginrequired
+
+%%%%%%%%%%%%%%%
+\begin{problem}[IMP]
+考虑程序设计语言 {\bf IMP} (Imperative), 它包含如下元素:
+\begin{itemize}
+  \item 整数集合 $\mathbb{Z}$ (可用 $m,n$ 表示其中的元素)
+  \item 真值集合 $\mathbb{T} = \set{T, F}$
+  \item 变量集合 $\mathbb{V}$ (可用 $v$ 表示其中的元素)
+  \item 算法表达式 {\bf Aexp}, 支持 ``$+, -, \times$'' 三则运算
+  \item 布尔表达式 {\bf Bexp}, 支持 ``$=, \le$'' 比较操作与基本的逻辑操作
+  \item 语句 {\bf St}, 包括赋值语句 ($:=$)、顺序语句 ($;$)、选择语句 (if-then-else)与循环语句 (while-do)
+\end{itemize}
+
+\noindent 请为 {\bf IMP} 设计语法，并使用 BNF 描述。\\
+\noindent 例如：
+\item  <字母>::=<大写字母><小写字母>\\
+\item <大写字母>::=A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z\\
+\item <小写字母>::=a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z\\
+\end{problem}
+\begin{solution}
+
+  \noindent <整数集合$\mathbb{Z}$>::=("1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9")[$\left\{"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9"|"0"\right\}$] \\
+
+  \noindent <真值集合$\mathbb{T}$>::=T|F\\
+
+  \noindent<变量集合 $\mathbb{V}$>::= <真值集合$\mathbb{T}$>|<整数集合$\mathbb{Z}$>\\
+
+  \noindent<\bf Aexp>::=<整数集合$\mathbb{Z}$> | <变量集合 $\mathbb{V}$> | <Aexp> "+" <Aexp>|<Aexp> "-" <Aexp>|<Aexp> "$\times$" <Aexp>\\
+
+  \noindent <\bf Bexp>::=<Aexp>"$=$"<Aexp>|<Aexp>"$\le$"<Aexp>|<Bexp> "and" <Bexp>|<Bexp> "or" <Bexp>|"not"<Bexp>\\
+
+  \noindent <语句\bf St>::=<赋值语句>|<顺序语句>|<选择语句>|<循环语句>\\
+
+  \noindent <赋值语句>::=<变量集合 $\mathbb{V}$>":=" <整数集合$\mathbb{Z}$>|<变量集合 $\mathbb{V}$>":="<真值集合$\mathbb{T}$>\\
+
+  \noindent <顺序语句>::=<语句\bf St>";"\\
+
+  \noindent <选择语句>::=if <真值集合$\mathbb{T}$> then <语句\bf St> else <语句\bf St>\\
+
+  \noindent <循环语句>::=while <真值集合$\mathbb{T}$> do <语句\bf St>\\
+
+\end{solution}
+
+
+\begin{problem}[Prolog 逻辑推理]
+学习 Prolog 相关知识
+\footnote{推荐阅读 \href{https://zhzluke96.github.io/prolog-tut-cn/tut/chapter1.html}{教程} 3.1 至 3.9 章的内容。}
+，并且完成下列程序
+\footnote{你可以使用 \href{https://swish.swi-prolog.org}{在线运行环境} 完成程序。}
+。
+
+这个程序定义了一个 parent 关系和两个谓词 isAncestor 和 isCollaterialRelative。
+其中，两个谓词的定义并不完整，因此也不能通过下方附带的测试样例。
+请修改 isAncestor 和 isCollaterialRelative 的定义，使其符合注释要求的功能。
+
+\lstinputlisting[language=Prolog]{prolog1.pl}
+\end{problem}
+
+\begin{solution}
+  \footnote{作业压缩包中含有上述程序的源代码 prolog1-sol.pl，你可以取消下面一行的注释并将修改后的程序放入 prolog1-sol.pl 中。}
+
+  \lstinputlisting[language=Prolog]{prolog1-sol.pl}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{problem}[Prolog 逻辑推理]
+下面这个 Prolog 程序试图解决一个经典的逻辑推理题。
+请修改谓词 xxxGuess 的定义，使其能够对 X, Pos 变量返回正确的结果。
+
+\begin{quote}
+  赵钱孙李周吴郑王八位将军外出打猎，有一位将军的箭射中了一只鹿。
+  在拔出箭头前，众人饶有兴致的猜起来是谁射中了鹿。
+  \begin{enumerate}
+    \item 赵说：“或者是王将军射中的，或者是吴将军射中的。”
+    \item 钱说：“如果这只箭正好射中了鹿的头部，那么肯定是我射中的。”
+    \item 孙说：“我确定是郑将军射中的。”
+    \item 李说：“即使箭正好在鹿的头上，也不可能是钱将军射中的。”
+    \item 周说：“赵将军猜错了。”
+    \item 吴说：“不是我射中的，也不是王将军射中的。”
+    \item 郑说：“不是孙将军射中的。”
+    \item 王说：“赵将军没有猜错。”
+  \end{enumerate}
+  最后，大家把鹿身上的箭拔出来查看，八位将军中正好有三个人猜对了。
+\end{quote}
+
+\lstinputlisting[language=Prolog]{prolog2.pl}
+\end{problem}
+
+\begin{solution}
+  程序计算出的结果为：\\
+  X将军射中了鹿头/鹿身，且将军A、B、C猜对了。
+  \footnote{作业压缩包中含有上述程序的源代码 prolog2-sol.pl，你可以取消下面一行的注释并将修改后的程序放入 prolog2-sol.pl 中。}
+
+  修改后的程序：\\
+  \lstinputlisting[language=Prolog]{prolog2-sol.pl}
+\end{solution}
+
+
+\begin{problem}[Prolog 斐波那契]
+这个程序定义了两个谓词fib和find\_fib。
+其中，两个谓词的定义并不完整，因此也不能通过下方附带的测试样例。
+请修改fib和 find\_fib 的定义，使其符合注释要求的功能。
+
+
+\lstinputlisting[language=Prolog]{prolog3.pl}
+\end{problem}
+
+\begin{solution}
+  \footnote{作业压缩包中含有上述程序的源代码 prolog3-sol.pl，你可以取消下面一行的注释并将修改后的程序放入 prolog3-sol.pl 中。}
+
+  \lstinputlisting[language=Prolog]{prolog3-sol.pl}
+\end{solution}
+%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginot
+
+%%%%%%%%%%%%%%%
+\begin{ot}[正则表达式]
+  请介绍正则表达式 (Regualr Expression) 的语法、语义与用例等。
+
+  \noindent 基本要求:
+  \begin{itemize}
+    \item 循序渐进
+    \item 使用有趣而实用的例子
+  \end{itemize}
+
+  \noindent 参考资料:
+  \begin{itemize}
+    \item \href{https://en.wikipedia.org/wiki/Regular\_expression}{Regular expression @ wiki}
+    \item \href{https://regex101.com/}{regex101}
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+\vspace{0.50cm}
+%%%%%%%%%%%%%%%
+\begin{ot}[程序设计语言的语义]
+  阅读并介绍经典论文
+  \href{https://github.com/hengxin/problem-solving-class-paperswelove/tree/master/1st-semester}{``CACM1969 (Hoare) An Axiomatic Basis for Computer Progamming'' @ problem-solving-class-paperswelove}:
+
+  \mfig{width = 0.75\textwidth}{figs/hoare}
+  \begin{itemize}
+    \item 作者简介 \href{https://en.wikipedia.org/wiki/Tony\_Hoare}{Tony Hoare @ wiki}
+    \item 概览文章的结构与贡献
+    \item 重点介绍第三节 ``Program Execution'' 的内容
+    \item 介绍 Table III 中的证明示例
+  \end{itemize}
+\end{ot}
+
+% \begin{solution}
+% \end{solution}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begincorrection
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\beginfb
+
+你可以写
+~\footnote{优先推荐 \href{problemoverflow.top}{ProblemOverflow}}：
+\begin{itemize}
+  \item 对课程及教师的建议与意见
+  \item 教材中不理解的内容
+  \item 希望深入了解的内容
+  \item $\cdots$
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}
